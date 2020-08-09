@@ -8,6 +8,8 @@
   - [Find odd one out in array of either odd or even numbers](#find-odd-one-out-in-array-of-either-odd-or-even-numbers)
   - [Combining 2 Arrays, Sorting And Removing Duplicates](#combining-2-arrays-sorting-and-removing-duplicates)
   - [Equal Sum To Left And Right Of Index In Array](#equal-sum-to-left-and-right-of-index-in-array)
+  - [Credit Card Masking](#credit-card-masking)
+  - [Sort Digits Of Number In Descending Order](#sort-digits-of-number-in-descending-order)
 
 ## Capitalise First Letter Of Every Word
 
@@ -196,5 +198,82 @@ for(int i=0;i<inputArray.length;i++){
     }
 }
 System.out.println("The arrays have equal sum of " + sum + " at index " + index);
+
+```
+
+
+## Credit Card Masking
+
+Mask credit card information - change all characters into # except last 4 digits
+
+https://www.codewars.com/kata/5412509bd436bd33920011bc/train/java
+
+
+```java
+v/*
+* Mask credit card information - change all characters into # except last 4 digits
+* https://www.codewars.com/kata/5412509bd436bd33920011bc/train/java
+*/
+
+System.out.println("\n\nPrinting a credit card with digits masked");
+String str = "12345678";
+var charArray = str.toCharArray();
+// iterate up to 4 from the end
+for(int i=0;i<charArray.length-4;i++){
+    charArray[i] = '#';
+}
+var stringbuilder4 = new StringBuilder();
+for(char c: charArray){
+    stringbuilder4.append(c);
+}
+System.out.println("The original credit card is " + str);
+System.out.println("The masked credit card is " + stringbuilder4);
+```
+
+## Sort Digits Of Number In Descending Order
+
+Rearrange digits from highest to least
+    12395 becomes 95321
+
+https://www.codewars.com/kata/5467e4d82edf8bbf40000155/java
+
+```java
+
+/*
+* Rearrange digits from highest to least
+* 12395 becomes 95321
+* https://www.codewars.com/kata/5467e4d82edf8bbf40000155/java
+*
+* */
+
+System.out.println("\n\nSorting Digits Of A Number In Descending Order");
+int num = 45398;
+// as string
+String numberAsString = String.valueOf(num);
+// as character array
+var numberAsArray = numberAsString.toCharArray();
+// sort ascending
+Arrays.sort(numberAsArray);
+System.out.println("Original number is " + num);
+for(char c : numberAsArray){
+    System.out.println(c);
+}
+// sort descending
+var sortedCharArray = new char[numberAsArray.length];
+for (int i=numberAsArray.length-1;i>=0;i--){
+    System.out.println(numberAsArray[i]);
+    sortedCharArray[numberAsArray.length-1-i] = numberAsArray[i];
+}
+// reassemble as an string
+var stringbuilder5 = new StringBuilder();
+for(char c: sortedCharArray){
+    System.out.println(c);
+    stringbuilder5.append(c);
+}
+System.out.println(stringbuilder5);
+// convert string back to integer
+int output5 = Integer.parseInt(stringbuilder5.toString());
+System.out.println(output5);
+
 
 ```
