@@ -367,6 +367,10 @@ public class HelloWorld {
          */
         System.out.println("\n\nHow long does a checkout queue take to go down?");
 
+        // null cases
+        if (customers.length == 0) return 0;
+        if (n == 0) return 0;
+
         // create a queue of people from the array
         Queue queue = new LinkedList<Integer>();
         for(var item:customers){
@@ -387,10 +391,12 @@ public class HelloWorld {
         Integer numberOfCustomersAtCheckout = 0;
         System.out.println("\n\nMoving Initial People To Empty Checkouts");
         for (int checkout=0;checkout< checkouts.length;checkout++){
-            int customer = (Integer)queue.remove();
-            System.out.println("Adding " + customer + " people to checkout " + checkout);
-            checkouts[checkout]=customer;
-            numberOfCustomersAtCheckout+=customer;
+            if(queue.stream().count()>0){
+                int customer = (Integer)queue.remove();
+                System.out.println("Adding " + customer + " people to checkout " + checkout);
+                checkouts[checkout]=customer;
+                numberOfCustomersAtCheckout+=customer;
+            }
         }
         System.out.println(n + " checkouts set up with a total of " + numberOfCustomersAtCheckout + " customers waiting to be served");
 

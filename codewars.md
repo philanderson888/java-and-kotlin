@@ -12,6 +12,7 @@
   - [Sort Digits Of Number In Descending Order](#sort-digits-of-number-in-descending-order)
   - [Does a string have any repeating letters?](#does-a-string-have-any-repeating-letters)
   - [Bouncing Ball](#bouncing-ball)
+  - [Time To Checkout Supermarket Customers](#time-to-checkout-supermarket-customers)
 
 ## Capitalise First Letter Of Every Word
 
@@ -351,3 +352,83 @@ static int bouncingBall(double h, double bounce, double window){
 }
 ```
 
+
+
+
+## Time To Checkout Supermarket Customers
+
+```java
+  static <Pair> int supermarketQueue(int[] customers, int n){
+    /*
+        * Supermarket Queue
+        * Calculate Time For All Customers To Check Out
+        * https://www.codewars.com/kata/57b06f90e298a7b53d000a86/train/java
+        * input 1) Array with times for each customer to check out
+        *       2) Number of tills
+        */
+    System.out.println("\n\nHow long does a checkout queue take to go down?");
+
+    // null cases
+    if (customers.length == 0) return 0;
+    if (n == 0) return 0;
+
+    // create a queue of people from the array
+    Queue queue = new LinkedList<Integer>();
+    for(var item:customers){
+        queue.add(item);
+    }
+    // print customer queue
+    System.out.println("\n\nCustomer Queue at start is: ");
+    for(var item:queue){
+        System.out.print(item + ", ");
+    }
+
+
+    // create checkouts
+    var checkouts = new int[n];
+
+
+    // move initial people from the queue to the checkouts
+    Integer numberOfCustomersAtCheckout = 0;
+    System.out.println("\n\nMoving Initial People To Empty Checkouts");
+    for (int checkout=0;checkout< checkouts.length;checkout++){
+        if(queue.stream().count()>0){
+            int customer = (Integer)queue.remove();
+            System.out.println("Adding " + customer + " people to checkout " + checkout);
+            checkouts[checkout]=customer;
+            numberOfCustomersAtCheckout+=customer;
+        }
+    }
+    System.out.println(n + " checkouts set up with a total of " + numberOfCustomersAtCheckout + " customers waiting to be served");
+
+
+    // create timer
+    var timer = 0;
+
+
+    // while customers remain, serve them and count time
+    while(numberOfCustomersAtCheckout > 0)   {
+        // count afresh number of customers at the checkouts every time
+        numberOfCustomersAtCheckout=0;
+        // iterate over checkouts
+        for(int checkout=0;checkout<checkouts.length;checkout++){
+            if(checkouts[checkout]>0){
+                checkouts[checkout]--;
+            }
+            // if any checkouts are empty, pull in more customers
+            if ((checkouts[checkout]==0)&&(queue.stream().count()>0)){
+                int customer = (Integer)queue.remove();
+                System.out.println("Adding " + customer + " people to checkout " + checkout);
+                checkouts[checkout]=customer;
+            }
+            numberOfCustomersAtCheckout+=checkouts[checkout];
+        }
+
+
+        timer++;
+        System.out.println("At time " + timer + " there are " + numberOfCustomersAtCheckout + " customers left");
+    }
+    System.out.println("\nThe time it took to clear all the customers is " + timer);
+    return timer;
+}
+```
