@@ -33,6 +33,9 @@ public class HelloWorld {
         DoesAStringHaveRepeatingLetters();
         bouncingBall(3.0, 0.66, 1.5);
         supermarketQueue(new int[]{10,2,3,4}, 2);
+        supermarketQueue(new int[]{10,2,3,4}, 3);
+        supermarketQueue(new int[]{10,2,3,4}, 4);
+        supermarketQueue(new int[]{10,6,6,4}, 2);
     }
     static void PascalCase(){
 
@@ -363,38 +366,6 @@ public class HelloWorld {
          *       2) Number of tills
          */
         System.out.println("\n\nHow long does a checkout queue take to go down?");
-        // Create checkouts
-        var checkouts = new LinkedList<Map.Entry<Integer,Integer>>();
-        for (int i=0;i<n;i++){
-            checkouts.add(new AbstractMap.SimpleImmutableEntry<>(i,0));
-        }
-        for(var item:checkouts){
-            System.out.println("Till " + item.getKey() + " has " + item.getValue() + " customers");
-        }
-
-        // create checkouts 2
-        Map<Integer, Integer> checkout2 = new HashMap<>();
-        for(int i=0;i<n;i++){
-            checkout2.put(i,0);
-        }
-
-        // iterate over checkout2
-        System.out.println("\n\nPrinting Iterator");
-        var iterator = checkout2.entrySet().iterator();
-        while(iterator.hasNext()){
-            Map.Entry pair = (Map.Entry)iterator.next();
-            System.out.println("Till " + pair.getKey() + " has " + pair.getValue() + " customers");
-            iterator.remove();
-        }
-
-
-
-
-
-
-
-
-
 
         // create a queue of people from the array
         Queue queue = new LinkedList<Integer>();
@@ -406,37 +377,49 @@ public class HelloWorld {
         for(var item:queue){
             System.out.print(item + ", ");
         }
+
+
+        // create checkouts
+        var checkouts = new int[n];
+
+
+        // move initial people from the queue to the checkouts
+        Integer numberOfCustomersAtCheckout = 0;
+        System.out.println("\n\nMoving Initial People To Empty Checkouts");
+        for (int checkout=0;checkout< checkouts.length;checkout++){
+            int customer = (Integer)queue.remove();
+            System.out.println("Adding " + customer + " people to checkout " + checkout);
+            checkouts[checkout]=customer;
+            numberOfCustomersAtCheckout+=customer;
+        }
+        System.out.println(n + " checkouts set up with a total of " + numberOfCustomersAtCheckout + " customers waiting to be served");
+
+
         // create timer
         var timer = 0;
-        // track customers at the tills
-        Integer numberOfCustomersAtCheckout = 1;
-        // while customers remain
-        System.out.println("\n\nMoving customers to the checkout");
+
+
+        // while customers remain, serve them and count time
         while(numberOfCustomersAtCheckout > 0)   {
             // count afresh number of customers at the checkouts every time
             numberOfCustomersAtCheckout=0;
-
-            iterator = checkout2.entrySet().iterator();
-            while(iterator.hasNext()){
-                Map.Entry pair = (Map.Entry)iterator.next();
-                // if no one is at a checkout, move a customer to it
-                if((int)pair.getValue()==0) {
-                    if(queue.stream().count()>0) {
-                        int number = (Integer)queue.remove();
-                        System.out.println(number);
-                        pair.setValue(number);
-                    }
+            // iterate over checkouts
+            for(int checkout=0;checkout<checkouts.length;checkout++){
+                if(checkouts[checkout]>0){
+                    checkouts[checkout]--;
                 }
-                System.out.println("Till " + pair.getKey() + " has " + pair.getValue() + " customers");
-                // decrement one interval of time at each till
-                if((int)pair.getValue()>0) {
-                    pair.setValue((int)pair.getValue()-1);
+                // if any checkouts are empty, pull in more customers
+                if ((checkouts[checkout]==0)&&(queue.stream().count()>0)){
+                    int customer = (Integer)queue.remove();
+                    System.out.println("Adding " + customer + " people to checkout " + checkout);
+                    checkouts[checkout]=customer;
                 }
-                numberOfCustomersAtCheckout+=(int)pair.getValue();
-                iterator.remove();
+                numberOfCustomersAtCheckout+=checkouts[checkout];
             }
-            // increment the timer by one
+
+
             timer++;
+            System.out.println("At time " + timer + " there are " + numberOfCustomersAtCheckout + " customers left");
         }
         System.out.println("\nThe time it took to clear all the customers is " + timer);
         return timer;
