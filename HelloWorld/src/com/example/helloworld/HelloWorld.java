@@ -5,6 +5,7 @@ import java.util.LinkedHashSet;
 
 
 public class HelloWorld {
+
     // New class com.example.helloworld.HelloWorld and create it
     // Shift and enter to move down a line
     public static void main(String[] args) {
@@ -22,6 +23,19 @@ public class HelloWorld {
 
         // not too sure how to create another file so just going to do my coding here for now!
         // 8 August 2020
+
+        PascalCase();
+        FindOddManOut();
+        CombineAndSortStringsAndMakeElementsUnique();
+        EqualSidesOfArray();
+        MaskCreditCardInformation();
+        NumbersLeastToGreatest();
+        DoesAStringHaveRepeatingLetters();
+        bouncingBall(3.0, 0.66, 1.5);
+        supermarketQueue(new int[]{10,2,3,4}, 2);
+    }
+    static void PascalCase(){
+
         // Codewars Capitalise Each Word https://www.codewars.com/kata/5390bac347d09b7da40006f6/train/java
         String phrase = "This is a sentence";
 
@@ -51,7 +65,8 @@ public class HelloWorld {
         // convert array of words back into string
         String output = String.valueOf(sentence);
         System.out.println(output);
-
+    }
+    static void FindOddManOut(){
 
         /*
          * Find the parity outlier
@@ -128,9 +143,9 @@ public class HelloWorld {
                 break;
             }
         }
-
         System.out.println("outlier is " + outlier);
-
+    }
+    static void CombineAndSortStringsAndMakeElementsUnique(){
 
         /*
         Take 2 strings and combine and sort them and make the entries unique
@@ -178,8 +193,8 @@ public class HelloWorld {
         var output3 = stringbuilder3.toString();
         System.out.println(output3);
 
-
-
+    }
+    static void EqualSidesOfArray(){
 
 
         /*
@@ -213,11 +228,13 @@ public class HelloWorld {
         }
         System.out.println("The arrays have equal sum of " + sum + " at index " + index);
 
+    }
+    static void MaskCreditCardInformation(){
 
         /*
-        * Mask credit card information - change all characters into # except last 4 digits
-        * https://www.codewars.com/kata/5412509bd436bd33920011bc/train/java
-        */
+         * Mask credit card information - change all characters into # except last 4 digits
+         * https://www.codewars.com/kata/5412509bd436bd33920011bc/train/java
+         */
 
         System.out.println("\n\nPrinting a credit card with digits masked");
         String str = "12345678";
@@ -234,13 +251,14 @@ public class HelloWorld {
         System.out.println("The masked credit card is " + stringbuilder4);
 
 
-
+    }
+    static void NumbersLeastToGreatest(){
         /*
-        * Rearrange digits from highest to least
-        * 12395 becomes 95321
-        * https://www.codewars.com/kata/5467e4d82edf8bbf40000155/java
-        *
-        * */
+         * Rearrange digits from highest to least
+         * 12395 becomes 95321
+         * https://www.codewars.com/kata/5467e4d82edf8bbf40000155/java
+         *
+         * */
 
         System.out.println("\n\nSorting Digits Of A Number In Descending Order");
         int num = 45398;
@@ -270,9 +288,157 @@ public class HelloWorld {
         // convert string back to integer
         int output5 = Integer.parseInt(stringbuilder5.toString());
         System.out.println(output5);
+    }
+    static void DoesAStringHaveRepeatingLetters(){
+
+        /* Does a string have any repeating letters?
+         *  https://www.codewars.com/kata/54ba84be607a92aa900000f1/train/java
+         */
+
+        System.out.println("\n\nFinding a match in a string - are any two letters the same?");
+        var str = "Thisa rng";
+        System.out.println(str);
+        // create a stack
+        var stack = new Stack();
+        for (Character c : str.toCharArray()){
+            stack.push(Character.toLowerCase(c));
+        }
+        // pop off letter each time
+        boolean matchFound = false;
+        while(stack.stream().count()>0){
+            var c = stack.pop();
+            for (var item: stack){
+                if((Character) c == item) {
+                    matchFound=true;
+                    break;
+                }
+            }
+        }
+        System.out.println("Is a match found? " + matchFound);
+        System.out.println("Is the word an Isogram (no matches) " + !matchFound);
+
+        // here is a better answer!
+        var charArray2 = str.toLowerCase().chars();
+        // check count
+        boolean sameLength = str.length() == charArray2.distinct().count();
+        System.out.println("Is the word an Isogram (no matches) " + sameLength);
+    }
+    static int bouncingBall(double h, double bounce, double window){
+        /*
+         * Bouncing ball
+         * Ball dropped from height h
+         * Bounces b fraction of this every time
+         * Mother situated at height 1.5
+         * How many times does the mother see the ball both going down and coming back up?
+         * */
+
+        System.out.println("\n\nBouncing ball - how many times does the ball pass level `window` when dropped from height h and bounce fraction `bounce`");
+        System.out.println("Height = " + h + ", bounce = " + bounce + ", window = " + window);
+        double windowHeight = window;
+
+        // invalid parameters
+        if (h<0) return -1;
+        if ((bounce<=0) || (bounce >=1)) return -1;
+        if (window >= h) return -1;
+
+        // dropped from height h and bounces back a fraction of this
+        // we will always have at least one view on the fall down
+        int numberOfViews = 1;
+        double ballHeight = h;
+
+        do {
+            ballHeight = ballHeight * bounce;
+            if(ballHeight>windowHeight) numberOfViews+=2;
+        }
+        while(ballHeight>windowHeight);
+        System.out.println("Number of views is " + numberOfViews);
+        return numberOfViews;
+    }
+    static <Pair> int supermarketQueue(int[] customers, int n){
+        /*
+         * Supermarket Queue
+         * Calculate Time For All Customers To Check Out
+         * https://www.codewars.com/kata/57b06f90e298a7b53d000a86/train/java
+         * input 1) Array with times for each customer to check out
+         *       2) Number of tills
+         */
+        System.out.println("\n\nHow long does a checkout queue take to go down?");
+        // Create checkouts
+        var checkouts = new LinkedList<Map.Entry<Integer,Integer>>();
+        for (int i=0;i<n;i++){
+            checkouts.add(new AbstractMap.SimpleImmutableEntry<>(i,0));
+        }
+        for(var item:checkouts){
+            System.out.println("Till " + item.getKey() + " has " + item.getValue() + " customers");
+        }
+
+        // create checkouts 2
+        Map<Integer, Integer> checkout2 = new HashMap<>();
+        for(int i=0;i<n;i++){
+            checkout2.put(i,0);
+        }
+
+        // iterate over checkout2
+        System.out.println("\n\nPrinting Iterator");
+        var iterator = checkout2.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry pair = (Map.Entry)iterator.next();
+            System.out.println("Till " + pair.getKey() + " has " + pair.getValue() + " customers");
+            iterator.remove();
+        }
 
 
 
 
+
+
+
+
+
+
+        // create a queue of people from the array
+        Queue queue = new LinkedList<Integer>();
+        for(var item:customers){
+            queue.add(item);
+        }
+        // print customer queue
+        System.out.println("\n\nCustomer Queue at start is: ");
+        for(var item:queue){
+            System.out.print(item + ", ");
+        }
+        // create timer
+        var timer = 0;
+        // track customers at the tills
+        Integer numberOfCustomersAtCheckout = 1;
+        // while customers remain
+        System.out.println("\n\nMoving customers to the checkout");
+        while(numberOfCustomersAtCheckout > 0)   {
+            // count afresh number of customers at the checkouts every time
+            numberOfCustomersAtCheckout=0;
+
+            iterator = checkout2.entrySet().iterator();
+            while(iterator.hasNext()){
+                Map.Entry pair = (Map.Entry)iterator.next();
+                // if no one is at a checkout, move a customer to it
+                if((int)pair.getValue()==0) {
+                    if(queue.stream().count()>0) {
+                        int number = (Integer)queue.remove();
+                        System.out.println(number);
+                        pair.setValue(number);
+                    }
+                }
+                System.out.println("Till " + pair.getKey() + " has " + pair.getValue() + " customers");
+                // decrement one interval of time at each till
+                if((int)pair.getValue()>0) {
+                    pair.setValue((int)pair.getValue()-1);
+                }
+                numberOfCustomersAtCheckout+=(int)pair.getValue();
+                iterator.remove();
+            }
+            // increment the timer by one
+            timer++;
+        }
+        System.out.println("\nThe time it took to clear all the customers is " + timer);
+        return timer;
     }
 }

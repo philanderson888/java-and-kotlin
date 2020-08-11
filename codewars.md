@@ -10,6 +10,8 @@
   - [Equal Sum To Left And Right Of Index In Array](#equal-sum-to-left-and-right-of-index-in-array)
   - [Credit Card Masking](#credit-card-masking)
   - [Sort Digits Of Number In Descending Order](#sort-digits-of-number-in-descending-order)
+  - [Does a string have any repeating letters?](#does-a-string-have-any-repeating-letters)
+  - [Bouncing Ball](#bouncing-ball)
 
 ## Capitalise First Letter Of Every Word
 
@@ -277,3 +279,75 @@ System.out.println(output5);
 
 
 ```
+
+## Does a string have any repeating letters?
+
+```java
+/* Does a string have any repeating letters?
+*  https://www.codewars.com/kata/54ba84be607a92aa900000f1/train/java
+*/
+
+System.out.println("\n\nFinding a match in a string - are any two letters the same?");
+str = "Thisa trng";
+System.out.println(str);
+// create a stack
+var stack = new Stack();
+for (Character c : str.toCharArray()){
+    stack.push(Character.toLowerCase(c));
+}
+// pop off letter each time
+boolean matchFound = false;
+while(stack.stream().count()>0){
+    var c = stack.pop();
+    for (var item: stack){
+        if((Character) c == item) {
+            matchFound=true;
+            break;
+        }
+    }
+}
+System.out.println("Is a match found? " + matchFound);
+System.out.println("Is the word an Isogram (no matches) " + !matchFound);
+
+// here is a better answer!
+var charArray2 = str.toLowerCase().chars();
+// check count
+boolean sameLength = str.length() == charArray2.distinct().count();
+System.out.println("Is the word an Isogram (no matches) " + sameLength);
+```
+
+## Bouncing Ball
+
+```java
+static int bouncingBall(double h, double bounce, double window){
+    /*
+        * Bouncing ball
+        * Ball dropped from height h
+        * Bounces b fraction of this every time
+        * Mother situated at height 1.5
+        * How many times does the mother see the ball both going down and coming back up?
+        * */
+    System.out.println("\n\nBouncing ball - how many times does the ball pass level `window` when dropped from height h and bounce fraction `bounce`");
+    System.out.println("Height = " + h + ", bounce = " + bounce + ", window = " + window);
+    double windowHeight = window;
+
+    // invalid parameters
+    if (h<0) return -1;
+    if ((bounce<=0) || (bounce >=1)) return -1;
+    if (window >= h) return -1;
+
+    // dropped from height h and bounces back a fraction of this
+    // we will always have at least one view on the fall down
+    int numberOfViews = 1;
+    double ballHeight = h;
+
+    do {
+        ballHeight = ballHeight * bounce;
+        if(ballHeight>windowHeight) numberOfViews+=2;
+    }
+    while(ballHeight>windowHeight);
+    System.out.println("Number of views is " + numberOfViews);
+    return numberOfViews;
+}
+```
+
