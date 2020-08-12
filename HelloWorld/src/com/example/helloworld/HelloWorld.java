@@ -2,6 +2,7 @@ package com.example.helloworld;
 
 import java.util.*;
 import java.util.LinkedHashSet;
+import java.util.stream.IntStream;
 
 
 public class HelloWorld {
@@ -36,6 +37,8 @@ public class HelloWorld {
         supermarketQueue(new int[]{10,2,3,4}, 3);
         supermarketQueue(new int[]{10,2,3,4}, 4);
         supermarketQueue(new int[]{10,6,6,4}, 2);
+
+        System.out.println(reverseOrRotate("123456987654",6));
     }
     static void PascalCase(){
 
@@ -357,7 +360,7 @@ public class HelloWorld {
         System.out.println("Number of views is " + numberOfViews);
         return numberOfViews;
     }
-    static <Pair> int supermarketQueue(int[] customers, int n){
+    static int supermarketQueue(int[] customers, int n){
         /*
          * Supermarket Queue
          * Calculate Time For All Customers To Check Out
@@ -429,5 +432,106 @@ public class HelloWorld {
         }
         System.out.println("\nThe time it took to clear all the customers is " + timer);
         return timer;
+    }
+    static String reverseOrRotate(String str, int sz){
+        /*
+        * Cut string into chunks 'size'
+        * Ignore the last chunk if less than 'size'
+        * If the chunk represents an integer such that SUM OF CUBES OF DIGITS IS DIVISIBLE BY 2 then reverse this
+        * Otherwise rotate digits left
+        * https://www.codewars.com/kata/56b5afb4ed1f6d5fb0000991/train/java
+        * */
+
+        System.out.printf("\n\nManage Chunks In A String\n");
+
+        // chunk size
+        int chunkSize = sz;
+        System.out.println("Chunk size is " + chunkSize);
+
+
+        var stringArray = str.toCharArray();
+        for(var item:stringArray){
+            System.out.print(item + "  ");
+        }
+
+
+
+
+
+        // number of chunks
+        int numberOfChunks = str.length()/chunkSize;
+        System.out.println("\n\nThere are " + numberOfChunks + " chunks in string of length " + str.length() + " and chunk size " + chunkSize);
+
+
+        // separate the chunks out - first create blank structure
+        int[][] chunks = new int[numberOfChunks][chunkSize];
+
+        // now fill the structure
+        int j=0;
+        for (int i=0;i< stringArray.length;i++){
+            chunks[i / 6][j] = Integer.parseInt(Character.toString(stringArray[i]));
+            System.out.println("In chunk " + (i/6) + " index " + j + " data is " + stringArray[i]);
+            j++;
+            if (j>=6) j=0;
+        }
+
+        // print out the chunks
+        System.out.print("\nchunks are ");
+        for (var chunk:chunks){
+            for(int item:chunk){
+                System.out.print(item);
+            }
+            System.out.print(", ");
+        }
+        System.out.println();
+
+
+        // is sum of digits divisible by 2
+
+        for (int i=0;i<numberOfChunks;i++) {
+            int sum = 0;
+            for (int k=0;k<chunkSize;k++) {
+                sum += (chunks[i][k] ^ 3);
+            }
+            // is sum of cubes divisible by 2 then reverse this chunk
+            if(sum%2==0) {
+                int temp = 0;
+                int counter = 0;
+                temp = chunks[i][0];
+                for(int m = 0;m<chunkSize;m++){
+                    chunks[i][m] = 100;
+                    counter++;
+                }
+            }
+            else{
+
+            }
+
+        }
+
+
+        // print out the chunks
+        System.out.print("\nchunks are ");
+        for (var chunk:chunks){
+            for(int item:chunk){
+                System.out.print(item);
+            }
+            System.out.print(", ");
+        }
+        System.out.println();
+
+
+
+        // now output as string
+        var stringbuilder = new StringBuilder();
+        for(var chunk:chunks){
+            for (var item:chunk){
+                stringbuilder.append(item);
+            }
+        }
+
+        System.out.println(stringbuilder);
+
+        return stringbuilder.toString();
     }
 }
