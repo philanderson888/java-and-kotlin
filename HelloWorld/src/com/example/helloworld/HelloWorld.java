@@ -37,8 +37,9 @@ public class HelloWorld {
         supermarketQueue(new int[]{10,2,3,4}, 3);
         supermarketQueue(new int[]{10,2,3,4}, 4);
         supermarketQueue(new int[]{10,6,6,4}, 2);
-
-        System.out.println(reverseOrRotate("123456987654",6));
+        reverseOrRotate("123456987654",6);
+        reverseOrRotate("123456987653",6);
+        reverseOrRotate("733049910872815764",5);
     }
     static void PascalCase(){
 
@@ -433,7 +434,7 @@ public class HelloWorld {
         System.out.println("\nThe time it took to clear all the customers is " + timer);
         return timer;
     }
-    static String reverseOrRotate(String str, int sz){
+    static String reverseOrRotate(String strng, int sz){
         /*
         * Cut string into chunks 'size'
         * Ignore the last chunk if less than 'size'
@@ -442,16 +443,25 @@ public class HelloWorld {
         * https://www.codewars.com/kata/56b5afb4ed1f6d5fb0000991/train/java
         * */
 
-        System.out.printf("\n\nManage Chunks In A String\n");
+        System.out.printf("\n\nManage Chunks In A String\n\n");
 
         // chunk size
         int chunkSize = sz;
         System.out.println("Chunk size is " + chunkSize);
 
+        // null cases
+        if(chunkSize<=0) return "";
+        if(strng.length()==0) return "";
+        if(chunkSize>strng.length()) return "";
 
-        var stringArray = str.toCharArray();
+
+
+
+        var stringArray = strng.toCharArray();
+
+        System.out.print("Input string is ");
         for(var item:stringArray){
-            System.out.print(item + "  ");
+            System.out.print(item);
         }
 
 
@@ -459,8 +469,8 @@ public class HelloWorld {
 
 
         // number of chunks
-        int numberOfChunks = str.length()/chunkSize;
-        System.out.println("\n\nThere are " + numberOfChunks + " chunks in string of length " + str.length() + " and chunk size " + chunkSize);
+        int numberOfChunks = strng.length()/chunkSize;
+        System.out.println("\nThere are " + numberOfChunks + " chunks in string of length " + strng.length() + " and chunk size " + chunkSize);
 
 
         // separate the chunks out - first create blank structure
@@ -468,15 +478,14 @@ public class HelloWorld {
 
         // now fill the structure
         int j=0;
-        for (int i=0;i< stringArray.length;i++){
-            chunks[i / 6][j] = Integer.parseInt(Character.toString(stringArray[i]));
-            System.out.println("In chunk " + (i/6) + " index " + j + " data is " + stringArray[i]);
+        for (int i=0;i< numberOfChunks*chunkSize ;i++){
+            chunks[i/chunkSize][j] = Integer.parseInt(Character.toString(stringArray[i]));
             j++;
-            if (j>=6) j=0;
+            if (j>=chunkSize) j=0;
         }
 
         // print out the chunks
-        System.out.print("\nchunks are ");
+        System.out.print("chunks are ");
         for (var chunk:chunks){
             for(int item:chunk){
                 System.out.print(item);
@@ -487,31 +496,36 @@ public class HelloWorld {
 
 
         // is sum of digits divisible by 2
-
         for (int i=0;i<numberOfChunks;i++) {
             int sum = 0;
             for (int k=0;k<chunkSize;k++) {
-                sum += (chunks[i][k] ^ 3);
+                sum += Math.pow (chunks[i][k],3);
             }
+            System.out.println("sum of the cubes is " + sum);
             // is sum of cubes divisible by 2 then reverse this chunk
             if(sum%2==0) {
+                for(int m = 0;m<chunkSize/2;m++){
+                    int temp=chunks[i][m];
+                    chunks[i][m] = chunks[i][chunkSize-m-1];
+                    chunks[i][chunkSize-m-1] = temp;
+                }
+            }
+            // shift elements by 1
+            else{
                 int temp = 0;
                 int counter = 0;
                 temp = chunks[i][0];
-                for(int m = 0;m<chunkSize;m++){
-                    chunks[i][m] = 100;
+                for(int m = 0;m<chunkSize-1;m++) {
+                    chunks[i][m] = chunks[i][m+1];
                     counter++;
                 }
+                chunks[i][chunkSize-1] = temp;
             }
-            else{
-
-            }
-
         }
 
 
         // print out the chunks
-        System.out.print("\nchunks are ");
+        System.out.print("\nAfter alteration, chunks are ");
         for (var chunk:chunks){
             for(int item:chunk){
                 System.out.print(item);
@@ -529,9 +543,7 @@ public class HelloWorld {
                 stringbuilder.append(item);
             }
         }
-
-        System.out.println(stringbuilder);
-
+        System.out.println("Reconstruct the chunks as " + stringbuilder);
         return stringbuilder.toString();
     }
 }

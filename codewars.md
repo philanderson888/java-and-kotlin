@@ -13,6 +13,7 @@
   - [Does a string have any repeating letters?](#does-a-string-have-any-repeating-letters)
   - [Bouncing Ball](#bouncing-ball)
   - [Time To Checkout Supermarket Customers](#time-to-checkout-supermarket-customers)
+  - [Sum Of Cubes Or Reverse Array](#sum-of-cubes-or-reverse-array)
 
 ## Capitalise First Letter Of Every Word
 
@@ -431,4 +432,120 @@ static int bouncingBall(double h, double bounce, double window){
     System.out.println("\nThe time it took to clear all the customers is " + timer);
     return timer;
 }
+```
+
+## Sum Of Cubes Or Reverse Array
+
+```java
+/*
+* Cut string into chunks 'size'
+* Ignore the last chunk if less than 'size'
+* If the chunk represents an integer such that SUM OF CUBES OF DIGITS IS DIVISIBLE BY 2 then reverse this
+* Otherwise rotate digits left
+* https://www.codewars.com/kata/56b5afb4ed1f6d5fb0000991/train/java
+* */
+
+System.out.printf("\n\nManage Chunks In A String\n\n");
+
+// chunk size
+int chunkSize = sz;
+System.out.println("Chunk size is " + chunkSize);
+
+// null cases
+if(chunkSize<=0) return "";
+if(strng.length()==0) return "";
+if(chunkSize>strng.length()) return "";
+
+
+
+
+var stringArray = strng.toCharArray();
+
+System.out.print("Input string is ");
+for(var item:stringArray){
+    System.out.print(item);
+}
+
+
+
+
+
+// number of chunks
+int numberOfChunks = strng.length()/chunkSize;
+System.out.println("\nThere are " + numberOfChunks + " chunks in string of length " + strng.length() + " and chunk size " + chunkSize);
+
+
+// separate the chunks out - first create blank structure
+int[][] chunks = new int[numberOfChunks][chunkSize];
+
+// now fill the structure
+int j=0;
+for (int i=0;i< numberOfChunks*chunkSize ;i++){
+    chunks[i/chunkSize][j] = Integer.parseInt(Character.toString(stringArray[i]));
+    j++;
+    if (j>=chunkSize) j=0;
+}
+
+// print out the chunks
+System.out.print("chunks are ");
+for (var chunk:chunks){
+    for(int item:chunk){
+        System.out.print(item);
+    }
+    System.out.print(", ");
+}
+System.out.println();
+
+
+// is sum of digits divisible by 2
+for (int i=0;i<numberOfChunks;i++) {
+    int sum = 0;
+    for (int k=0;k<chunkSize;k++) {
+        sum += Math.pow (chunks[i][k],3);
+    }
+    System.out.println("sum of the cubes is " + sum);
+    // is sum of cubes divisible by 2 then reverse this chunk
+    if(sum%2==0) {
+        for(int m = 0;m<chunkSize/2;m++){
+            int temp=chunks[i][m];
+            chunks[i][m] = chunks[i][chunkSize-m-1];
+            chunks[i][chunkSize-m-1] = temp;
+        }
+    }
+    // shift elements by 1
+    else{
+        int temp = 0;
+        int counter = 0;
+        temp = chunks[i][0];
+        for(int m = 0;m<chunkSize-1;m++) {
+            chunks[i][m] = chunks[i][m+1];
+            counter++;
+        }
+        chunks[i][chunkSize-1] = temp;
+    }
+}
+
+
+// print out the chunks
+System.out.print("\nAfter alteration, chunks are ");
+for (var chunk:chunks){
+    for(int item:chunk){
+        System.out.print(item);
+    }
+    System.out.print(", ");
+}
+System.out.println();
+
+
+
+// now output as string
+var stringbuilder = new StringBuilder();
+for(var chunk:chunks){
+    for (var item:chunk){
+        stringbuilder.append(item);
+    }
+}
+System.out.println("Reconstruct the chunks as " + stringbuilder);
+return stringbuilder.toString();
+
 ```
