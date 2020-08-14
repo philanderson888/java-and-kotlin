@@ -14,6 +14,7 @@
   - [Bouncing Ball](#bouncing-ball)
   - [Time To Checkout Supermarket Customers](#time-to-checkout-supermarket-customers)
   - [Sum Of Cubes Or Reverse Array](#sum-of-cubes-or-reverse-array)
+  - [DeadFish](#deadfish)
 
 ## Capitalise First Letter Of Every Word
 
@@ -548,4 +549,41 @@ for(var chunk:chunks){
 System.out.println("Reconstruct the chunks as " + stringbuilder);
 return stringbuilder.toString();
 
+```
+
+## DeadFish
+
+https://www.codewars.com/kata/51e0007c1f9378fa810002a9/train/java
+
+```java
+
+static int[] DeadFish(String data) {
+        /*
+        Initial value = 0
+        i increments   d decrements  s squares  o outputs
+         */
+        System.out.println("\n\nDeadFish\n");
+        System.out.println("Instructions are " + data);
+
+        // turn string into an array of characters
+        char[] charArray = data.toCharArray();
+
+        // create output list
+        ArrayList<Integer> list = new ArrayList<Integer>();
+
+        // iterate and act
+        int value = 0;
+        for (Character c : charArray) {
+            if (c == 'i') value++;
+            else if (c == 'd') value--;
+            else if (c == 's') value = (int) Math.pow(value, 2);
+            else if (c == 'o') list.add(value);
+        }
+
+        int[] outputArray = list.stream().mapToInt(item -> item).toArray();
+        for(int item: outputArray){
+            System.out.print(item + ",");
+        }
+        return outputArray;
+    }
 ```

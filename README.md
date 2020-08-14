@@ -14,6 +14,13 @@
     - [Foreach](#foreach)
   - [Collections](#collections)
     - [List](#list)
+      - [List To Array](#list-to-array)
+    - [Convert Set To List](#convert-set-to-list)
+  - [Sets](#sets)
+    - [Concrete implementations](#concrete-implementations)
+    - [Set Methods](#set-methods)
+    - [Getting data out of a set](#getting-data-out-of-a-set)
+    - [Convert Set To List](#convert-set-to-list-1)
 
 ## Introduction
 
@@ -79,9 +86,107 @@ for (int num : numbers)
 
 ## Collections
 
+Check this out for reference http://tutorials.jenkov.com/java-collections/
+
 ### List
 
+`List` is an `Interface`
+
+`List` has an `index` and can have duplicates
+
 ```java
-// list is an interface
 List<String> words = new ArrayList<String>();
 ```
+
+#### List To Array
+
+Convert list of integers to array of integers
+
+```java
+var list = new ArrayList<int>();
+int[] output = list.stream().mapToInt(item->item).toArray();
+```
+
+### Convert Set To List
+
+```java
+Set<String> set = new HashSet<>();
+List<String> list = new ArrayList<>();
+list.addAll(set);
+```
+
+## Sets
+
+`Set` has `unique objects` and `no particular order`
+
+`java.util.Set` has unique objects
+
+`Set` is an Interface
+
+`Set` inherits from `Collection` Interface
+
+
+### Concrete implementations
+
+1. EnumSet
+2. HashSet   no guaranteed order.  Related to hashmap
+
+```java
+Set set = new HashSet();
+Set set<String> = new HashSet<String>();
+for (String item : set) {}
+
+```
+
+3. LinkedHashSet   order same as insertion
+
+```java
+Set set = new LinkedHashSet();
+```
+
+4. TreeSet      order same as if it were a List eg alphabetical or numeric order
+   
+```java
+Set set = new TreeSet();
+```
+
+### Set Methods
+
+set.Add()
+set.Remove()
+set.Clear()
+set.addAll(anotherSetToAddToThisOne)
+set.removeAll(removeAllElementsWhichMatchThisOtherSet)
+set.retainAll(retainAllElementsPresentInThisSet)
+set.size()
+set.isEmpty()
+set.contains(item)
+
+### Getting data out of a set
+
+1. Iteratable
+   
+```java
+Iterator<String> iterator = set.iterator();
+while(iterator.hasNext()){
+  String item = iterator.Next()
+}
+```
+
+2. Foreach
+   
+3. Stream
+
+```java
+Stream<String> stream = set.stream();
+stream.forEach(  (item) => {    })
+```
+
+### Convert Set To List
+
+```java
+Set<String> set = new HashSet<>();
+List<String> list = new ArrayList<>();
+list.addAll(set);
+```
+
