@@ -15,6 +15,7 @@
   - [Time To Checkout Supermarket Customers](#time-to-checkout-supermarket-customers)
   - [Sum Of Cubes Or Reverse Array](#sum-of-cubes-or-reverse-array)
   - [DeadFish](#deadfish)
+  - [14/8/2020  Maximum Subarray Sum](#1482020-maximum-subarray-sum)
 
 ## Capitalise First Letter Of Every Word
 
@@ -586,4 +587,69 @@ static int[] DeadFish(String data) {
         }
         return outputArray;
     }
+```
+
+
+## 14/8/2020  Maximum Subarray Sum
+
+https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c/train/java
+
+Find the max num of a contiguous subsequence in an array
+
+```java
+static int MaximumSubarraySum(int[] arr){
+    int[] array = arr;
+    // null cases
+    if(array.length==0) return 0;
+
+
+    System.out.print("\n\nPrint Out Array\n");
+    for(int number:array){
+        System.out.print(number+",");
+    }
+
+    System.out.print("\nAre All Numbers Positive? ");
+    boolean allPositive = true;
+    int sum=0;
+    for (int number:array){
+        sum+=number;
+        if(number<0){
+            allPositive=false;
+            break;
+        }
+    }
+    System.out.println(allPositive);
+    if(allPositive) {
+        System.out.println("\nAll numbers are positive and total is " + sum);
+        return sum;
+    }
+
+
+    System.out.print("Are all numbers negative? ");
+    boolean allNegative = true;
+    for(int number:array){
+        if(number>=0){
+            allNegative=false;
+            break;
+        }
+    }
+    System.out.println(allNegative);
+    if(allNegative) return 0;
+
+
+
+    System.out.println("Find the sum of all subsequences");
+    int maxSubsequence = 0;
+    for(int i=0;i<array.length;i++){
+        sum=0;
+        for (int j=i;j<(array.length);j++){
+            sum+=array[j];
+            if(sum>maxSubsequence){
+                maxSubsequence=sum;
+            }
+        }
+    }
+    System.out.println("Max subsequence is " + maxSubsequence);
+    return maxSubsequence;
+}
 ```

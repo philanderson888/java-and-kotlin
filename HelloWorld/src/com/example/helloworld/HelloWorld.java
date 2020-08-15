@@ -43,6 +43,8 @@ public class HelloWorld {
         reverseOrRotate("733049910872815764", 5);
         DeadFish("iiisdoso");
         DeadFish("iiisdosodddddiso");
+        MaximumSubarraySum(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4});
+        MorseCodeDecoder(".... . -.--   .--- ..- -.. .");
     }
 
     static void PascalCase() {
@@ -581,6 +583,71 @@ public class HelloWorld {
         return outputArray;
     }
 
+    static int MaximumSubarraySum(int[] arr){
+        /*
+            https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c/train/java
+            Find the max num of a contiguous subsequence in an array
+        */
+        int[] array = arr;
+        // null cases
+        if(array.length==0) return 0;
+
+
+        System.out.print("\n\nPrint Out Array\n");
+        for(int number:array){
+            System.out.print(number+",");
+        }
+
+        System.out.print("\nAre All Numbers Positive? ");
+        boolean allPositive = true;
+        int sum=0;
+        for (int number:array){
+            sum+=number;
+            if(number<0){
+                allPositive=false;
+                break;
+            }
+        }
+        System.out.println(allPositive);
+        if(allPositive) {
+            System.out.println("\nAll numbers are positive and total is " + sum);
+            return sum;
+        }
+
+
+        System.out.print("Are all numbers negative? ");
+        boolean allNegative = true;
+        for(int number:array){
+            if(number>=0){
+                allNegative=false;
+                break;
+            }
+        }
+        System.out.println(allNegative);
+        if(allNegative) return 0;
+
+
+
+        System.out.println("Find the sum of all subsequences");
+        int maxSubsequence = 0;
+        for(int i=0;i<array.length;i++){
+            sum=0;
+            for (int j=i;j<(array.length);j++){
+                sum+=array[j];
+                if(sum>maxSubsequence){
+                    maxSubsequence=sum;
+                }
+            }
+        }
+        System.out.println("Max subsequence is " + maxSubsequence);
+        return maxSubsequence;
+    }
+
+    static String MorseCodeDecoder(String morseCode){
+        
+        return "hi";
+
+    }
 }
 
 
