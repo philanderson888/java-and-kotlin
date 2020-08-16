@@ -1,10 +1,7 @@
 package com.example.helloworld;
 
 import java.util.*;
-import java.util.LinkedHashSet;
-import java.util.stream.IntStream;
-import static org.junit.Assert.*;
-
+import java.util.stream.Collectors;
 
 public class HelloWorld {
 
@@ -45,8 +42,14 @@ public class HelloWorld {
         DeadFish("iiisdosodddddiso");
         MaximumSubarraySum(new int[]{-2, 1, -3, 4, -1, 2, 1, -5, 4});
         MorseCodeDecoder(".... . -.--   .--- ..- -.. .");
+        DetermineWordOrder("is2 Thi1s T4est 3a");
+        Permutations("aabb");
+        PerfectPower(4);
+        PerfectPower(81);
+        PerfectPower(900);
+        PerfectPower(1572495618);
+        Factorial(7);
     }
-
     static void PascalCase() {
 
         // Codewars Capitalise Each Word https://www.codewars.com/kata/5390bac347d09b7da40006f6/train/java
@@ -78,7 +81,6 @@ public class HelloWorld {
         String output = String.valueOf(sentence);
         System.out.println(output);
     }
-
     static void FindOddManOut() {
 
         /*
@@ -155,7 +157,6 @@ public class HelloWorld {
         }
         System.out.println("outlier is " + outlier);
     }
-
     static void CombineAndSortStringsAndMakeElementsUnique() {
 
         /*
@@ -204,7 +205,6 @@ public class HelloWorld {
         System.out.println(output3);
 
     }
-
     static void EqualSidesOfArray() {
 
 
@@ -240,7 +240,6 @@ public class HelloWorld {
         System.out.println("The arrays have equal sum of " + sum + " at index " + index);
 
     }
-
     static void MaskCreditCardInformation() {
 
         /*
@@ -264,7 +263,6 @@ public class HelloWorld {
 
 
     }
-
     static void NumbersLeastToGreatest() {
         /*
          * Rearrange digits from highest to least
@@ -302,7 +300,6 @@ public class HelloWorld {
         int output5 = Integer.parseInt(stringbuilder5.toString());
         System.out.println(output5);
     }
-
     static void DoesAStringHaveRepeatingLetters() {
 
         /* Does a string have any repeating letters?
@@ -337,7 +334,6 @@ public class HelloWorld {
         boolean sameLength = str.length() == charArray2.distinct().count();
         System.out.println("Is the word an Isogram (no matches) " + sameLength);
     }
-
     static int bouncingBall(double h, double bounce, double window) {
         /*
          * Bouncing ball
@@ -369,7 +365,6 @@ public class HelloWorld {
         System.out.println("Number of views is " + numberOfViews);
         return numberOfViews;
     }
-
     static int supermarketQueue(int[] customers, int n) {
         /*
          * Supermarket Queue
@@ -443,7 +438,6 @@ public class HelloWorld {
         System.out.println("\nThe time it took to clear all the customers is " + timer);
         return timer;
     }
-
     static String reverseOrRotate(String strng, int sz) {
         /*
          * Cut string into chunks 'size'
@@ -550,7 +544,6 @@ public class HelloWorld {
         System.out.println("Reconstruct the chunks as " + stringbuilder);
         return stringbuilder.toString();
     }
-
     static int[] DeadFish(String data) {
         /*
         https://www.codewars.com/kata/51e0007c1f9378fa810002a9/train/java
@@ -582,9 +575,9 @@ public class HelloWorld {
         }
         return outputArray;
     }
-
     static int MaximumSubarraySum(int[] arr){
         /*
+            14 August 2020
             https://www.codewars.com/kata/54521e9ec8e60bc4de000d6c/train/java
             Find the max num of a contiguous subsequence in an array
         */
@@ -642,11 +635,317 @@ public class HelloWorld {
         System.out.println("Max subsequence is " + maxSubsequence);
         return maxSubsequence;
     }
-
     static String MorseCodeDecoder(String morseCode){
-        
-        return "hi";
+        // 15 August 2020
+        // your brilliant code here, remember that you can access
+        // the preloaded Morse code table through MorseCode.get(code)
 
+
+        // take in a string
+        // every letter is dots or dashes separated by a space
+        // three spaces separate each letter
+        // remove leading and trailing spaces
+        // SOS is one word
+        // use ASCII
+
+        // next time - could split by this   morseCode.trim().split("   ")
+
+        System.out.println("\n\nMorse Code Decoder");
+        System.out.println("Input string is " + morseCode);
+
+        // null
+        if (morseCode == "") return "";
+        if (morseCode == null) return "";
+
+
+        // trim start and end firstly
+        morseCode = morseCode.trim();
+
+        // convert into an array of characters first of all
+        var morseCodeCharacters = morseCode.toCharArray();
+
+        // we want to separate into an array of strings where each string contains either
+        // list of words defined by how many occurrences of three spaces exist
+        List<ArrayList<Character>> words = new ArrayList<ArrayList<Character>>();
+
+        int numberOfSpaces = 0;
+
+        // create new word ready to receive letters
+        var letters = new StringBuilder();
+        var letter = new StringBuilder();
+        for(Character c:morseCodeCharacters){
+            if(c == ' '){
+                numberOfSpaces++;
+                if(letter.length()>0){
+                    // this will be the end of a letter
+                    var convertedLetter = "a"; //MorseCode.get(letter.toString());
+                    letters.append(convertedLetter);
+                    letter.delete(0,letter.length());
+                    System.out.println("Letters now is " + letters);
+                }
+                continue;
+            }
+            if(numberOfSpaces>=3){
+                // new word is forming
+                System.out.println("Appending a space and forming a new word");
+                letters.append(" ");
+            }
+            // build our morse code characters here into a letter
+            letter.append(c);
+            System.out.println("Appending letter " + letter + " now");
+            numberOfSpaces=0;
+        }
+        // last letter
+        System.out.println("Last letter is" + letter);
+        if(letter.length()>0){
+            // this will be the end of a letter
+            var convertedLetter = "a"; //MorseCode.get(letter.toString());
+            System.out.println("Last converted letter is" + convertedLetter);
+            letters.append(convertedLetter);
+        }
+        System.out.println("Letters now is " + letters);
+        return letters.toString();
+
+
+
+    }
+    static String DetermineWordOrder(String words){
+        /*
+         15 August 2020
+         https://www.codewars.com/kata/55c45be3b2079eccff00010f/train/java
+         */
+        System.out.println("\n\nDetermining the order of words");
+
+        // null cases
+        if(words.isEmpty()) return "";
+        if(words == null) return "";
+
+        System.out.println("input string is - " + words);
+        var unorderedWords = words.split(" ");
+        System.out.print("Unordered words are " );
+        for(String word:unorderedWords){
+            System.out.print(word + ",");
+        }
+
+        // create new word array
+        var orderedWords = new String[unorderedWords.length];
+        // place words into ordered array
+        for(String word:unorderedWords){
+            for(Character c:word.toCharArray()){
+                if(Character.isDigit(c)){
+                    orderedWords[Character.getNumericValue(c)-1] = word;
+                }
+            }
+        }
+
+        // print ordered array
+        System.out.print("\nOrdered array of words is ");
+        for(String word:orderedWords){
+            System.out.print(word + ",");
+        }
+        var outputString = String.join(" ",orderedWords);
+        return outputString;
+    }
+    static List<String> Permutations(String s){
+        /*
+        15 August 2020
+        https://www.codewars.com/kata/5254ca2719453dcc0b00027d/train/java
+        Print all permutations of a string, removing duplicates first
+
+        This one is not finished!
+
+         */
+        System.out.println("\n\nPrint permutations of a string");
+        String inputString = s;
+        char[] inputCharArray = inputString.toCharArray();
+
+        System.out.println("Input string is " + inputString);
+
+        // build output set which only holds unique values
+        Set<String> permutations = new HashSet<>();
+
+        // null cases
+        if (inputString.isEmpty() || inputString==null) return new ArrayList<>();
+
+        // get all permutations
+        List<Character> permutation = new ArrayList<>();
+        for(char item:inputCharArray){
+            permutation.add(item);
+        }
+        permutation.clear();
+        for(int i=0;i<inputCharArray.length;i++){
+           // iterate over remaining characters characters
+           for(int j=0;j<inputCharArray.length;j++){
+               // swap items
+               var temp = inputCharArray[i];
+               inputCharArray[i] = inputCharArray[j];
+               inputCharArray[j] = temp;
+               permutation.clear();
+               for(char item:inputCharArray){
+                   permutation.add(item);
+               }
+               // swap back
+               inputCharArray[j] = inputCharArray[i];
+               inputCharArray[i] = temp;
+               System.out.println("Adding permutation " + permutation.toString());
+               permutations.add(permutation.toString());
+           }
+        }
+
+        for(int i = 0;i< inputCharArray.length/2;i++){
+            char c = inputCharArray[inputCharArray.length-i-1];
+            System.out.println("c is " + c);
+            inputCharArray[inputCharArray.length-i-1] = inputCharArray[i];
+            inputCharArray[i] = c;
+
+        }
+        System.out.print("\nReversed array is ");
+        for(char c:inputCharArray){
+            System.out.print(c);
+        }
+
+
+
+
+        permutation = new ArrayList<>();
+        for(char item:inputCharArray){
+            permutation.add(item);
+        }
+        permutation.clear();
+        for(int i=0;i<inputCharArray.length;i++){
+            // iterate over remaining characters characters
+            for(int j=0;j<inputCharArray.length;j++){
+                // swap items
+                var temp = inputCharArray[i];
+                inputCharArray[i] = inputCharArray[j];
+                inputCharArray[j] = temp;
+                permutation.clear();
+                for(char item:inputCharArray){
+                    permutation.add(item);
+                }
+                // swap back
+                inputCharArray[j] = inputCharArray[i];
+                inputCharArray[i] = temp;
+                System.out.println("\nAdding permutation " + permutation.toString());
+                permutations.add(permutation.toString());
+            }
+        }
+
+
+
+        System.out.println("Final list of permutations is " + permutations);
+
+        // convert set to list and return
+
+        var permutationsAsList = permutations.stream().collect(Collectors.toCollection(ArrayList::new));
+
+        // actually we have a list of arrays and we want a list of strings
+        List<String> finalList = new ArrayList<>();
+        for(var item : permutationsAsList){
+            var stringbuilder = new StringBuilder();
+            for (var c : item.toCharArray()){
+                 if(Character.toString(c).matches("[a-zA-Z]+")){
+                    stringbuilder.append(c);
+                }
+            }
+            finalList.add(stringbuilder.toString());
+        }
+        System.out.println("Final list is " + finalList);
+
+        var finalListSorted = finalList.stream().sorted().collect(Collectors.toList());
+
+        System.out.println("Final sorted list is " + finalListSorted);
+
+
+
+
+        // Version 2 using Heap's algorithm
+
+
+
+
+        var chararray = inputCharArray;
+        var outputarray = generate(chararray.length, chararray);
+        System.out.print("Generate chararray is ");
+        for(char c:outputarray){
+            System.out.print(c);
+        }
+
+
+        generate(inputCharArray.length,inputCharArray);
+
+        return finalListSorted;
+    }
+    static char[] generate(int k, char[] items){
+        if (k == 1) {
+            return items;
+        }
+        else{
+            generate(k-1,items);
+            for(int i=0;i<k-1;i++){
+               if(k%2==0){
+                   Character temp = items[i];
+                   items[i] = items[k-1];
+                   items[k-1] = temp;
+               }
+               else {
+                    Character temp = items[0];
+                    items[0]= items[k-1];
+                    items[k-1] = temp;
+               }
+               generate(k-1,items);
+            }
+        }
+        return items;
+    }
+    static int[] PerfectPower(int n){
+        /*
+            https://www.codewars.com/kata/54d4c8b08776e4ad92000835/train/java
+            Perfect power = integer which can be expressed as an integer power of another integer
+            m to power k = n eg 9^2 = 81 so return (9,2)
+        */
+        System.out.println("\n\nIs " + n + " a perfect power?  " +
+                "If so return the numbers m and k so that m to power k is this number n");
+        // null case
+        if(n<1) {
+            System.out.println("Nothing found so returning null");
+            return null;
+        }
+
+        // loop until value exceeded
+        for (int m=2; m <= Math.ceil(Math.sqrt(n));m++){
+            boolean numberReached = false;
+            int p = 2;
+            while(numberReached == false){
+                var power = Math.pow(m,p);
+                if(power>n){
+                    numberReached=true;
+                }
+                else if(power==n){
+                    System.out.println("Match found ie Math.Pow(" + m + "," + p + " = " + n + ")");
+                    return new int[]{m,p};
+                }
+                p++;
+            }
+        }
+        System.out.println("Nothing found for " + n + " so returning null");
+        return null;
+    }
+    static String Factorial(int n){
+        /*
+            https://www.codewars.com/kata/557f6437bf8dcdd135000010/java
+            return the factorial of a number
+        */
+        System.out.println("\n\nReturn the factorial of " + n);
+        long answer = factorial(n);
+        System.out.println("The factorial of " + n + " is " + answer);
+        return String.valueOf(answer);
+    }
+    static long factorial(int n){
+        if(n==0) return 1;
+        else{
+            return n * factorial(n-1);
+        }
     }
 }
 

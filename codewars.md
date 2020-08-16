@@ -16,6 +16,8 @@
   - [Sum Of Cubes Or Reverse Array](#sum-of-cubes-or-reverse-array)
   - [DeadFish](#deadfish)
   - [14/8/2020  Maximum Subarray Sum](#1482020-maximum-subarray-sum)
+  - [Determine The Order Of Words](#determine-the-order-of-words)
+  - [Perfect Power](#perfect-power)
 
 ## Capitalise First Letter Of Every Word
 
@@ -652,4 +654,108 @@ static int MaximumSubarraySum(int[] arr){
     System.out.println("Max subsequence is " + maxSubsequence);
     return maxSubsequence;
 }
+```
+
+
+
+## Determine The Order Of Words
+
+```java
+ static String DetermineWordOrder(String words){
+    /*
+        15 August 2020
+        https://www.codewars.com/kata/55c45be3b2079eccff00010f/train/java
+        */
+    System.out.println("\n\nDetermining the order of words");
+
+    // null cases
+    if(words.isEmpty()) return "";
+    if(words == null) return "";
+
+    System.out.println("input string is - " + words);
+    var unorderedWords = words.split(" ");
+    System.out.print("Unordered words are " );
+    for(String word:unorderedWords){
+        System.out.print(word + ",");
+    }
+
+    // create new word array
+    var orderedWords = new String[unorderedWords.length];
+    // place words into ordered array
+    for(String word:unorderedWords){
+        for(Character c:word.toCharArray()){
+            if(Character.isDigit(c)){
+                orderedWords[Character.getNumericValue(c)-1] = word;
+            }
+        }
+    }
+
+    // print ordered array
+    System.out.print("\nOrdered array of words is ");
+    for(String word:orderedWords){
+        System.out.print(word + ",");
+    }
+    var outputString = String.join(" ",orderedWords);
+    return outputString;
+}
+```
+
+Here is a better solution
+
+```java
+public class Order {
+   public static String order(String words) {
+        String[] arr = words.split(" ");
+        StringBuilder result = new StringBuilder("");
+        for (int i = 0; i < 10; i++) {
+            for (String s : arr) {
+                if (s.contains(String.valueOf(i))) {
+                    result.append(s + " ");
+                }
+            }
+        }
+        return result.toString().trim();
+    }
+}
+```
+
+
+## Perfect Power
+
+Is a number a perfect power?
+
+https://www.codewars.com/kata/54d4c8b08776e4ad92000835/train/java
+
+Perfect power = integer which can be expressed as an integer power of another integer 
+m to power k = n eg 9^2 = 81 so return (9,2)
+
+```java
+static int[] PerfectPower(int n){
+    System.out.println("\n\nIs " + n + " a perfect power?  " +
+            "If so return the numbers m and k so that m to power k is this number n");
+    // null case
+    if(n<1) {
+        System.out.println("Nothing found so returning null");
+        return null;
+    }
+
+    // loop until value exceeded
+    for (int m=2; m <= Math.ceil(Math.sqrt(n));m++){
+        boolean numberReached = false;
+        int p = 2;
+        while(numberReached == false){
+            var power = Math.pow(m,p);
+            if(power>n){
+                numberReached=true;
+            }
+            else if(power==n){
+                System.out.println("Match found ie Math.Pow(" + m + "," + p + " = " + n + ")");
+                return new int[]{m,p};
+            }
+            p++;
+        }
+    }
+    System.out.println("Nothing found for " + n + " so returning null");
+    return null;
+    }
 ```
