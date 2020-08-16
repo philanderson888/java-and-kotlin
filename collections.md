@@ -4,8 +4,21 @@
 
 - [Collections](#collections)
   - [Contents](#contents)
+  - [List](#list)
+    - [List To Array](#list-to-array)
   - [Queue](#queue)
 
+## List
+
+```java
+
+```
+
+### List To Array
+
+```java
+int[] array = list.stream().mapToInt(Integer::intValue).toArray();
+```
 
 ## Queue
 

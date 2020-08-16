@@ -18,6 +18,7 @@
   - [14/8/2020  Maximum Subarray Sum](#1482020-maximum-subarray-sum)
   - [Determine The Order Of Words](#determine-the-order-of-words)
   - [Perfect Power](#perfect-power)
+  - [Snail](#snail)
 
 ## Capitalise First Letter Of Every Word
 
@@ -758,4 +759,65 @@ static int[] PerfectPower(int n){
     System.out.println("Nothing found for " + n + " so returning null");
     return null;
     }
+```
+
+## Snail
+
+```java
+/*
+    https://www.codewars.com/kata/521c2db8ddc89b9b7a0000c1/train/java
+    Given an nxn array iterate clockwise from outside to in like a snake and output all the elements in a single array
+    Sunday 16 August 2020
+    */
+    System.out.println("\n\nOutputting Elements of nxn array like a snail starting top left and winding" +
+            "round clockwise into the array like a spiral");
+    // null conditions
+    if(array == null || array.length==0){
+        System.out.println("Array is null so returning null");
+        return null;
+    }
+    if(array[0].length==0){
+        System.out.println("Array is null so returning null");
+        return new int[0];
+    }
+    System.out.println("Array is " + array.length + " x " + array.length);
+    System.out.print("Array elements are ");
+    for(var row: array){
+        System.out.print("[");
+        for(var element:row){
+            System.out.print(element+",");
+        }
+        System.out.print("],");
+    }
+    List<Integer> list = new ArrayList<>();
+
+    // loop round and count the loops.
+    for (int loop = 0; loop <= array.length/2;loop++){
+        // add items top left to bottom right
+        for(int i = loop; i < array.length;i++){
+            // first row
+            if(i == loop) {
+                for(int j=loop;j< array.length-loop;j++){
+                    list.add(array[loop][j]);
+                }
+            }
+            else if(i>loop && i < array.length-1-loop) {
+                list.add(array[i][array.length-1-loop]);
+            }
+        }
+        // now reverse the process and add from bottom right to top left
+        for (int i = array.length-1-loop;i>loop;i--){
+            if(i== array.length-1-loop){
+                // iterate bottom row in reverse
+                for (int j=array.length-1-loop;j>=loop;j--){
+                    list.add(array[i][j]);
+                }
+            }
+            else list.add(array[i][loop]);
+        }
+        System.out.println("\nItems after loop " + loop + " are " + list);
+    }
+    int[] outputArray = list.stream().mapToInt(Integer::intValue).toArray();
+    return outputArray;
+}
 ```
