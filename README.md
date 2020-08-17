@@ -5,6 +5,7 @@
 - [java](#java)
   - [Contents](#contents)
   - [Introduction](#introduction)
+  - [Resources To Learn Java](#resources-to-learn-java)
   - [Installation IntelliJ](#installation-intellij)
   - [Intellij Hello World](#intellij-hello-world)
   - [Libraries](#libraries)
@@ -25,6 +26,10 @@
   - [Testing](#testing)
 
 ## Introduction
+
+## Resources To Learn Java
+
+- JavaTPpoint Java Tutorial
 
 ## Installation IntelliJ
 
