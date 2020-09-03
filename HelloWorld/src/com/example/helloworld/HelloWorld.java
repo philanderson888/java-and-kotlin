@@ -54,6 +54,9 @@ public class HelloWorld {
         int[] array03 = {7,8,9};
         int[][] array = {array01,array02,array03};
         Snail(array);
+        pagesToPrint(new int[]{12,13,15,16,17});
+        pagesToPrint(new int[] {-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20});
+        IPV4(32);
     }
     static void PascalCase() {
 
@@ -1008,6 +1011,140 @@ public class HelloWorld {
         }
         int[] outputArray = list.stream().mapToInt(Integer::intValue).toArray();
         return outputArray;
+    }
+    static String pagesToPrint(int[] arr){
+       /*
+            https://www.codewars.com/kata/51ba717bb08c1cd60f00002f/train/java
+            Pass in an array of integers
+            Return ordered integers plus for 3 or more consecutive numbers, start-end inclusive
+            12,13,15,16,17 returns 12,13,15-17
+         */
+        System.out.println("\n\nPages to print - takes an array of numbers and formats them as if they were pages to print");
+
+        // null cases
+        if(arr.length==0) return "";
+        if(arr.length==1) return Integer.toString(arr[0]);
+        // make sure array is ordered
+        Arrays.sort(arr);
+
+        var output = new StringBuilder();
+        int previousItem = arr[0];
+        int consecutiveStart = arr[0];
+        int consecutiveEnd = arr[0];
+        boolean consecutive = false;
+        boolean consecutiveTwo = false;
+        String comma = "";
+        for (int i=1;i<arr.length;i++) {
+            previousItem=arr[i-1];
+            int currentItem = arr[i];
+            int difference = currentItem-previousItem;
+            boolean lastItem = (i==arr.length-1)?true:false;
+            // if a consecutive sequence is in progress
+            if(consecutive){
+                if (difference==1){
+                    consecutiveTwo = true;
+                    consecutiveEnd=currentItem;
+                    if(lastItem){
+                        if(consecutiveTwo){
+                            output.append(comma + consecutiveStart + "-" + currentItem);
+                        }
+                        else{
+                            output.append(comma + previousItem + "," + currentItem);
+                        }
+                        comma = ",";
+                    }
+                    continue;
+                }
+                if(difference>1){
+                    // this has caused a break in continuity
+                    if(consecutiveTwo){
+                        output.append(comma + consecutiveStart + "-" + consecutiveEnd);
+                        comma=",";
+                    }
+                    // don't have two previous consecutive items so print them singly
+                    else{
+                        output.append(comma + Integer.toString(arr[i-2]) + "," + previousItem);
+                        comma=",";
+                    }
+                    comma = ",";
+                    if(lastItem){
+                        output.append(comma + currentItem);
+                        comma = ",";
+                    }
+                    consecutive=false;
+                    consecutiveTwo=false;
+                }
+            }
+            // no consecutive sequence exists
+            else{
+                // this starts a consecutive sequence
+                if(difference==1){
+                    consecutive=true;
+                    consecutiveStart=previousItem;
+                    consecutiveEnd=currentItem;
+                    if(lastItem){
+                        output.append(comma + previousItem + "," + currentItem);
+                        comma = ",";
+                    }
+                }
+                else if(difference>1){
+                    // can just add the item to the end of the string, because no continuous sequence exist
+                    output.append(comma + previousItem);
+                    comma = ",";
+                    if(lastItem){
+                        output.append(comma + currentItem);
+                        comma = ",";
+                    }
+                }
+            }
+        }
+        return output.toString();
+    }
+    static String IPV4(long ip){
+
+
+
+        /*
+        https://www.codewars.com/kata/52e88b39ffb6ac53a400022e/train/java
+        Pass in an integer and get out an IP
+        */
+
+
+        System.out.println("\n\nPassing in an integer and returning an IP address");
+        // null cases
+        if (ip < 0) return null;
+        if (ip == 0) return "0.0.0.0";
+        if (ip < 256) return "0.0.0." + ip;
+        if (ip > (long)Math.pow(2,32)){
+            return null;
+        }
+
+
+        String finalDigit = (ip%2==0) ? "0" : "1";
+        System.out.println("Final digit is " + finalDigit);
+
+        String binaryIP = Integer.toBinaryString((int)(ip/2)) + finalDigit;
+        System.out.println("Binary representation is " + binaryIP + " of length " + binaryIP.length());
+        while(binaryIP.length()<32){
+            binaryIP = "0" + binaryIP;
+        }
+        System.out.println("Binary representation is " + binaryIP + " of length " + binaryIP.length());
+
+        String firstOctet = binaryIP.substring(0,8);
+        String secondOctet = binaryIP.substring(8,16);
+        String thirdOctet = binaryIP.substring(16,24);
+        String fourthOctet = binaryIP.substring(24,32);
+
+        int firstIP = Integer.parseInt(firstOctet,2);
+        int secondIP = Integer.parseInt(secondOctet,2);
+        int thirdIP = Integer.parseInt(thirdOctet,2);
+        int fourthIP = Integer.parseInt(fourthOctet,2);
+
+        String output = firstIP + "." + secondIP + "." + thirdIP + "." + fourthIP;
+
+        return output;
+
+
     }
 }
 
