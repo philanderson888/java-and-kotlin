@@ -57,6 +57,11 @@ public class HelloWorld {
         pagesToPrint(new int[]{12,13,15,16,17});
         pagesToPrint(new int[] {-6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20});
         IPV4(32);
+        NextSmallestNumber(53);
+        NextSmallestNumber(531);
+        NextSmallestNumber(53728);
+        NextSmallestNumber(5329);
+        NextSmallestNumber(907);
     }
     static void PascalCase() {
 
@@ -1145,6 +1150,93 @@ public class HelloWorld {
         return output;
 
 
+    }
+    static long NextSmallestNumber(long n){
+        /*
+        https://www.codewars.com/kata/5659c6d896bc135c4c00021e/train/java
+        Return the next lowest integer containing the same digits
+        */
+
+        System.out.println("\n\nReturn next lowest number with same digits from " + n);
+        // null cases
+        if(n<=1) return -1;
+
+
+        // convert to char array
+        System.out.print("Printing items out as character array - ");
+        char[] charArray = ("" + n).toCharArray();
+        for(char item:charArray) System.out.print(item);
+
+        // 2 digit number just swap and test
+        if(Long.toString(n).length()==2){
+            var swappedNumbers = new StringBuilder();
+            swappedNumbers.append(charArray[1]);
+            swappedNumbers.append(charArray[0]);
+            System.out.println("\nSwapped numbers are " + swappedNumbers.toString());
+            var swappedArrayAsInt = Integer.parseInt(swappedNumbers.toString());
+            if((long)swappedArrayAsInt<n) {
+                System.out.println("returning " + swappedArrayAsInt);
+                return swappedArrayAsInt;
+            }
+            System.out.println("returning " + n);
+            return n;
+        }
+
+
+
+        // Get next lowest number
+        List<Character> remainingDigits = new ArrayList<>();
+        // firstly obtain existing number and store that
+        for(int i=0;i< charArray.length;i++){
+            remainingDigits.add(charArray[i]);
+        }
+        System.out.println("\nThe remaining digits make number " + remainingDigits.toString());
+
+        // find pair which swaps to give lower number, starting from rightmost pairs
+        var testArray = Arrays.copyOf(charArray,charArray.length);
+        long testArrayAsNumber = 0;
+        long largestPossibleAlternativeNumber = n;
+        for(int i= testArray.length-2;i>=0;i--){
+            char temp=testArray[i];
+            testArray[i]=testArray[i+1];
+            testArray[i+1] = temp;
+            String testArrayAsString = String.valueOf(testArray);
+            testArrayAsNumber = Long.parseLong(testArrayAsString);
+            if(testArrayAsNumber < n && testArrayAsString.charAt(0)!='0') {
+                largestPossibleAlternativeNumber = testArrayAsNumber;
+                break;
+            }
+            // failed so swap numbers back and try again
+            else{
+                temp=testArray[i];
+                testArray[i]=testArray[i+1];
+                testArray[i+1] = temp;
+            }
+        }
+        System.out.println("Largest possible alternative number is " + largestPossibleAlternativeNumber);
+
+        // now we are not done yet because we now need to order the remaining numerical digits in descending order of value
+        // starting at the fixed digit which is the leftmost of the switched pair
+        // 53728 switches to 53278 but fix the 2 and swap 8 and 7 to get 53287 which is the answer
+        List<Character> remainingLastDigits = new ArrayList<>();
+        for(int i=2;i< testArray.length;i++){
+            remainingLastDigits.add(testArray[i]);
+        }
+        System.out.println("Remaining digits at the end of the number are " + remainingLastDigits.toString());
+
+        // now sort descending
+        Collections.sort(remainingLastDigits, Collections.reverseOrder());
+        System.out.println("Remaining digits sorted are " + remainingLastDigits.toString());
+
+        // now reconstruct the full number using these descending digits
+        var reconstructedNumber = new StringBuilder();
+        reconstructedNumber.append(testArray[0]);
+        reconstructedNumber.append(testArray[1]);
+        for(char c:remainingLastDigits){
+            reconstructedNumber.append(c);
+        }
+        System.out.println("Reconstructed number is " + reconstructedNumber.toString());
+        return Long.parseLong(reconstructedNumber.toString());
     }
 }
 
