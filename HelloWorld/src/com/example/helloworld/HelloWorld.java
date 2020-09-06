@@ -62,6 +62,8 @@ public class HelloWorld {
         NextSmallestNumber(53728);
         NextSmallestNumber(5329);
         NextSmallestNumber(907);
+        NextSmallestNumber(35260713042629l);
+        NextSmallestNumber(513);
     }
     static void PascalCase() {
 
@@ -1236,7 +1238,64 @@ public class HelloWorld {
             reconstructedNumber.append(c);
         }
         System.out.println("Reconstructed number is " + reconstructedNumber.toString());
-        return Long.parseLong(reconstructedNumber.toString());
+
+        long output = n;
+        long reconstructedNumberAsLong = Long.parseLong(reconstructedNumber.toString());
+        System.out.println("reconstructed number as long is " + reconstructedNumberAsLong);
+        if(reconstructedNumberAsLong<n){
+            output = Long.parseLong(reconstructedNumber.toString());
+            return output;
+        }
+        if(largestPossibleAlternativeNumber<n){
+            return largestPossibleAlternativeNumber;
+        }
+
+
+        // if at this point a match has not been found we can do one last thing
+        // we take the highest number less than the first digit
+        remainingDigits.clear();
+        for(int i=1;i< charArray.length;i++){
+            remainingDigits.add((charArray[i]));
+        }
+        Collections.sort(remainingDigits,Collections.reverseOrder());
+        var counter = remainingDigits.toArray().length;
+        // trying to find a new first digit which is the next highest under the original first digit
+        var newFirstDigit = new StringBuilder();
+        var newFirstDigitFound = false;
+        List<Integer> restOfNumbers = new ArrayList<>();
+        for(int i=0;i<  counter  ;i++){
+            int digit = Integer.parseInt(remainingDigits.toArray()[i].toString());
+            var sb = new StringBuilder();
+            sb.append(charArray[0]);
+            int firstDigit = Integer.parseInt(sb.toString());
+            if(digit<firstDigit && !newFirstDigitFound){
+                newFirstDigit.append(digit);
+                restOfNumbers.add(firstDigit);
+                newFirstDigitFound=true;
+                // not allowed to be zero
+                if(digit==0){
+                    return -1;
+                }
+            }
+            else {
+                restOfNumbers.add(digit);
+            }
+        }
+        Arrays.sort(restOfNumbers.toArray(),Collections.reverseOrder());
+        System.out.println("We now have initial digit " + newFirstDigit + " plus " + restOfNumbers.toString());
+        // we should now have a new reconstructed number
+        var finalNumber = new StringBuilder();
+        finalNumber.append(newFirstDigit);
+        for(var c : restOfNumbers){
+            finalNumber.append(c);
+        }
+        System.out.println("Final number is " + finalNumber);
+        var finalNumberAsLong = Long.parseLong(finalNumber.toString());
+        if(finalNumberAsLong<n){
+            output = finalNumberAsLong;
+            return output;
+        }
+        return output;
     }
 }
 
