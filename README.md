@@ -6,6 +6,7 @@
   - [Contents](#contents)
   - [Introduction](#introduction)
   - [Resources To Learn Java](#resources-to-learn-java)
+  - [Java Terms](#java-terms)
   - [Installation IntelliJ](#installation-intellij)
   - [Intellij Hello World](#intellij-hello-world)
   - [Libraries](#libraries)
@@ -24,6 +25,7 @@
     - [Getting data out of a set](#getting-data-out-of-a-set)
     - [Convert Set To List](#convert-set-to-list-1)
   - [Testing](#testing)
+  - [Glossary](#glossary)
 
 ## Introduction
 
@@ -31,7 +33,24 @@
 
 - JavaTPpoint Java Tutorial
 
+## Java Terms
+
+```
+maven
+ant
+build
+Jakarta Turbine 
+JAR Java Archive (ZIP)
+POM Project Object Model
+```
+
 ## Installation IntelliJ
+
+```java
+choco install openjdk
+choco install javaruntime
+choco install intellijidea-community
+```
 
 ## Intellij Hello World
 
@@ -259,4 +278,8 @@ list.addAll(set);
 
 ## Testing
 
-[Testing]{testing.md}
+[Testing]{notes/testing.md}
+
+## Glossary
+
+[glossary](notes/glossary.md)

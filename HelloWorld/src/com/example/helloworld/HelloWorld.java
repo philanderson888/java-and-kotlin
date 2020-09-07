@@ -1,7 +1,10 @@
 package com.example.helloworld;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.*;
 import java.util.stream.Collectors;
+
 
 public class HelloWorld {
 
@@ -64,6 +67,11 @@ public class HelloWorld {
         NextSmallestNumber(907);
         NextSmallestNumber(35260713042629l);
         NextSmallestNumber(513);
+        RunFunctionalProgramming();
+        SearchEngine("hi","there");
+        SearchEngine("he","thereherehere");
+        SearchEngine("he_","thereherehere");
+        SearchEngine("_po_","Once upon a midnight dreary, while I pondered, weak and weary");
     }
     static void PascalCase() {
 
@@ -1296,6 +1304,64 @@ public class HelloWorld {
             return output;
         }
         return output;
+    }
+    static void RunFunctionalProgramming(){
+        /*
+         http://www.codewars.com/kata/java-functional-programming-part-1-the-beginning/java
+        */        
+        var s = new Student("John","Smith","js123");
+        System.out.println(FunctionalProgramming.f.apply(s));
+    }
+    static int SearchEngine(String needle, String haystack){
+        /*
+        Find needle in a haystack
+        https://www.codewars.com/kata/546c7f89bed2e12fb300056f/train/java
+        Return the index of a match
+        Include _ as a wildcard
+        Return -1 if no match
+        */
+        System.out.println("Matching '" + needle + "' in '" + haystack + "'");
+        var needleAsArray = needle.toCharArray();
+        var haystackAsArray = haystack.toCharArray();
+
+        // null cases
+        if(needle.length()>haystack.length()) return -1;
+        if(StringUtils.isEmpty(needle)) return -1;
+        if(StringUtils.isEmpty(haystack)) return -1;
+
+        Character firstletter = needleAsArray[0];
+
+        // check for matches
+        List<Integer> matches = new ArrayList<>();
+
+        for(int i=0;i< haystackAsArray.length;i++){
+            if(haystackAsArray[i] == firstletter){
+                matches.add(i);
+            }
+            if(firstletter=='_'){
+                matches.add(i);
+            }
+        }
+
+        if(matches.stream().count()==0) return -1;
+        System.out.println("Initial letter " + matches.stream().count() + " matches at " + matches.toString());
+
+        // now check each match for full match conditions
+        for(var match:matches){
+            for(int i=0;i<needleAsArray.length;i++){
+                // wildcard
+                if(needleAsArray[i] == '_') continue;
+                // valid match
+                if(haystackAsArray[match+i]==needleAsArray[i]) continue;
+                // no match - exit!
+                return -1;
+            }
+            System.out.println("yes - we have a valid match at index " + match);
+            return match;
+        }
+        return -1;
+
+
     }
 }
 
