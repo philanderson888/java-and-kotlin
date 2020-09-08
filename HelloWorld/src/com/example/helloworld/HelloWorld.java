@@ -1320,7 +1320,7 @@ public class HelloWorld {
         Include _ as a wildcard
         Return -1 if no match
         */
-        System.out.println("Matching '" + needle + "' in '" + haystack + "'");
+        System.out.println("\n\nMatching '" + needle + "' in '" + haystack + "'");
         var needleAsArray = needle.toCharArray();
         var haystackAsArray = haystack.toCharArray();
 
@@ -1343,22 +1343,29 @@ public class HelloWorld {
             }
         }
 
-        if(matches.stream().count()==0) return -1;
+        if(matches.stream().count()==0) {
+            System.out.println("No match found");
+            return -1;
+        }
         System.out.println("Initial letter " + matches.stream().count() + " matches at " + matches.toString());
 
         // now check each match for full match conditions
         for(var match:matches){
             for(int i=0;i<needleAsArray.length;i++){
+                System.out.println("i = " + i + ", haystackAsArray[" +  (match+i) + "] = " + haystackAsArray[match+i] + " and needleAsArray[i] = " + needleAsArray[i]);
                 // wildcard
                 if(needleAsArray[i] == '_') continue;
                 // valid match
                 if(haystackAsArray[match+i]==needleAsArray[i]) continue;
-                // no match - exit!
-                return -1;
+                if(firstletter != '_'){
+                    System.out.println("No match found");
+                    return -1;
+                }
             }
             System.out.println("yes - we have a valid match at index " + match);
             return match;
         }
+        System.out.println("No match found");
         return -1;
 
 
