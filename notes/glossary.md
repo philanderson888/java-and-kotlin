@@ -1,5 +1,9 @@
 # Glossary
 
+- [Glossary](#glossary)
+  - [Maven](#maven)
+  - [POJO](#pojo)
+
 ## Maven
 
 Aims at best practice
@@ -10,3 +14,6 @@ Aims at best practice
 - Dependencies
 - Unit test reports
 
+## POJO 
+
+Plain Old Java Object

@@ -71,7 +71,8 @@ public class HelloWorld {
         SearchEngine("hi","there");
         SearchEngine("he","thereherehere");
         SearchEngine("he_","thereherehere");
-        SearchEngine("_po_","Once upon a midnight dreary, while I pondered, weak and weary");
+        SearchEngine("_po_","Once upon a midnight I pondered");
+        SearchEngine("ex_","googgoogleghgggoooglexeplexhexflexmexkex");
     }
     static void PascalCase() {
 
@@ -1349,26 +1350,39 @@ public class HelloWorld {
         }
         System.out.println("Initial letter " + matches.stream().count() + " matches at " + matches.toString());
 
-        // now check each match for full match conditions
+        // now check each match for full match condition
         for(var match:matches){
+            var partialMatch= false;
+            var lastItem = false;
+            System.out.println(" ");
             for(int i=0;i<needleAsArray.length;i++){
-                System.out.println("i = " + i + ", haystackAsArray[" +  (match+i) + "] = " + haystackAsArray[match+i] + " and needleAsArray[i] = " + needleAsArray[i]);
+                if(i== needleAsArray.length-1) lastItem = true;
+                System.out.println("i = " + i + ", haystackAsArray[" +  (match+i) + "] = " + haystackAsArray[match+i] + " and needleAsArray[i] = " + needleAsArray[i] + " and last item = " + lastItem);
                 // wildcard
-                if(needleAsArray[i] == '_') continue;
-                // valid match
-                if(haystackAsArray[match+i]==needleAsArray[i]) continue;
-                if(firstletter != '_'){
-                    System.out.println("No match found");
-                    return -1;
+                if(needleAsArray[i] == '_') {
+                    if (!lastItem) continue;
+                    else {
+                        // it is the last item.  check if partial matches have been found so far!
+                        if (partialMatch) {
+                            System.out.println("yes - we have a valid match at index " + match);
+                            return match;
+                        }
+                    }
                 }
+                // valid match
+                if(haystackAsArray[match+i]==needleAsArray[i]) {
+                    partialMatch=true;
+                    continue;
+                }
+                // no match found so exit this for loop and move onto next match in matches
+                break;
             }
+            if(firstletter == '_' && !lastItem) continue;
             System.out.println("yes - we have a valid match at index " + match);
             return match;
         }
         System.out.println("No match found");
         return -1;
-
-
     }
 }
 

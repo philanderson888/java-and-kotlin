@@ -50,5 +50,6 @@
       </library>
     </orderEntry>
     <orderEntry type="library" name="commons-lang3-3.11" level="project" />
+    <orderEntry type="library" name="groovy-3.0.4" level="application" />
   </component>
 </module>
