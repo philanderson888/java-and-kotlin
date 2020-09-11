@@ -5,7 +5,6 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
 public class HelloWorld {
 
     // New class com.example.helloworld.HelloWorld and create it
@@ -73,6 +72,10 @@ public class HelloWorld {
         SearchEngine("he_","thereherehere");
         SearchEngine("_po_","Once upon a midnight I pondered");
         SearchEngine("ex_","googgoogleghgggoooglexeplexhexflexmexkex");
+        SearchEngine("_ggg","googgooooggggexkex");
+        SearchEngine("_lexe","googexkex");
+        ConvertTime(90061);
+        CheckIfSequence("1 2 3 4");
     }
     static void PascalCase() {
 
@@ -1320,6 +1323,7 @@ public class HelloWorld {
         Return the index of a match
         Include _ as a wildcard
         Return -1 if no match
+        Have to say - this was a tough one as there were a lot of edge cases!
         */
         System.out.println("\n\nMatching '" + needle + "' in '" + haystack + "'");
         var needleAsArray = needle.toCharArray();
@@ -1329,13 +1333,14 @@ public class HelloWorld {
         if(needle.length()>haystack.length()) return -1;
         if(StringUtils.isEmpty(needle)) return -1;
         if(StringUtils.isEmpty(haystack)) return -1;
+        if(needle=="_") return 0;
 
         Character firstletter = needleAsArray[0];
 
         // check for matches
         List<Integer> matches = new ArrayList<>();
 
-        for(int i=0;i< haystackAsArray.length;i++){
+        for(int i=0;i<= (haystackAsArray.length-needleAsArray.length);i++){
             if(haystackAsArray[i] == firstletter){
                 matches.add(i);
             }
@@ -1353,6 +1358,7 @@ public class HelloWorld {
         // now check each match for full match condition
         for(var match:matches){
             var partialMatch= false;
+            var fullMatch=false;
             var lastItem = false;
             System.out.println(" ");
             for(int i=0;i<needleAsArray.length;i++){
@@ -1361,8 +1367,8 @@ public class HelloWorld {
                 // wildcard
                 if(needleAsArray[i] == '_') {
                     if (!lastItem) continue;
-                    else {
-                        // it is the last item.  check if partial matches have been found so far!
+                    if(lastItem) {
+                        // check if partial matches have been found to date!
                         if (partialMatch) {
                             System.out.println("yes - we have a valid match at index " + match);
                             return match;
@@ -1372,17 +1378,57 @@ public class HelloWorld {
                 // valid match
                 if(haystackAsArray[match+i]==needleAsArray[i]) {
                     partialMatch=true;
+                    if(lastItem) fullMatch=true;
                     continue;
                 }
+                partialMatch=false;
                 // no match found so exit this for loop and move onto next match in matches
                 break;
             }
             if(firstletter == '_' && !lastItem) continue;
-            System.out.println("yes - we have a valid match at index " + match);
-            return match;
+            if(fullMatch){
+                System.out.println("yes - we have a valid match at index " + match);
+                return match;
+            }
         }
         System.out.println("No match found");
         return -1;
+    }
+    static String ConvertTime(int timeDiff){
+        /*
+        https://www.codewars.com/kata/5502ddd734137e90af000f62/train/java
+        return days, hours, minutes, seconds given an integer of seconds
+        */
+        System.out.println("Find the number of days, hours, minutes and seconds in " + timeDiff + " seconds");
+
+        // null
+        if (timeDiff == 0) return "0 0 0 0";
+
+        int days = 0, hours = 0, minutes = 0, seconds = 0;
+
+        days = timeDiff/(60*60*24);
+        System.out.println(days);
+
+        hours = (timeDiff - (86400*days))/(60*60);
+        System.out.println(hours);
+
+        minutes = (  timeDiff- (86400*days) - (3600*hours)  ) / (60);
+        System.out.println(minutes);
+
+        seconds = timeDiff - (86400*days) - (3600*hours) - (60*minutes);
+        System.out.println(seconds);
+
+        String timeOutput = days + " " + hours + " " + minutes + " " + seconds;
+        System.out.println(timeOutput);
+        return  timeOutput;
+
+    }
+    static String CheckIfSequence(string sequence){
+        /*
+        https://www.codewars.com/kata/5512e5662b34d88e44000060/train/java
+        Given a string of number
+
+        */
     }
 }
 
