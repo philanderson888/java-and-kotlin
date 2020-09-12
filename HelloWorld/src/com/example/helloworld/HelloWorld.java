@@ -76,6 +76,7 @@ public class HelloWorld {
         SearchEngine("_lexe","googexkex");
         ConvertTime(90061);
         CheckIfSequence("1 2 3 4");
+        CheckIfSequence("1 2 3 4 a");
     }
     static void PascalCase() {
 
@@ -1423,12 +1424,50 @@ public class HelloWorld {
         return  timeOutput;
 
     }
-    static String CheckIfSequence(string sequence){
+    static int CheckIfSequence(String sequence){
         /*
         https://www.codewars.com/kata/5512e5662b34d88e44000060/train/java
-        Given a string of number
-
+        Given a string of numbers find out if the sequence is continuous or broken.
+        Return 0 if unbroken, 1 if alpha characters present, n is lowest missing number
         */
+        System.out.println("\n\nFinding if a sequence of numbers has any missing or invalid characters in string " + sequence);
+
+        // check for null input
+        if (sequence == null) return 1;
+        if (sequence == "" ) return 1;
+        if (sequence == " ") return 1;
+
+        String[] elements = sequence.split(" ");
+        if(elements.length == 0) return 1;
+
+        List<Integer> elementsAsIntegers = new ArrayList<>();
+        int previousNumber=0;
+        for(var element:elements){
+            int number = -1;
+            try {
+                number = Integer.valueOf(element);
+                // check if number is one greater than last number in list
+                if(previousNumber+1 == number){
+                    elementsAsIntegers.add(number);
+                    previousNumber=number;
+                }else{
+                    // invalid so exit, returning the missing number
+                    System.out.println("Missing element " + (previousNumber+1));
+                    return previousNumber+1;
+                }
+
+            }
+            catch(Exception e){
+                // invalid character detected so return
+                System.out.println("\nInvalid character - " + element + "\n\n");
+                return 1;
+            }
+            System.out.print(element + ", ");
+        }
+
+        System.out.println("\nSequence is valid");
+        return 0;
+
     }
 }
 
