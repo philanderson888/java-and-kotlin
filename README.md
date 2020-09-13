@@ -18,6 +18,7 @@
   - [Collections](#collections)
     - [List](#list)
       - [List To Array](#list-to-array)
+    - [Array To List](#array-to-list)
     - [Convert Set To List](#convert-set-to-list)
   - [Sets](#sets)
     - [Concrete implementations](#concrete-implementations)
@@ -159,6 +160,16 @@ String str = String.valueOf(arr);
 System.out.println(str);
 ```
 
+## Is a char a digit
+
+```java
+String sequence = "1 2 3";
+// generate list holding {"1","2","3"}
+List<String> list = Arrays.asList(sequence.split(" "));
+// check if digit
+if(seq.stream().map(s->s.charAt(0).allMatch(Character::isDigit))){}
+```
+
 ## Loops
 
 ### Foreach
@@ -191,6 +202,13 @@ Convert list of integers to array of integers
 ```java
 var list = new ArrayList<int>();
 int[] output = list.stream().mapToInt(item->item).toArray();
+```
+
+### Array To List
+
+```java
+String sequence = "This is a string";
+List<String> list = Arrays.asList(sequence.split(" "));
 ```
 
 ### Convert Set To List

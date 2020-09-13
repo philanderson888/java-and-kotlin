@@ -77,6 +77,13 @@ public class HelloWorld {
         ConvertTime(90061);
         CheckIfSequence("1 2 3 4");
         CheckIfSequence("1 2 3 4 a");
+        SumOfBinaryBits(1234);
+        FindProperFractions(7L);
+        FindProperFractions(8L);
+        FindProperFractions(9L);
+        FindProperFractions(10L);
+        FindProperFractions(15L);
+      //  FindProperFractions(9999999L);
     }
     static void PascalCase() {
 
@@ -1433,9 +1440,9 @@ public class HelloWorld {
         System.out.println("\n\nFinding if a sequence of numbers has any missing or invalid characters in string " + sequence);
 
         // check for null input
-        if (sequence == null) return 1;
-        if (sequence == "" ) return 1;
-        if (sequence == " ") return 1;
+        if (sequence == null) return 0;
+        if (sequence == "" ) return 0;
+        if (sequence == " ") return 0;
 
         String[] elements = sequence.split(" ");
         if(elements.length == 0) return 1;
@@ -1468,6 +1475,75 @@ public class HelloWorld {
         System.out.println("\nSequence is valid");
         return 0;
 
+    }
+    static int SumOfBinaryBits(int n){
+        /*
+        https://www.codewars.com/kata/526571aae218b8ee490006f4/train/java
+        Return the sum of the binary bits in the number given after converting from decimal
+        */
+        System.out.println("\n\nPrinting sum of binary bits in number " + n);
+        // null cases
+        if(n<=0) return 0;
+        if(n==1) return 1;
+        String binary = Integer.toBinaryString(n);
+        System.out.println(n + " as binary is " + binary);
+        var binaryAsCharArray = binary.toCharArray();
+        int binaryDigitSum=0;
+        for(char c:binaryAsCharArray){
+            if(c=='1') binaryDigitSum++;
+        }
+        System.out.println("Sum of binary digits is " + binaryDigitSum);
+        return binaryDigitSum;
+    }
+    static long FindProperFractions(long n){
+        /*
+        https://www.codewars.com/kata/55b7bb74a0256d4467000070/train/java
+        Find all proper fractions given a denominator
+        */
+        System.out.println("\n\nFinding all proper fractions given denominator " + n);
+        // null cases
+        if(n<=0) return 0;
+        if(n==1) return 0;
+        if(n==2) return 1;
+        if(n==3) return 2;
+        if(n==4) return 2;  // 1/4 , 2/4 not valid, 3/4
+        if(n==5) return 4;  // 1/5 2/5 3/5 4/5
+        if(n==6) return 2;  // 1/6  not 2/6, not 3/6, not 4/6, 5/6
+        // reduce the step
+        Boolean[] steps = new Boolean[]{false,false,false,false,false,false,false,false,false,false};
+        for(int i = 2;i<=9;i++){
+            if(n%i==0) steps[i] = true;
+        }
+        Set<Integer> invalidItems = new HashSet<>();
+        Boolean continueFlag = false;
+        for (int i=2;i<n;i++){
+            // numbers are directly divisible
+            if(n%i==0)               { invalidItems.add(i); continue;   }
+            if((n%2==0) && (i%2==0)) { invalidItems.add(i); continue;   }
+            if((n%3==0) && (i%3==0)) { invalidItems.add(i); continue;   }
+            if((n%5==0) && (i%5==0)) { invalidItems.add(i); continue;   }
+            if((n%7==0) && (i%7==0)) { invalidItems.add(i); continue;   }
+            // check if numerator and denominator are divisible by any number
+            for (int j=2;j<n;j++){
+                System.out.print(i + "/" + n + ": " + j  + " is ");
+                if((i%j==0) && (n%j==0)){
+                    System.out.print("invalid, ");
+                    invalidItems.add(i);
+                      //move on to next i
+                    break;
+                }
+                else{
+                   System.out.print(" valid, ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("invalid items for n = " + n + " are " + invalidItems.toString());
+        System.out.println("count of invalid items is " + invalidItems.stream().count());
+        long validItemCount = n-1-invalidItems.stream().count();
+        System.out.println("given that max valid items is " + (n-1) +
+                " this makes " + validItemCount + " valid items");
+        return validItemCount;
     }
 }
 
