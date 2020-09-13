@@ -1496,9 +1496,10 @@ public class HelloWorld {
         return binaryDigitSum;
     }
     static long FindProperFractions(long n){
-        /*
+         /*
         https://www.codewars.com/kata/55b7bb74a0256d4467000070/train/java
         Find all proper fractions given a denominator
+        // note this solution is too slow for the approved solution, although it does work.
         */
         System.out.println("\n\nFinding all proper fractions given denominator " + n);
         // null cases
@@ -1509,34 +1510,26 @@ public class HelloWorld {
         if(n==4) return 2;  // 1/4 , 2/4 not valid, 3/4
         if(n==5) return 4;  // 1/5 2/5 3/5 4/5
         if(n==6) return 2;  // 1/6  not 2/6, not 3/6, not 4/6, 5/6
-        // reduce the step
-        Boolean[] steps = new Boolean[]{false,false,false,false,false,false,false,false,false,false};
-        for(int i = 2;i<=9;i++){
-            if(n%i==0) steps[i] = true;
-        }
         Set<Integer> invalidItems = new HashSet<>();
         Boolean continueFlag = false;
         for (int i=2;i<n;i++){
-            // numbers are directly divisible
-            if(n%i==0)               { invalidItems.add(i); continue;   }
-            if((n%2==0) && (i%2==0)) { invalidItems.add(i); continue;   }
-            if((n%3==0) && (i%3==0)) { invalidItems.add(i); continue;   }
-            if((n%5==0) && (i%5==0)) { invalidItems.add(i); continue;   }
-            if((n%7==0) && (i%7==0)) { invalidItems.add(i); continue;   }
-            // check if numerator and denominator are divisible by any number
+            // assume true and try to make it otherwise
+            Boolean valid = true;
             for (int j=2;j<n;j++){
-                System.out.print(i + "/" + n + ": " + j  + " is ");
+                //  System.out.print(i + "/" + n + ": " + j  + " is ");
                 if((i%j==0) && (n%j==0)){
-                    System.out.print("invalid, ");
-                    invalidItems.add(i);
-                      //move on to next i
+                    //     System.out.print("invalid, ");
+                    valid = false;
+                    //move on to next i
                     break;
                 }
                 else{
-                   System.out.print(" valid, ");
+                    //    System.out.print(" valid, ");
                 }
             }
-            System.out.println();
+            if(!valid) invalidItems.add(i);
+            continue;
+            //   System.out.println();
         }
         System.out.println("invalid items for n = " + n + " are " + invalidItems.toString());
         System.out.println("count of invalid items is " + invalidItems.stream().count());
@@ -1546,5 +1539,18 @@ public class HelloWorld {
         return validItemCount;
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
