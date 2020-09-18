@@ -112,7 +112,7 @@ public class Main {
     getBagel();
     burrowsWheelerEncode("bananabar");
     burrowsWheelerEncode("Humble Bundle");
-    burrowsWheelerDecode();
+    burrowsWheelerDecode("nnbbraaaa",4);
   }
 
   static void PascalCase() {
@@ -1794,7 +1794,7 @@ public class Main {
     Not sure if I want to do this one?
     https://www.codewars.com/kata/54ce4c6804fcc440a1000ecb/train/java
     give it a go!
-    */cc
+    */
     // given string s have to encode it and return decoded output
     // get length
 
@@ -1845,8 +1845,73 @@ public class Main {
     return new BWT(outputString.toString(),matchedIndex);
   }
 
-  static void burrowsWheelerDecode(){
+  static String burrowsWheelerDecode(String s, int n){
+    /*
+    https://www.codewars.com/kata/54ce4c6804fcc440a1000ecb/train/java
+    part 2 - i have the encoding down pat so I need to now reverse this and decode
+    so the goal will be to take the decoded string,
+    create a matrix of all the letters,
+    sort the matrix
+    and extract the string at the given index.
+    I think that's the deal and it shouldn't be too hard!
+    */
+    // repeat the process done in encoding of creating the array
 
+    System.out.println("\n\nDecoding a string");
+    int size = s.length();
+
+    // null cases
+    if(s==null) return "";
+    if(s=="") return "";
+    if(s.length()==0) return "";
+
+    // now I'm not sure how to proceed here but I'm going to first get the first column
+    // which is just the sorted string
+    System.out.println("input string is " + s + " of length " + s.length());
+    var sortedStringArray = s.toCharArray();
+    Arrays.sort(sortedStringArray);
+    var sortedString = new String(sortedStringArray);
+  //  System.out.println("sorted string which will be column 1 is " + sortedString);
+
+    // now let's get the first letter of our new word
+    Character firstLetter = sortedString.charAt(n);
+    System.out.println("first letter of our string to return is " + firstLetter);
+    // also get last letter
+    Character lastLetter = s.charAt(n);
+    System.out.println("last letter of our string to return is " + lastLetter);
+    // now we have to find the remaining 6 letters!
+    // we can use the fact that the last letter is always before the first letter
+    // so we have pairs in order
+    // start at unique letter r
+    // given up - had to research on the internet for a solution!
+    // let's create an array of strings and add to it and sort it each time
+    String[] arrayOfStrings = new String[size];
+    for(int i=0;i<size;i++){
+      arrayOfStrings[i] = String.valueOf(s.charAt(i));
+    }
+  //  System.out.println("initial loop gives " + Arrays.toString(arrayOfStrings));
+
+    // now sort
+    Arrays.sort(arrayOfStrings);
+
+    // now add in original string again.
+    // loop starts at 1 because first item already done above
+    for(int loop=1;loop<size;loop++){
+      for(int i=0;i<size;i++){
+        var sb = new StringBuilder();
+        //System.out.print("\nappending " + s.charAt(i) + " and " + arrayOfStrings[i]);
+        sb.append(s.charAt(i));
+        sb.append(arrayOfStrings[i]);
+        // now add back into array
+        arrayOfStrings[i] = sb.toString();
+        //System.out.print(" to give " + arrayOfStrings[i]);
+      }
+      // sort before next loop
+      Arrays.sort(arrayOfStrings);
+    }
+    System.out.println("final array is " + Arrays.toString(arrayOfStrings));
+    System.out.println("returning decoded string = " + arrayOfStrings[n]);
+    return arrayOfStrings[n];
   }
 
 }
