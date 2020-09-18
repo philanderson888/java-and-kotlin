@@ -11,11 +11,11 @@ public class Boggle {
     }
 
     public boolean check() {
-
-
         /*
         4ku https://www.codewars.com/kata/57680d0128ed87c94f000bfd/train/java
         Find out if a word is a valid word given a boggle board
+        // note - this is not quite finished.  I have to implement a checking mechanism to not allow any letter to be used twice
+        // i have presently not implemented this features
         */
         System.out.println("\n\nBoggle board - pass in a board of characters and word " + word + " to see if word found in the board");
         var rows = board.length;
@@ -58,9 +58,9 @@ public class Boggle {
 
 
         // is there a second letter?
-        if(word.length()>=1){
+        if(word.length()==1){
             // if only one letter it's either found or not!
-            if(firstLetterMatches.stream().count()==1) {
+            if(firstLetterMatches.stream().count()>=1) {
                 System.out.println("\nOne letter supplied and match found");
                 return true;
             }
@@ -97,11 +97,17 @@ public class Boggle {
             for(var match:secondLetterMatches){
                 System.out.print("[" + match.getKey() + "," + match.getValue() + "], ");
             }
+            if(word.length()==2){
+                // we are done and return true!
+                return true;
+            }
         }else{
             System.out.println("no second letter matches found");
             return false;
         }
         System.out.println();
+
+
         // repeat this process for third letter
         System.out.println("\nNow trying for the third letter match");
         Set<Set<Map.Entry<Integer,Integer>>> allMatches = new HashSet<>();
@@ -126,6 +132,7 @@ public class Boggle {
                         if(board[tryRow][tryCol]==wordAsArray[letter]){
                             matchFound=true;
                             var pair = new AbstractMap.SimpleEntry<>(tryRow,tryCol);
+                            // check for existing match as not allowed to reuse a word!
                             System.out.println("Match found for letter " + wordAsArray[letter] + " is row " + tryRow + " col " + tryCol);
                             matches.add(pair);
                         }

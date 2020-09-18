@@ -101,6 +101,18 @@ public class Main {
         {'I', 'A', 'I', 'S'},
         {'B', 'Y', 'O', 'R'}
     }, new String("CARE"));
+    BoggleBoard(new char[][]{
+            {'T', 'T', 'M', 'D', 'A'},
+            {'N', 'L', 'E', 'C', 'B' },
+            {'I', 'A', 'I', 'S', 'C' }
+    }, new String("TT"));
+    sumOfIntervals(new int[][]{   {1,2} , {6,10} , {11,15} });
+    sumOfIntervals(new int[][]{   {1,4} , {7,10} , {3,5} });
+    sumOfIntervals(new int[][]{   {1,5} , {10,20} , {1,6} , {16,19}, {5,11} });
+    getBagel();
+    burrowsWheelerEncode("bananabar");
+    burrowsWheelerEncode("Humble Bundle");
+    burrowsWheelerDecode();
   }
 
   static void PascalCase() {
@@ -1667,6 +1679,176 @@ public class Main {
     System.out.println("Is boggle valid? " + boggle.check());
     return false;
   }
+
+  static int sumOfIntervals(int[][] intervals){
+
+    /*
+    Return the sum of intervals, reducing overlapping intervals to a single interval.
+    https://www.codewars.com/kata/52b7ed099cdc285c300001cd/train/java
+    */
+
+    // Feed in an array of interval pairs
+    // Create them as a set which does not allow duplicates
+    // note - really pleased with this one, that I conquered it!  Starting to get good at coding!
+    System.out.print("\n\nSum Of Intervals given array of intervals [");
+    // handle nulls
+    if(intervals==null) return 0;
+    if(intervals.length==0) return 0;
+    Set<Map.Entry<Integer,Integer>> uniquePairs = new HashSet<>();
+    int difference=0;
+    for(int i=0;i<intervals.length;i++){
+      if(i>0) System.out.print("[");
+      for(int j=0;j<intervals[0].length;j++){
+        System.out.print(intervals[i][j]);
+        difference+=Math.abs(intervals[i][0]-intervals[i][1]);
+        if(j==0) System.out.print(",");
+      }
+      System.out.print("] ");
+    }
+    if(difference==0) return 0;
+    // check out the lowest and highest numbers and search for higher
+    // second number where first number in that region
+    for(int i=0;i<intervals.length;i++) {
+      int min = intervals[i][0];
+      int max = intervals[i][1];
+      System.out.println("\n\nmin is " + min + " and max is " + max);
+      for (int j = 0; j < intervals.length; j++) {
+        System.out.println("i=" + i + " j=" + j + "  intervals[j][0]=" + intervals[j][0] + "  intervals[j][1]=" + intervals[j][1]);
+        // this is a little bit inefficient but run with it for now, depending on the sample size
+        if ((intervals[j][0] < max) && (intervals[j][1] > max)) {
+          max = intervals[j][1];
+          System.out.println("setting new max = " + max);
+        }
+        if ((intervals[j][0] < min) && (intervals[j][1] > min)) {
+          min = intervals[j][0];
+          System.out.println("setting new min = " + min);
+        }
+        // if numbers run sequentially combine them
+
+      }
+      System.out.println("setting pair " + min + "," + max);
+      var pair = new AbstractMap.SimpleEntry<>(max,min);
+      // notice that we will find multiple duplicates but set will not permit duplicates to be added
+      uniquePairs.add(pair);
+    }
+    // print out intervals
+    System.out.print("\nPairs found are ");
+    for(var pair:uniquePairs){
+      System.out.print("[" + pair.getValue() + "," + pair.getKey() + "]  ");
+    }
+    // repeat this process for the pairs found!!!
+    int[][] foundIntervals = new int[(int)uniquePairs.stream().count()][2];
+    int counter=0;
+    for(var pair:uniquePairs){
+      foundIntervals[counter][0]=pair.getValue();
+      foundIntervals[counter][1]=pair.getKey();
+      counter++;
+    }
+
+
+
+
+    Set<Map.Entry<Integer,Integer>> foundPairs = new HashSet<>();
+    for(int i=0;i<foundIntervals.length;i++) {
+      int min = foundIntervals[i][0];
+      int max = foundIntervals[i][1];
+      System.out.println("\n\nmin is " + min + " and max is " + max);
+      for (int j = 0; j < foundIntervals.length; j++) {
+        System.out.println("i=" + i + " j=" + j + "  foundIntervals[j][0]=" + foundIntervals[j][0] + "  foundIntervals[j][1]=" + foundIntervals[j][1]);
+        // this is a little bit inefficient but run with it for now, depending on the sample size
+        if ((foundIntervals[j][0] < max) && (foundIntervals[j][1] > max)) {
+          max = foundIntervals[j][1];
+          System.out.println("setting new max = " + max);
+        }
+        if ((foundIntervals[j][0] < min) && (foundIntervals[j][1] > min)) {
+          min = foundIntervals[j][0];
+          System.out.println("setting new min = " + min);
+        }
+        // if numbers run sequentially combine them
+
+      }
+      System.out.println("setting pair " + min + "," + max);
+      var pair = new AbstractMap.SimpleEntry<>(max,min);
+      // notice that we will find multiple duplicates but set will not permit duplicates to be added
+      foundPairs.add(pair);
+    }
+    // print out intervals and total
+    int total=0;
+    System.out.print("\nPairs found are ");
+    for(var pair:foundPairs){
+      System.out.print("[" + pair.getValue() + "," + pair.getKey() + "]  ");
+      total+=Math.abs(pair.getKey()-pair.getValue());
+    }
+    System.out.println("\nTotal of all pairs is " + total);
+    System.out.println("\n\n\n");
+    return total;
+  }
+
+  static Bagel getBagel(){
+    return new Bagel();
+  }
+
+  static BWT burrowsWheelerEncode(String s){
+    /*
+    burrows Wheeler
+    Not sure if I want to do this one?
+    https://www.codewars.com/kata/54ce4c6804fcc440a1000ecb/train/java
+    give it a go!
+    */cc
+    // given string s have to encode it and return decoded output
+    // get length
+
+    System.out.println("\n\nEncoding a string");
+    int n = s.length();
+    Character[][] matrixInput = new Character[n][n];
+    var inputStringAsCharArray = s.toCharArray();
+    for (int i=0;i<n;i++){
+      for (int j=0;j<n;j++){
+        var index = Math.abs((i+j)%n);
+        System.out.println("i="+i+" j="+j+" index=" + index + " char=" + s.charAt(index));
+        matrixInput[i][j] = s.charAt(index);
+      }
+    }
+    // now have every permutation of the string here
+    System.out.println(Arrays.deepToString(matrixInput));
+    // put each one back as a string and put into an array
+    var sortedStringArray = new String[n];
+    // parse the input array and extract the strings
+    for(int i=0;i<n;i++){
+      var sb = new StringBuilder();
+      for(int j=0;j<n;j++){
+        sb.append(matrixInput[i][j]);
+      }
+      sortedStringArray[i] = sb.toString();
+    }
+    System.out.println("Before sort " + Arrays.deepToString(sortedStringArray));
+    Arrays.sort(sortedStringArray);
+    System.out.println("After sort  " + Arrays.deepToString(sortedStringArray));
+    // looking good.
+    // now have to find the index which matches the original string, which should not be hard
+    var matchedIndex = 0;
+    for(int i=0;i<n;i++){
+      if(sortedStringArray[i].equals(s)){
+        System.out.println("match at index " + i);
+        matchedIndex=i;
+      }
+    }
+    System.out.println("For the sorted array we have a match on the original string at index " + matchedIndex);
+    // cool so we now have the sorted array and also the index which matches the original string so I guess we have encoded!
+    // actually no!
+    // the required output column is the last column of our matrix ie all of the last letters combined so let's fetch them
+    var outputString = new StringBuilder();
+    for(var item:sortedStringArray){
+      outputString.append(item.charAt(n-1));
+    }
+    System.out.println("Final output string is " + outputString + " and index is " + matchedIndex);
+    return new BWT(outputString.toString(),matchedIndex);
+  }
+
+  static void burrowsWheelerDecode(){
+
+  }
+
 }
 
 
