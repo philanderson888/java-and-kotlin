@@ -2,7 +2,9 @@ package uk.co.philanderson;
 
 import org.apache.commons.lang3.StringUtils;
 import java.util.*;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+import java.math.BigInteger;
 
 public class Main {
 
@@ -113,6 +115,35 @@ public class Main {
     burrowsWheelerEncode("bananabar");
     burrowsWheelerEncode("Humble Bundle");
     burrowsWheelerDecode("nnbbraaaa",4);
+    maximumPathThroughPyramid(new int[][]{
+            {75},
+            {95, 64},
+            {17, 47, 82},
+            {18, 35, 87, 10},
+            {20, 4, 82, 47, 65},
+            {19, 1, 23, 75, 3, 34},
+            {88, 2, 77, 73, 7, 63, 67},
+            {99, 65, 4, 28, 6, 16, 70, 92},
+            {41, 41, 26, 56, 83, 40, 80, 70, 33},
+            {41, 48, 72, 33, 47, 32, 37, 16, 94, 29},
+            {53, 71, 44, 65, 25, 43, 91, 52, 97, 51, 14},
+            {70, 11, 33, 28, 77, 73, 17, 78, 39, 68, 17, 57},
+            {91, 71, 52, 38, 17, 14, 91, 43, 58, 50, 27, 29, 48},
+            {63, 66, 4, 68, 89, 53, 67, 30, 73, 16, 69, 87, 40, 31},
+            {4, 62, 98, 27, 23, 9, 70, 98, 73, 93, 38, 53, 60, 4, 23}});
+  //  mostFrequentlyUsedWords("a a a  b  c c  d d d d  e e e e e");
+  //  mostFrequentlyUsedWords("  , e   .. \"");
+  //  mostFrequentlyUsedWords("hWffq.mxLWRhVQ-hWffq vrkCW hWffq/vSEsAo JCqpVV vSEsAo vrkCW;vSEsAo JCqpVV_vSEsAo JCqpVV hWffq_vSEsAo hWffq vSEsAo hWffq JCqpVV vrkCW?vrkCW hWffq vSEsAo hWffq-hWffq hWffq JCqpVV.JCqpVV vSEsAo?JCqpVV JCqpVV JCqpVV vSEsAo vSEsAo hWffq hWffq!VuvvlmMBRr vrkCW?hWffq vrkCW hWffq vrkCW vSEsAo;hWffq hWffq;vSEsAo?vrkCW hWffq!vSEsAo vrkCW JCqpVV vSEsAo hWffq_mxLWRhVQ hWffq:hWffq,hWffq vSEsAo:JCqpVV;vrkCW_vSEsAo.JCqpVV.vrkCW VuvvlmMBRr VuvvlmMBRr/JCqpVV_JCqpVV;");
+ //   mostFrequentlyUsedWords("...");
+    mostFrequentlyUsedWords("'");
+    differentiatePolynomial("12x+2",3);
+    differentiatePolynomial("12x-2",3);
+    differentiatePolynomial("x^2+3x+2",3);
+    differentiatePolynomial("x^2-x",3);
+    differentiatePolynomial("-x^2+3x-3",3);
+    differentiatePolynomial("-31x^6-15x^4+74x^3+33x^2+50x-37",7438);
+    differentiatePolynomial("-28x^6-76x^5+81x^4-11x^3-31x^2+52x-15",4829);
+
   }
 
   static void PascalCase() {
@@ -1914,7 +1945,222 @@ public class Main {
     return arrayOfStrings[n];
   }
 
+  static int maximumPathThroughPyramid(int[][] pyramid){
+
+    /*
+    https://www.codewars.com/kata/551f23362ff852e2ab000037/train/java
+    Find the maximum path in a binary tree
+    1. Put into an nxn array
+    2. Start at the second from bottom and determine the maximum path!
+    */
+
+    var n = pyramid.length;
+    System.out.println("Finding the maximum path through a pyramid of height " + n);
+    System.out.println("Pyramid is " + Arrays.deepToString(pyramid));
+
+    // OK so we start at the second from bottom line.  Remember zero based counting so index is 2 from length!
+    for(int i=n-2; i>=0;i--){
+      System.out.println("Looking at row index" + i);
+      // for edge elements only have to consider two elements below
+      for(int j=0;j<=i;j++){
+        System.out.println("\tLooking at column index " + j + " with value " + pyramid[i][j]);
+        pyramid[i][j] = pyramid[i][j] + Math.max(pyramid[i+1][j],pyramid[i+1][j+1]);
+      }
+      System.out.println("New values for row " + i + " are " + Arrays.toString(pyramid[i]));
+    }
+
+
+
+    return pyramid[0][0];
+  }
+
+  static List<String> mostFrequentlyUsedWords(String s){
+    /*
+    https://www.codewars.com/kata/51e056fe544cf36c410000fb/train/java
+    Return the most frequently used top 3 words
+    words can contain single apostrophes
+    matches case insensitive
+    return lower case word results
+    */
+    System.out.println("\n\nSplitting this string and returning the top 3 most common words\n" + s);
+    // null cases
+    if(s.length()==0) return Arrays.asList();
+    // convert to lower case
+    s = s.toLowerCase();
+    // replace all joining characters with spaces
+    var charArray = s.toCharArray();
+    for(int i=0;i<charArray.length;i++){
+      if ( charArray[i] == '_') charArray[i] = ' ';
+      if ( charArray[i] == '-') charArray[i] = ' ';
+      if ( charArray[i] == ';') charArray[i] = ' ';
+      if ( charArray[i] == ':') charArray[i] = ' ';
+      if ( charArray[i] == '.') charArray[i] = ' ';
+      if ( charArray[i] == '/') charArray[i] = ' ';
+      if ( charArray[i] == '!') charArray[i] = ' ';
+      if ( charArray[i] == '?') charArray[i] = ' ';
+      if ( charArray[i] == ',') charArray[i] = ' ';
+    }
+    s = String.valueOf(charArray);
+    s = s.trim();
+    // again check for null
+    if(s.length()==0) return Arrays.asList();
+    System.out.println("Recreated string is " + s + " with length " + s.length());
+    // put words into array
+    var words = s.split(" ");
+    if(words.length==0) return null;
+    // now iterate and get frequency
+    // first sort alphabetically
+    Arrays.sort(words);
+    // now do word count for every word
+    // create a Map to store keys and values
+    Map<String,Integer> wordCount = new HashMap<>();
+    for(var word:words){
+      // just weed out any entries with multiple spaces in them!
+      word = word.trim();
+      if(word.trim().length()==0) continue;
+      // remove any non-alpha characters or single apostrophes but nothing else
+      var wordAsCharArray = word.toCharArray();
+      var sb = new StringBuilder();
+      var onlySingleApostrophes = true;
+      for(char c: wordAsCharArray){
+        if(Character.isLetter(c)) {
+          sb.append(c);
+          onlySingleApostrophes=false;
+        }
+        // only add single apostrophe if there is something to add it to
+        if(sb.length()>0){
+          if(c==39) sb.append(c);
+        }
+      }
+      // eliminate cases where only single apostrophes exist!
+      if(onlySingleApostrophes) {
+        System.out.println("only single apostrophes present so returning empty");
+        return Arrays.asList();
+      }
+      word = sb.toString().trim();
+      //System.out.print(word + " ");
+      // now add legitimate entries depending if exist or not
+      if(word != null && !word.trim().isEmpty()){
+        if(wordCount.containsKey(word)){
+          // word exists so increment the count
+          wordCount.put(word,1+wordCount.get(word));
+        }
+        else{
+          // word does not exist so add a single entry
+          wordCount.put(word, 1);
+        }
+      }
+    }
+    // print values found
+    wordCount.entrySet().forEach(pair->{
+      //System.out.println(pair.getKey() + " " + pair.getValue());
+    });
+    // now put into a list and sort!
+    List<Map.Entry<String,Integer>> sortedEntries = new ArrayList();
+    wordCount.entrySet().forEach(pair-> {
+      String key = pair.getKey();
+      Integer value = pair.getValue();
+      var entry = new AbstractMap.SimpleEntry<String,Integer>(key,value);
+      sortedEntries.add(entry);
+    });
+    System.out.println("\nNow sorting our list");
+    // sort list
+    sortedEntries.sort((pair1,pair2)->{
+      if(pair1.getValue()==pair2.getValue()) return 0;
+      var value1 = pair1.getValue();
+      var value2 = pair2.getValue();
+      if(value1>value2) return -1;
+      else return 1;
+    });
+    // print list
+    sortedEntries.forEach(item-> System.out.println(item.getKey() + " " + item.getValue()));
+    // now get the top 3 entries
+    List<String> top3items = new ArrayList<>();
+    int counter = 0;
+    for (Map.Entry<String, Integer> pair : sortedEntries) {
+      var key = pair.getKey();
+      var value = pair.getValue();
+      top3items.add(key);
+      counter++;
+      if(counter==3) break;
+    }
+    System.out.println("Sorted top three items are " + Arrays.toString(top3items.toArray()));
+    return top3items;
+  }
+
+  static BigInteger differentiatePolynomial(String equation, long x) {
+    /*
+    https://www.codewars.com/kata/566584e3309db1b17d000027/train/java
+    Goal is go differentiate an equation and then fill out for x and return the answer
+    */
+    // firstly separate into components and also take into consideration the sign
+    // in order to do this we have to split by the '+' symbol
+    // but to do this we have to replace '-' with '+-' and then do the separation
+    // so firstly replace - with +-
+    // NOTE - THIS CODE IS WORKING FOR ALL BUT THE BIGGEST NUMBERS SO JUST HAVE TO CONVERT EVERYTHING TO BIGINT!
+    System.out.println("\n\nHave to differentiate this string " + equation + " when x is " + x);
+    String equationWithPlusSymbols = equation.replaceAll("-", "+-");
+    // now separate into components
+    var components = equationWithPlusSymbols.split(Pattern.quote("+"));
+    System.out.println(Arrays.toString(components));
+    // now have to think about how to get the differential for each one
+    // differential of mx^n is (m*n)x^(n-1) so can just replace one with the other
+    // create a total to hold the output
+    var total = new BigInteger("0");
+    for (var item : components) {
+      // have to split the string out and get the coefficients etc
+      // firstly split if there is a power symbol
+      if (item.contains("^")) {
+        var subequation = item.split(Pattern.quote("^"));
+        System.out.println(Arrays.toString(subequation));
+        // now for the first item which should be in the form of ax we can separate the x
+        if (subequation[0].equals("x")) {
+          subequation[0] = "1";
+        }
+        else if(subequation[0].equals("-x")){
+          subequation[0] = "-1";
+        }
+        else {
+          subequation[0] = subequation[0].replace("x", "");
+        }
+        System.out.println(Arrays.toString(subequation));
+        // now take the differential
+        double coefficient = Double.parseDouble(subequation[0]);
+        double power = Double.parseDouble(subequation[1]);
+        subequation[0] = Double.toString(coefficient * power);
+        subequation[1] = Double.toString(power - 1);
+        System.out.println(Arrays.toString(subequation));
+        // now evaluate the differential
+        long a = (long)(coefficient*power);
+        long b = (long)Math.pow(x,power-1);
+        var bigIntFromA = new BigInteger(Long.toString(a));
+        var bigIntFromB = new BigInteger(Long.toString(b));
+        var product = bigIntFromA.multiply(bigIntFromB);
+        System.out.println("Inidividual items are " + a + " and " + b + " and product " + product);
+        System.out.println("adding " + product);
+        total = total.add(product);
+      }
+      else if(item.contains("x")){
+        // differential of a single instance of x is just the number itself eg 4x => 4
+        item = item.replace("x","");
+        // if a single minus sign is present replace it with a -1
+        if(item.equals("-")) item = "-1";
+        System.out.println(("item contains x so removing it to obtain value " + Long.parseLong(item)));
+        if(Long.parseLong(item)!=0){
+          System.out.println("adding " + item);
+          total = total.add(new BigInteger(item));
+        }
+      }
+      else{
+        // differential of a number is zero!
+      }
+    }
+    System.out.println("total is " + total);
+    return total;
+  }
+  
 }
+
 
 
 
