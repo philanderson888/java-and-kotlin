@@ -143,7 +143,10 @@ public class Main {
     differentiatePolynomial("-x^2+3x-3",3);
     differentiatePolynomial("-31x^6-15x^4+74x^3+33x^2+50x-37",7438);
     differentiatePolynomial("-28x^6-76x^5+81x^4-11x^3-31x^2+52x-15",4829);
-
+    Fibonacci(new BigInteger("5"));
+    Fibonacci(new BigInteger("6"));
+    Fibonacci(new BigInteger("10"));
+    Fibonacci(new BigInteger("-96"));
   }
 
   static void PascalCase() {
@@ -2158,7 +2161,59 @@ public class Main {
     System.out.println("total is " + total);
     return total;
   }
-  
+
+  static BigInteger Fibonacci(BigInteger n){
+    /*
+    https://www.codewars.com/kata/53d40c1e2f13e331fc000c26/train/java
+    Return the fibonacci sequence up to max of  2 000 000
+    // note - i have got this working up to the value of n=95,000 so that's good enough for me!
+    */
+    // convert n to int as max is only 2 million
+    var limit = n.longValue();
+    System.out.println("\n\nFinding the fibonacci sequence up to " + limit);
+    // small cases
+    if(limit==0) return new BigInteger("0");
+    if(limit==1) return new BigInteger("1");
+    if(limit==2) return new BigInteger("1");
+    if(limit==3) return new BigInteger("2");
+    if(limit==4) return new BigInteger("3");
+    if(limit==5) return new BigInteger("5");
+    var zero = new BigInteger("0");
+    var one = new BigInteger("1");
+    var two = one.add(zero);
+    var three = two.add(one);
+    var four = three.add(two);
+    // add in to handle negative cases
+    // postitive numbers
+    var sign = new BigInteger("1");
+    if(limit<0){
+      // negative numbers
+      sign = new BigInteger("-1");
+      if(limit==-1) return new BigInteger("1");
+      if(limit==-2) return new BigInteger("-1");
+      if(limit==-3) return new BigInteger("2");
+      if(limit==-4) return new BigInteger("-3");
+      if(limit==-5) return new BigInteger("5");
+      if(limit==-6) return new BigInteger("-8");
+    }
+    var p2 = new BigInteger(two.toString());
+    var p1 = new BigInteger(three.toString());
+    var t = new BigInteger(four.toString());
+    for (var i = 5; i <= Math.abs(limit);i++){
+      p2=p1;
+      p1=t;
+      t=p1.add(p2);
+    }
+    if(  (limit<0) && (limit%2==0) ) {
+      System.out.println("i= " + limit + " total = " + t.multiply(sign) );
+      return t.multiply((sign));
+    }
+    else{
+      System.out.println("i = " + limit + " total = " + t);
+      return t;
+    }
+  }
+
 }
 
 
