@@ -3,6 +3,9 @@ package uk.co.philanderson.stockclient;
 
 import lombok.extern.java.Log;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Flux;
 
@@ -10,9 +13,12 @@ import java.io.IOException;
 import java.time.Duration;
 
 @Log4j2
+@Component
 public class WebClientStockClient {
+
     private WebClient webClient;
 
+    @Autowired
     public WebClientStockClient(WebClient webClient) {
         this.webClient = webClient;
     }

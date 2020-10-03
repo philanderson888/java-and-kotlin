@@ -50,6 +50,16 @@
 			<artifactId>javafx-fxml</artifactId>
 			<version>16-ea+2</version>
 		</dependency>
+		<dependency>
+			<groupId>uk.co.philanderson.stockclient</groupId>
+			<artifactId>stock-client</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+			<scope>system</scope>
+			<systemPath>${basedir}\..\20200929-api-client-stock-prices\out\artifacts\stock_client_jar\stock-client.jar</systemPath>
+
+
+		</dependency>
+
 	</dependencies>
 
 	<build>

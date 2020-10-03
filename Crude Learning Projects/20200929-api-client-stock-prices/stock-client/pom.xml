@@ -9,7 +9,7 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>uk.co.philanderson</groupId>
-	<artifactId>stock-ui</artifactId>
+	<artifactId>stock-client</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>stock-ui</name>
 	<description>Java FX</description>
