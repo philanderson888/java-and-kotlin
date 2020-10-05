@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/java-playground.iml" filepath="$PROJECT_DIR$/.idea/java-playground.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Projects/202009 Kotlin API/20200929-api-kotlin-back-end/stock-service.iml" filepath="$PROJECT_DIR$/Projects/202009 Kotlin API/20200929-api-kotlin-back-end/stock-service.iml" />
     </modules>
   </component>
 </project>

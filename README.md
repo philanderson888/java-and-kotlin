@@ -13,6 +13,7 @@
   - [CodeWars Examples](#codewars-examples)
 - [Variables](#variables)
   - [Char](#char)
+  - [Is a char a digit](#is-a-char-a-digit)
   - [Loops](#loops)
     - [Foreach](#foreach)
   - [Collections](#collections)
@@ -146,7 +147,7 @@ Check out the `.iml` file
 
 ## CodeWars Examples
 
-[Codewars](codewars.md)
+See [Codewars](codewars.md) and also 
 
 
 # Variables
