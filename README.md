@@ -27,6 +27,7 @@
     - [Getting data out of a set](#getting-data-out-of-a-set)
     - [Convert Set To List](#convert-set-to-list-1)
   - [Testing](#testing)
+  - [Projects](#projects)
   - [Glossary](#glossary)
 
 ## Introduction
@@ -147,8 +148,7 @@ Check out the `.iml` file
 
 ## CodeWars Examples
 
-See [Codewars](codewars.md) and also 
-
+See [Codewars](Codewars/codewars.md)
 
 # Variables
 
@@ -299,6 +299,10 @@ list.addAll(set);
 
 [Testing]{notes/testing.md}
 
+
+## Projects
+
+[projects](Projects) and [older projects here also](Workspace/READMD.md)
 
 ## Glossary
 
