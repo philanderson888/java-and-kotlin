@@ -71,6 +71,64 @@ val same = char01.equals(char02, true)
 println("Is $char01 the same as $char02 ignoring case? $same")
 ```
 
+### Char Is Whitespace
+
+```kotlin
+if(!item.isWhitespace()) { }
+```
+
+### String to Char Array
+
+```kotlin
+var array = myString.toCharArray()
+```
+
+### Char in range
+
+```kotlin
+val input = Scanner(System.`in`).next().first()
+println(input in 'A'..'Z' || input in '1'..'9')
+```
+
+### Char Array From String
+
+```kotlin
+println("\n\nFinding numeric digits in a string of characters")
+val input5 = "a b 1 2"
+val input5CharArray = input5.toCharArray()
+var counter5 = 0
+var output5 = ""
+for (item in input5CharArray) {
+    if (!item.isWhitespace()){
+        if (item.isDigit()) {
+            output5 += "true"
+        } else {
+            output5 += "false"
+        }
+        if(counter5 == 3) break
+        output5 += "\\"
+        counter5++
+    }
+}
+println(output5)
+```
+
+## String
+
+```kotlin
+val myString = "hello"
+println(myString.first())
+println(myString.last())
+```
+
+### String comparing
+
+```kotlin
+val string1 = "a string"
+val string2 = "another string"
+if (string1 == string2) {}
+```
+
 ## String Split
 
 ```java
@@ -107,6 +165,45 @@ fun main(args: Array<String>) {
 }
 ```
 
+### In Range
+
+```kotlin
+if(5 in 5..15) {}
+if('b' in 'a'..'c') {}  // true
+if("hello" in "he".."hi") {}  // true as alphabetically falls in the ranges
+```
+
+```kotlin
+val range = 100..200
+if (300 in range) {}
+```
+
+
+## Loops
+
+### Repeat(n)
+
+```kotlin
+repeat(n){
+
+}
+```
+
+### For
+
+```kotlin
+// inclusive loop
+for (i in 1..4) 
+// exclusive loop
+for (i in 1 until 4) 
+// decreasing
+for (i in 4 downTo 1) {}
+// characters
+for (ch in 'a'..'c')
+// step 
+for (i in 1..7 step 2)
+```
+
 ## Maths Operations
 
 ```java
@@ -138,5 +235,9 @@ if (first >= second && first <= third) {
 }
 ```
 
+### Array From String
 
+```kotlin
+val (a, b, c, d, e) = Array(5) { scanner.nextInt() }
+```
 

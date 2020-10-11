@@ -179,58 +179,143 @@ fun main(args: Array<String>) {
     /*
     https://hyperskill.org/learn/step/4687
     Check if 4 chars are numeric digits or not
+    Phil 11 October 2020
     */
-    val scanner4 = Scanner(System.`in`)
-    val input4 = scanner4.nextLine()
-    val inputArray4 = input4.split(" ")
-    var output = ""
-    for (i in 0..inputArray4.size-1){
-        if (inputArray4[i].single().isDigit()) {
-            output += "true"
-        } else {
-            output += "false"
-        }
-        if(i < inputArray4.size-1) {
-            output += "\\"
+    println("\n\nFinding numeric digits in a string of characters")
+    val input5 = "a b 1 2"
+    val input5CharArray = input5.toCharArray()
+    var counter5 = 0
+    var output5 = ""
+    for (item in input5CharArray) {
+        if (!item.isWhitespace()){
+            if (item.isDigit()) {
+                output5 += "true"
+            } else {
+                output5 += "false"
+            }
+            if(counter5 == 3) break
+            output5 += "\\"
+            counter5++
         }
     }
-    println(output)
+    println(output5)
+
+    /*
+    https://hyperskill.org/learn/step/4685
+    Read char and see if it is a capital letter or numeric digit
+    */
+    val digit06 = 'a'
+    println("\n\nFind out if char $digit06 is capital letter or numeric digit")
+    if (!digit06.isWhitespace()) {
+        if (digit06.isDigit()) {
+            if (digit06.equals('0')) {
+                println("false")
+            } else {
+                println("true")
+            }
+        } else if (digit06.isUpperCase()) {
+            println("true")
+        } else println("false")
+    }
 
 
     /*
-    Working on this !
-
-    import java.util.*
-
-fun main(args: Array<String>) {
-    val scanner = Scanner(System.`in`)
-    val input4 = scanner.nextLine()
-    val inputArray4 = input4.split(" ")
-    var output = ""
-    if(!input4.isNullOrEmpty()) {
-        for (i in 0..inputArray4.size-1){
-            //val isdigit = inputArray4[i].get(0).isDigit()
-            //println(inputArray4[i])
-            //println(inputArray4[i].single())
-            val isdigit = inputArray4[i].single().isDigit()
-            //println(isdigit)
-            if (isdigit.equals(true)) {
-                output += "true"
-            } else {
-                output += "false"
-            }
-            if(i < inputArray4.size-1) {
-                output += "\\"
-            }
+    https://hyperskill.org/projects/95/stages/525/implement
+    String exercise to create a bot and print out the age using remainders divisible by 3, 5 and 7
+    */
+    println("\n\nFinding the age given remainders when divisible by 3, 5 and 7")
+    val name07 = "Fred"
+    val remainders07 = "1 2 1"
+    var remaindersCharArray = remainders07.toCharArray()
+    var counter = 0
+    var remainder3 = 0
+    var remainder5 = 0
+    var remainder7 = 0
+    for (item in remaindersCharArray) {
+        if(!item.isWhitespace()) {
+            if (counter == 0) remainder3 = Character.getNumericValue(item)
+            if (counter == 1) remainder5 = Character.getNumericValue(item)
+            if (counter == 2) remainder7 = Character.getNumericValue(item)
+            counter++
         }
+    }
+    val age = (remainder3 * 70 + remainder5 * 21 + remainder7 * 15) % 105
+    println("Your age is $age; that's a good time to start programming!")
+
+
+    /*
+    https://hyperskill.org/learn/step/4670
+    Get a job if age in 18..59
+    */
+    val age08 = 33
+    val min = 18
+    val max = 59
+    if(age08 in min..max) {
+        println("true")
     } else {
-        output = "false\\false\\false\\false"
+        println("false")
     }
 
-    println(output)
-}
- 
+
+
+    /*
+    https://hyperskill.org/learn/step/4677
+    given string of ranges is last number in one of the two ranges
     */
+
+    val input09 = "10 20 30 40 35"
+    val input09Array = input09.split(" ")
+    val range0901 = input09Array[0].toInt()..input09Array[1].toInt()
+    val range0902 = input09Array[2].toInt()..input09Array[3].toInt()
+    val number09 = input09Array[4].toInt()
+    println("\n\nIs $number09 in range $range0901 or $range0902?")
+    if (number09 in range0901 || number09 in range0902) {
+        println("true")
+    } else {
+        println("false")
+    }
+
+
+    /*
+    https://hyperskill.org/learn/step/4678
+    is number in both ranges given?
+    */
+    val input10 = "10 20 30 40 35"
+    val input10Array = input10.split(" ")
+    val input10range01 = input10Array[0].toInt()..input10Array[1].toInt()
+    val input10range02 = input10Array[2].toInt()..input10Array[3].toInt()
+    val number10 = input10Array[4].toInt()
+    if (number10 in input10range01 && number10 in input10range02) {
+        println("true")
+    } else {
+        println("false")
+    }
+
+
+    /*
+    https://hyperskill.org/learn/step/4702
+    Longest non-decreasing sequence of numbers in a string
+    */
+    val numbers = 8
+    val array1 = arrayOf(1,4,6,99,34,23,0,-1)
+    print("\n\nFinding the largest sequence of increasing numbers in ")
+    var previous = 0
+    var sequence = 0
+    var sequenceMax = 1
+    for(number in array1) {
+        print("$number, ")
+        if (number >= previous) {
+            sequence++
+            if (sequence > sequenceMax) {
+                sequenceMax = sequence
+            }
+        } else {
+            sequence = 1
+        }
+        previous = number
+    }
+    println("\nLargest non decreasing sequence is $sequenceMax")
+
 
 
 
