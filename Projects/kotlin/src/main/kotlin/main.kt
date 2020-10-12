@@ -2,8 +2,24 @@ import java.util.*
 import javax.print.attribute.IntegerSyntax
 
 fun main(args: Array<String>) {
-    println("Hello World!")
+    size()
+    scanner()
+    loop()
+    stringSplit()
+    dataTypes()
+    getNumberOfSchoolDesks()
+    isNumberWithinBounds()
+    isPartyASuccess()
+    characterEquals()
+    isCharAlsoDigit()
+    isCharCapitalLetter()
+    isNumberInRange()
+    isNumberInTwoRanges()
+    largestNonDescendingSequence()
+    println("\n")
+}
 
+fun size() {
 
     /*
     Jetbrains Academy Kotlin Tutorial Work
@@ -16,11 +32,11 @@ fun main(args: Array<String>) {
     println(Integer.SIZE)
     println(Integer.MIN_VALUE)
     println(Integer.MAX_VALUE)
+}
 
-    // scanner
+fun scanner() {
     println("\n\nScanner - please input a string")
     val scanner = Scanner(System.`in`)
-
     // waiting for input
     // while (scanner.hasNext()) {
     // val input = scanner.nextLine()
@@ -28,21 +44,23 @@ fun main(args: Array<String>) {
     // split
     val input = "here is some text"
     val array = input.split(" ");
-    // for faster than foreach
     for (item in array) {
         println(item)
     }
-    //}
+}
 
-
+fun loop() {
     // for
     for (x in 0..10) print(x)
-
     // foreach
+    val input = "here is some text"
+    val array = input.split(" ");
     for (item in array) {
         print(item + ", ")
     }
+}
 
+fun stringSplit() {
     // scanner input numbers
     println("\n\nScanner - input some numbers on one line, separated by spaces")
     val scanner2 = Scanner(System.`in`)
@@ -62,8 +80,9 @@ fun main(args: Array<String>) {
     val array3b = input3b.split(" ")
     for (item in array3a) println(item)
     for (item in array3b) println(item)
+}
 
-
+fun dataTypes() {
     val f: Float = (20.0).toFloat() + 20.02f // 1
     val l: Long = 10 + 2L        // 2
     val n: Int = l.toInt() + 5           // 3
@@ -79,18 +98,71 @@ fun main(args: Array<String>) {
     val myString = "This is a string"
     val myChar = myString[0]
     println("character 0 in string \"$myString\" is $myChar")
+}
 
+fun characterEquals() {
+    /*
+    https://hyperskill.org/learn/step/4686
+    Compare 2 characters
+    10 October 2020
+    */
+    val input3 = "a b"
+    val inputArray = input3.split(" ")
+    val char01 = inputArray[0].single()
+    val char02 = inputArray[1].single()
+    val same = char01.equals(char02, true)
+    println("Is $char01 the same as $char02 ignoring case? $same")
 
-    // get next even number
-    val someNumber = 123456
-    if (someNumber % 2 == 0) println(someNumber + 2)
-    else println(someNumber + 1)
+}
 
-    // cube root
-    val largeNumber = 1000000.0
-    var cubeRoot = Math.cbrt(largeNumber)
-    println("\n\nCube root of $largeNumber is $cubeRoot")
+fun isCharAlsoDigit() {
+    /*
+    https://hyperskill.org/learn/step/4687
+    Check if 4 chars are numeric digits or not
+    Phil 11 October 2020
+    */
+    println("\n\nFinding numeric digits in a string of characters")
+    val input5 = "a b 1 2"
+    val input5CharArray = input5.toCharArray()
+    var counter5 = 0
+    var output5 = ""
+    for (item in input5CharArray) {
+        if (!item.isWhitespace()){
+            if (item.isDigit()) {
+                output5 += "true"
+            } else {
+                output5 += "false"
+            }
+            if(counter5 == 3) break
+            output5 += "\\"
+            counter5++
+        }
+    }
+    println(output5)
+}
 
+fun isCharCapitalLetter() {
+    /*
+    https://hyperskill.org/learn/step/4685
+    Read char and see if it is a capital letter or numeric digit
+    */
+    val digit06 = 'a'
+    println("\n\nFind out if char $digit06 is capital letter or numeric digit")
+    if (!digit06.isWhitespace()) {
+        if (digit06.isDigit()) {
+            if (digit06.equals('0')) {
+                println("false")
+            } else {
+                println("true")
+            }
+        } else if (digit06.isUpperCase()) {
+            println("true")
+        } else println("false")
+    }
+
+}
+
+fun getNumberOfSchoolDesks() {
     // kotlin integer problem Intellij Academy
     /*
     https://hyperskill.org/learn/step/4499
@@ -122,6 +194,9 @@ fun main(args: Array<String>) {
         desksc = groupc/2 + 1
     }
     println(desksa + desksb + desksc)
+}
+
+fun isNumberWithinBounds() {
 
 
     // read 3 integers and print true if first between second and third
@@ -141,10 +216,13 @@ fun main(args: Array<String>) {
         println(false)
     }
 
+}
+
+fun isPartyASuccess() {
     /*
-    https://hyperskill.org/learn/step/4536
-    Party must have 10-20 cups or 15-25 at the weekend.  Numbers inclusive
-    */
+https://hyperskill.org/learn/step/4536
+Party must have 10-20 cups or 15-25 at the weekend.  Numbers inclusive
+*/
     val input1 = "16 false"
     val inputString = input1.split(" ")
     val cups = inputString[0].toInt()
@@ -160,89 +238,9 @@ fun main(args: Array<String>) {
         }
     }
     println(success)
+}
 
-
-    /*
-    https://hyperskill.org/learn/step/4686
-    Compare 2 characters
-    10 October 2020
-    */
-    val input3 = "a b"
-    val inputArray = input3.split(" ")
-    val char01 = inputArray[0].single()
-    val char02 = inputArray[1].single()
-    val same = char01.equals(char02, true)
-    println("Is $char01 the same as $char02 ignoring case? $same")
-
-
-
-    /*
-    https://hyperskill.org/learn/step/4687
-    Check if 4 chars are numeric digits or not
-    Phil 11 October 2020
-    */
-    println("\n\nFinding numeric digits in a string of characters")
-    val input5 = "a b 1 2"
-    val input5CharArray = input5.toCharArray()
-    var counter5 = 0
-    var output5 = ""
-    for (item in input5CharArray) {
-        if (!item.isWhitespace()){
-            if (item.isDigit()) {
-                output5 += "true"
-            } else {
-                output5 += "false"
-            }
-            if(counter5 == 3) break
-            output5 += "\\"
-            counter5++
-        }
-    }
-    println(output5)
-
-    /*
-    https://hyperskill.org/learn/step/4685
-    Read char and see if it is a capital letter or numeric digit
-    */
-    val digit06 = 'a'
-    println("\n\nFind out if char $digit06 is capital letter or numeric digit")
-    if (!digit06.isWhitespace()) {
-        if (digit06.isDigit()) {
-            if (digit06.equals('0')) {
-                println("false")
-            } else {
-                println("true")
-            }
-        } else if (digit06.isUpperCase()) {
-            println("true")
-        } else println("false")
-    }
-
-
-    /*
-    https://hyperskill.org/projects/95/stages/525/implement
-    String exercise to create a bot and print out the age using remainders divisible by 3, 5 and 7
-    */
-    println("\n\nFinding the age given remainders when divisible by 3, 5 and 7")
-    val name07 = "Fred"
-    val remainders07 = "1 2 1"
-    var remaindersCharArray = remainders07.toCharArray()
-    var counter = 0
-    var remainder3 = 0
-    var remainder5 = 0
-    var remainder7 = 0
-    for (item in remaindersCharArray) {
-        if(!item.isWhitespace()) {
-            if (counter == 0) remainder3 = Character.getNumericValue(item)
-            if (counter == 1) remainder5 = Character.getNumericValue(item)
-            if (counter == 2) remainder7 = Character.getNumericValue(item)
-            counter++
-        }
-    }
-    val age = (remainder3 * 70 + remainder5 * 21 + remainder7 * 15) % 105
-    println("Your age is $age; that's a good time to start programming!")
-
-
+fun isNumberInRange() {
     /*
     https://hyperskill.org/learn/step/4670
     Get a job if age in 18..59
@@ -256,13 +254,13 @@ fun main(args: Array<String>) {
         println("false")
     }
 
+}
 
-
+fun isNumberInTwoRanges() {
     /*
     https://hyperskill.org/learn/step/4677
     given string of ranges is last number in one of the two ranges
     */
-
     val input09 = "10 20 30 40 35"
     val input09Array = input09.split(" ")
     val range0901 = input09Array[0].toInt()..input09Array[1].toInt()
@@ -274,7 +272,6 @@ fun main(args: Array<String>) {
     } else {
         println("false")
     }
-
 
     /*
     https://hyperskill.org/learn/step/4678
@@ -290,8 +287,9 @@ fun main(args: Array<String>) {
     } else {
         println("false")
     }
+}
 
-
+fun largestNonDescendingSequence() {
     /*
     https://hyperskill.org/learn/step/4702
     Longest non-decreasing sequence of numbers in a string
@@ -316,8 +314,4 @@ fun main(args: Array<String>) {
     }
     println("\nLargest non decreasing sequence is $sequenceMax")
 
-
-
-
-    println("\n")
 }

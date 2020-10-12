@@ -215,7 +215,13 @@ println("\n\nCube root of $largeNumber is $cubeRoot")
 
 ## Arrays
 
-Numeric array
+### Array Literal
+
+```kotlin
+val vowels = arrayOf('a','e','i','o','u')
+```
+
+### Numeric array
 
 ```kotlin
 val numberString = "40 100 20"
