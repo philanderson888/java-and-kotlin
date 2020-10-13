@@ -6,6 +6,15 @@ This repo has small mini projects used in learning Kotlin
 
 ## Scanner Input 
 
+```kotlin
+// next number
+scanner.nextInt()
+// next word
+scanner.next()
+// next line
+scanner.nextLine()
+```
+
 ```java
 // scanner
 println("\n\nScanner - please input a string")
@@ -22,6 +31,13 @@ while(scanner.hasNext()){
         println(item)
     }
 }
+```
+
+## String Tempates
+
+```kotlin
+"$variable"
+"${variable.field}"
 ```
 
 ## Types
@@ -81,6 +97,32 @@ if(!item.isWhitespace()) { }
 
 ```kotlin
 var array = myString.toCharArray()
+```
+
+### String to Int Array
+
+```kotlin
+toInt()
+toIntOrNull()
+// string to array
+myString.split(" ") then get element.toInt()
+```
+
+```kotlin
+// find number of instances of a number given a string of numbers
+val scanner = Scanner(System.`in`)
+val numbers = "1 4 3 2 2 5"
+val findMe = 2
+println("finding $findMe in $numbers")
+val numbersAsArray = numbers.split(" ")    
+var count = 0
+for (number in numbersAsArray) {
+    println("${number.toInt()} equals $findMe? ${number.toInt() == findMe}")
+    if(number.toInt() == findMe) {
+        count++
+    }
+}
+println(count) 
 ```
 
 ### Char in range
@@ -202,6 +244,10 @@ for (i in 4 downTo 1) {}
 for (ch in 'a'..'c')
 // step 
 for (i in 1..7 step 2)
+// foreach
+for (item in myArray)
+// foreach iterating over index
+for (index in myArray.indices)
 ```
 
 ## Maths Operations
@@ -219,6 +265,19 @@ println("\n\nCube root of $largeNumber is $cubeRoot")
 
 ```kotlin
 val vowels = arrayOf('a','e','i','o','u')
+var numbers = arrayOf(1,2,3)
+var numbers = intArrayOf(1,2,3)
+println(numbers.joinToString())
+val last = myArray.lastIndex
+```
+
+### Array from lambda
+
+```kotlin
+// [0,0,0,0,0]
+var zeros = IntArray(5)
+// [0,1,2,3,4]
+var increasing = IntArray(5) { item * 1}
 ```
 
 ### Numeric array
@@ -246,6 +305,8 @@ if (first >= second && first <= third) {
 ```kotlin
 val (a, b, c, d, e) = Array(5) { scanner.nextInt() }
 ```
+
+
 
 ## Dates
 
