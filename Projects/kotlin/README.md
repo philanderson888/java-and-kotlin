@@ -247,3 +247,21 @@ if (first >= second && first <= third) {
 val (a, b, c, d, e) = Array(5) { scanner.nextInt() }
 ```
 
+## Dates
+
+```kotlin
+import java.time.LocalDateTime
+import java.time.LocalDate
+println("\n\nPrinting the date")
+println(LocalDateTime.now())
+println(LocalDate.now())
+var dateNow = LocalDate.now()
+val year = dateNow.year
+val month = dateNow.monthValue
+val day = dateNow.dayOfMonth
+val printDate = "$day $month $year"
+println(printDate)
+// 22 10 2020
+```
+
+

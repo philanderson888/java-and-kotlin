@@ -1,5 +1,7 @@
 import java.util.*
 import javax.print.attribute.IntegerSyntax
+import java.time.LocalDateTime
+import java.time.LocalDate
 
 fun main(args: Array<String>) {
     size()
@@ -16,6 +18,7 @@ fun main(args: Array<String>) {
     isNumberInRange()
     isNumberInTwoRanges()
     largestNonDescendingSequence()
+    setCalendarDate()
     println("\n")
 }
 
@@ -314,4 +317,20 @@ fun largestNonDescendingSequence() {
     }
     println("\nLargest non decreasing sequence is $sequenceMax")
 
+}
+
+fun setCalendarDate(){
+    /*
+    https://hyperskill.org/learn/step/6781
+    Print out the date
+    */
+    println("\n\nPrinting the date")
+    println(LocalDateTime.now())
+    println(LocalDate.now())
+    var dateNow = LocalDate.now()
+    val year = dateNow.year
+    val month = dateNow.monthValue
+    val day = dateNow.dayOfMonth
+    val printDate = "$day $month $year"
+    println(printDate)
 }
