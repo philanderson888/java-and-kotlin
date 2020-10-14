@@ -13,6 +13,8 @@ scanner.nextInt()
 scanner.next()
 // next line
 scanner.nextLine()
+// array of size `size`
+var arr = IntArray(size) { scanner.nextInt() }
 ```
 
 ```java
@@ -268,7 +270,8 @@ val vowels = arrayOf('a','e','i','o','u')
 var numbers = arrayOf(1,2,3)
 var numbers = intArrayOf(1,2,3)
 println(numbers.joinToString())
-val last = myArray.lastIndex
+val last = myArray.last()
+val lastindex = myArray.lastIndex
 ```
 
 ### Array from lambda
@@ -325,4 +328,25 @@ println(printDate)
 // 22 10 2020
 ```
 
+## Functional Programming
 
+With passing in lambdas into a function.
+
+Here we pass in 2 functions and an integer.
+
+```kotlin
+fun functionalProgramming(value: Int, y: (Int) -> Int, g: (Int) -> Int): Int {
+    println("\n\nFunctional programming")
+    val output = y(g(value))
+    println(output)
+    return output
+}
+fun y(x: Int) = x * x
+fun g(x: Int) = x * 2
+```
+
+and call it with 
+
+```kotlin
+functionalProgramming(10, ::y,::g)
+```

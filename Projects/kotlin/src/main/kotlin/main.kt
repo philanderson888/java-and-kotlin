@@ -19,6 +19,8 @@ fun main(args: Array<String>) {
     isNumberInTwoRanges()
     largestNonDescendingSequence()
     setCalendarDate()
+    cycleArrayElements(6, "1 2 3 4 5 6 ", 2)
+    functionalProgramming(10, ::y,::g)
     println("\n")
 }
 
@@ -334,3 +336,61 @@ fun setCalendarDate(){
     val printDate = "$day $month $year"
     println(printDate)
 }
+
+fun cycleArrayElements(size: Int, numbers: String, swaps: Int) {
+    /*
+    https://hyperskill.org/learn/step/4697
+    shift whole array n places to the right
+    */
+    //val scanner = Scanner(System.`in`)
+    //val size = scanner.nextInt()
+    //val numbers = IntArray(size)
+    //for (i in 0..size-1) {
+    //    numbers[i] = scanner.nextInt()
+    //}
+    //val swaps = scanner.nextInt()
+    val size = 6
+    val numbers = arrayOf(1,4,2,6,5,3)
+    val swaps = 2
+    //println("${numbers.joinToString()}")
+    // repeat n times
+    repeat(swaps) {
+        val last = numbers.last()
+        for (j in (size-1) downTo 1) {
+            numbers[j] = numbers[j-1]
+        }
+        numbers[0] = last
+    }
+    //println("${numbers.joinToString()}")
+    var output = ""
+    for (i in 0..size-1) {
+        output += "${numbers[i]} "
+    }
+    println(output)
+    // code is too slow so refactor it a bit.
+    // instead of multiple jumps can get this to do just one jump!
+    // create a new array and just fill it in one go
+    val swapped = IntArray(size)
+    for (i in 0..size-1) {
+        var index = i + swaps
+        if (index > (size-1)) {
+            index = index - size
+        }
+        swapped[index] = numbers[i]
+    }
+    println("${swapped.joinToString()}")
+    output = ""
+    for (i in 0..size-1) {
+        output += "${swapped[i]} "
+    }
+    println(output)
+}
+
+fun functionalProgramming(value: Int, y: (Int) -> Int, g: (Int) -> Int): Int {
+    println("\n\nFunctional programming")
+    val output = y(g(value))
+    println(output)
+    return output
+}
+fun y(x: Int) = x * x
+fun g(x: Int) = x * 2
