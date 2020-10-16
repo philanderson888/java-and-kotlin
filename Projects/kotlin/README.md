@@ -52,6 +52,30 @@ val l0: Long = 14
 val f0: Float = 11.4f
 ```
 
+### Object
+
+`Object` is the root of all types
+
+### Any
+
+`Any` is the super type of all non-nullable types 
+
+`Any?` is nullable
+
+### Unit
+
+`Unit` is returned by a method implicitly without being defined, if the method does not return anything
+
+### Nothing
+
+Used when the method never returns at all ie if we call a method and it's only job is to throw an exception
+
+```kotlin
+fun fail(message: String): Nothing {
+    throw IllegalStateException(message)
+}
+```
+
 ## Casting
 
 ```java
@@ -222,6 +246,15 @@ val range = 100..200
 if (300 in range) {}
 ```
 
+## When 
+
+```kotlin
+val y = when (x) {
+    "a" -> 1
+    "b" -> 2
+    else -> 3 
+}
+```
 
 ## Loops
 
@@ -349,4 +382,93 @@ and call it with
 
 ```kotlin
 functionalProgramming(10, ::y,::g)
+```
+
+### Functional Programming
+
+Pass in arguments and a function into a function
+
+Here is our functional method
+
+```kotlin
+fun functionalSquare(value: Int, context: Any, continuation: (Int, Any) -> Unit) {
+    continuation(value * value, context)
+}
+```
+
+It passes the square of the integer, and the type passed in, to whatever function is passed in.
+Create the function below as the continuation function
+
+```kotlin
+fun doThis(x: Int ,y: Any) {
+    println("\n\nFunctional Programming")
+    println("passing in a function to a function ! Printing out $x and $y")
+}
+```
+
+Then call it from main() using
+
+```kotlin
+functionalSquare(10, "a string", ::doThis)
+/*
+Functional Programming
+passing in a function to a function ! Printing out 100 and a string
+*/
+```
+
+
+## Functional Programming - Returning Functions
+
+```kotlin
+fun actionAnotherFunction() {
+    /*
+    https://hyperskill.org/learn/step/6000
+    Implement a function generator.
+    It returns the function by the name given. Support three functions:
+
+    "identity" (returns its argument).
+    "half" (returns its argument divided by 2).
+    "zero" (returns 0).
+    If the name is unknown, return the "zero" function.
+    */
+    println("${returnAnotherFunction("identity")(10)}");
+    println("${returnAnotherFunction("half")(10)}");
+    println("${returnAnotherFunction("zero")(10)}");
+}
+
+fun returnAnotherFunction(functionName: String): (Int) -> Int {
+    println("\n\nreturning another function given function name of $functionName")
+    if (functionName == "identity") {
+        return ::identity
+    } else if (functionName == "half") {
+        return ::half
+    } else {
+        return ::zero
+    }
+}
+fun identity(x: Int): Int {
+    return x
+}
+fun half(x: Int): Int {
+    return x/2
+}
+fun zero(x: Int): Int {
+    return 0
+}
+```
+
+and call it with 
+
+```kotlin
+fun main() {
+    actionAnotherFunction()
+}
+/*
+returning another function given function name of identity
+10
+returning another function given function name of half
+5
+returning another function given function name of zero
+0
+*/
 ```

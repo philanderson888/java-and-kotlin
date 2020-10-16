@@ -1,5 +1,4 @@
 import java.util.*
-import javax.print.attribute.IntegerSyntax
 import java.time.LocalDateTime
 import java.time.LocalDate
 
@@ -21,6 +20,8 @@ fun main(args: Array<String>) {
     setCalendarDate()
     cycleArrayElements(6, "1 2 3 4 5 6 ", 2)
     functionalProgramming(10, ::y,::g)
+    functionalSquare(10, "a string", ::doThis)
+    actionAnotherFunction()
     println("\n")
 }
 
@@ -389,8 +390,57 @@ fun cycleArrayElements(size: Int, numbers: String, swaps: Int) {
 fun functionalProgramming(value: Int, y: (Int) -> Int, g: (Int) -> Int): Int {
     println("\n\nFunctional programming")
     val output = y(g(value))
-    println(output)
+    println("Passing in $value then g(double to ${value*2}) and y(square) gives $output")
     return output
 }
+
 fun y(x: Int) = x * x
+
 fun g(x: Int) = x * 2
+
+fun functionalSquare(value: Int, context: Any, continuation: (Int, Any) -> Unit) {
+    continuation(value * value, context)
+}
+
+fun doThis(x: Int ,y: Any) {
+    println("\n\nFunctional Programming")
+    println("passing in a function to a function ! Printing out $x and $y")
+}
+
+fun actionAnotherFunction() {
+    /*
+    https://hyperskill.org/learn/step/6000
+    Implement a function generator.
+    It returns the function by the name given. Support three functions:
+
+    "identity" (returns its argument).
+    "half" (returns its argument divided by 2).
+    "zero" (returns 0).
+    If the name is unknown, return the "zero" function.
+    */
+    println("${returnAnotherFunction("identity")(10)}");
+    println("${returnAnotherFunction("half")(10)}");
+    println("${returnAnotherFunction("zero")(10)}");
+}
+
+fun returnAnotherFunction(functionName: String): (Int) -> Int {
+    println("\n\nreturning another function given function name of $functionName")
+    if (functionName == "identity") {
+        return ::identity
+    } else if (functionName == "half") {
+        return ::half
+    } else {
+        return ::zero
+    }
+}
+
+fun identity(x: Int): Int {
+    return x
+}
+fun half(x: Int): Int {
+    println("x is $x and x/2 is ${x/2}")
+    return (x/2)
+}
+fun zero(x: Int): Int {
+    return 0
+}
