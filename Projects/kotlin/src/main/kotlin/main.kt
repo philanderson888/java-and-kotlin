@@ -22,6 +22,10 @@ fun main(args: Array<String>) {
     functionalProgramming(10, ::y,::g)
     functionalSquare(10, "a string", ::doThis)
     actionAnotherFunction()
+    filterStringToRemoveDots("This .. is .. some .. text ..")
+    captureVariable()
+    polynomial()
+    multiplication()
     println("\n")
 }
 
@@ -443,4 +447,72 @@ fun half(x: Int): Int {
 }
 fun zero(x: Int): Int {
     return 0
+}
+
+fun removeDotFromString(c: Char): Boolean = c != '.'
+fun removeDotFromString2(c: Char): Boolean {
+    return c != '.'
+}
+
+fun filterStringToRemoveDots(text: String){
+    // println(text.filter { ::removeDotFromString })
+    // println(text.filter { ::removeDotFromString2 })
+    println(text.filter( { c: Char -> c != '.' }  ))
+    println(text.filter( { c -> c != '.' }  ))
+    println(text.filter() { c -> c != '.' })
+    println(text.filter { c -> c != '.' })
+    // version with 'it' where type is inferred
+    println(text.filter { it != '.' })
+}
+
+fun captureVariable(){
+    println("\n\nCapture Variable")
+    var counter: () -> Int = {-42}
+
+    fun reinitializeCounter(): Int {
+        var value = 0
+        var counter = { ++value }
+        counter()
+        return value
+    }
+    var f1 = fun(number:Int) = number.toString()
+    var f2 = fun(number:Int): String { return number.toString()}
+    var v3 = {number:Int -> number.toString()}
+    var output = reinitializeCounter()
+    println("Output is $output")
+    println(counter())
+    println(counter())
+    println(counter())
+}
+
+fun polynomial(){
+    val a = 1
+    val b = 2
+    val c = 3
+    val lambda = { x: Int -> a * x * x + b * x + c }
+    val output = lambda(10)
+    println ("\n\nFunctional programming - printing the value of a polynomial ax2 + bc + c is $output")
+}
+
+fun multiplication(){
+    /*
+    https://hyperskill.org/learn/step/6164
+    create a lambda to accept two long numbers and return product of all numbers in that range, inclusive
+    */
+    val multiply = fun(x: Long, y: Long): Long {
+        var total: Long = 1
+        for(i in x..y){
+            total *= i
+        }
+        return total
+    }
+    val multiply2 = { x: Long, y: Long ->
+        var total: Long = 1
+        for (i in x..y) {
+            total *= i
+        }
+        total
+    }
+    val output = multiply2(10,12)
+    println("\n\nFunctional programming - two longs in and print the product of all numbers inclusive in between - from 10 to 12 is $output")
 }

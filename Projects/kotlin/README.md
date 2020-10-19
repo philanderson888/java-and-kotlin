@@ -472,3 +472,104 @@ returning another function given function name of zero
 0
 */
 ```
+
+## Functional Programming - Filter
+
+We can filter an input to obtain an output.  Lambdas are the perfect way to get this done
+
+```kotlin
+fun removeDotFromString(c: Char): Boolean = c != '.'
+fun removeDotFromString2(c: Char): Boolean {
+    return c != '.'
+}
+
+fun filterStringToRemoveDots(text: String){
+    // why not working? println(text.filter { ::removeDotFromString })
+    // why not working? println(text.filter { ::removeDotFromString2 })
+    println(text.filter( { c: Char -> c != '.' }  ))
+    println(text.filter( { c -> c != '.' }  ))
+    println(text.filter() { c -> c != '.' })
+    println(text.filter { c -> c != '.' })
+    // version with 'it' where type is inferred
+    println(text.filter { it != '.' })
+}
+```
+
+## Functional Programming - Lambda
+
+### Valid ways to call a function
+
+```kotlin
+val f1 = fun(number:Int) = number.toString()
+val f2 = fun(number:Int): String { return number.toString()}
+val f3 = {number:Int -> number.toString()}
+val lambda = { x: Int -> a * x * x + b * x + c }
+val lambda: (Long, Long) -> Long = TODO("Provide implementation")
+```
+
+```kotlin
+fun polynomial(){
+    val a = 1
+    val b = 2
+    val c = 3
+    val lambda = { x: Int -> a * x * x + b * x + c }
+    val output = lambda(10)
+    println ("\n\nFunctional programming - printing the value of a polynomial ax2 + bc + c is $output")
+}
+polynomial()
+```
+
+These are equivalent
+
+```kotlin
+val multiply = fun(x: Long, y: Long): Long {
+    var total: Long = 1
+    for(i in x..y){
+        total *= i
+    }
+    return total
+}
+val multiply2 = { x: Long, y: Long ->
+    var total: Long = 1
+    for (i in x..y) {
+        total *= i
+    }
+    // notice that the word 'return' is omitted but assumed last line is returned
+    total
+}
+val output = multiply2(10,12)
+println("\n\nFunctional programming - two longs in and print the product of all numbers inclusive in between - from 10 to 12 is $output")
+```
+
+### Filtering a string
+
+This uses functional programming to filter out dots from a string
+
+```kotlin
+println(text.filter( { c: Char -> c != '.' }  ))
+println(text.filter( { c -> c != '.' }  ))
+println(text.filter() { c -> c != '.' })
+println(text.filter { c -> c != '.' })
+// version with 'it' where type is inferred
+println(text.filter { it != '.' })
+```
+
+If code is several lines the last line is inferred as the return value
+
+```kotlin
+val output = inputText.filter {
+    // some code
+    !it.isDigit()
+}
+```
+
+Also an early return can be defined as
+
+```kotlin
+val output = inputText.filter {
+    if(!it.isDigit){
+        return@filter true
+    }
+}
+```
+
