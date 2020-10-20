@@ -26,6 +26,8 @@ fun main(args: Array<String>) {
     captureVariable()
     polynomial()
     multiplication()
+    predicate('a')
+    predicateAsLambda('a')
     println("\n")
 }
 
@@ -516,3 +518,33 @@ fun multiplication(){
     val output = multiply2(10,12)
     println("\n\nFunctional programming - two longs in and print the product of all numbers inclusive in between - from 10 to 12 is $output")
 }
+
+fun predicate(c: Char){
+    /*
+    https://hyperskill.org/learn/step/6163
+    Predicate returns true or false on a collection
+    */
+    // given a predicate function which returns true if condition met, just return the opposite
+    val notPredicate = fun( c: Char): Boolean {
+        println("\n\nPredicate returns a boolean")
+        var result = !originalPredicate(c)
+        println("is $c equal to 'a' and then negate the result? $result")
+        return result
+    }
+    notPredicate(c)
+}
+
+fun originalPredicate(c: Char): Boolean {
+    var same = c.equals('a')
+    println("does a equal a? $same")
+    if (c.equals('a')) return true
+    else return false
+}
+
+fun predicateAsLambda(c: Char){
+    // repeat as lambda
+    println(notPredicate(c))
+}
+
+fun notPredicate(c:Char) = { !originalPredicate(c) }
+

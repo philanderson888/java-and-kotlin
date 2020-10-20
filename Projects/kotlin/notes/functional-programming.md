@@ -232,8 +232,38 @@ val output = inputText.filter {
 
 ## Predicate returns true or false
 
-
+These are all the same ways of writing the same thing
 
 ```kotlin
+fun predicate(c: Char){
+    /*
+    https://hyperskill.org/learn/step/6163
+    Predicate returns true or false on a collection
+    */
+    // given a predicate function which returns true if condition met, just return the opposite
+    val notPredicate = fun( c: Char): Boolean {
+        println("\n\nPredicate returns a boolean")
+        var result = !originalPredicate(c)
+        println("is $c equal to 'a' and then negate the result? $result")
+        return result
+    }
+    notPredicate(c)
+}
 
+fun originalPredicate(c: Char): Boolean {
+    var same = c.equals('a')
+    println("does a equal a? $same")
+    if (c.equals('a')) return true
+    else return false
+}
+
+fun predicateAsLambda(c: Char){
+    // repeat as lambda
+
+    println(notPredicate(c))
+}
+
+fun notPredicate(c:Char) = { !originalPredicate(c) }
+
+val notPredicate: (c: Char) -> Boolean = { c -> !originalPreicate(c) }
 ```
