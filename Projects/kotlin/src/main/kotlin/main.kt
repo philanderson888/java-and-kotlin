@@ -1,3 +1,4 @@
+import java.io.File
 import java.util.*
 import java.time.LocalDateTime
 import java.time.LocalDate
@@ -28,6 +29,9 @@ fun main(args: Array<String>) {
     multiplication()
     predicate('a')
     predicateAsLambda('a')
+    findLongestWordInFile()
+    wordsWithNumbers()
+    getFileLength()
     println("\n")
 }
 
@@ -443,15 +447,18 @@ fun returnAnotherFunction(functionName: String): (Int) -> Int {
 fun identity(x: Int): Int {
     return x
 }
+
 fun half(x: Int): Int {
     println("x is $x and x/2 is ${x/2}")
     return (x/2)
 }
+
 fun zero(x: Int): Int {
     return 0
 }
 
 fun removeDotFromString(c: Char): Boolean = c != '.'
+
 fun removeDotFromString2(c: Char): Boolean {
     return c != '.'
 }
@@ -547,4 +554,40 @@ fun predicateAsLambda(c: Char){
 }
 
 fun notPredicate(c:Char) = { !originalPredicate(c) }
+
+fun findLongestWordInFile() {
+    val fileName = "words_sequence.txt"
+    println("\n\nFinding longest word in a file $fileName")
+    var maxLength = 0
+    File(fileName).forEachLine {
+        if(it.length > maxLength) {
+            maxLength = it.length
+        }
+    }
+    println("longest word has $maxLength characters")
+
+}
+
+fun wordsWithNumbers(){
+    val file = File("words_with_numbers.txt")
+    println("\n\nfinding the count of whole numbers in a text file")
+    var counter = 0
+    file.forEachLine {
+        val number = it.toIntOrNull()
+        if(number != null){
+            counter++
+        }
+    }
+    println("the number of lines containing just a number in this file is $counter")
+}
+
+fun getFileLength(){
+    val file = File("oneline.txt")
+    // this reads the number of ASCII characters in the file
+    val fileLength = file.length()
+    // number of lines in the file ie the size of the array when read all lines into it
+    val lines = file.readLines().size
+    println("\n\nReading file with only one line in it - length is $fileLength and size is $lines")
+}
+
 
