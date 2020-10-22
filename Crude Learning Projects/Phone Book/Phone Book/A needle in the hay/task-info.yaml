@@ -62,4 +62,9 @@ files:
   learner_created: false
 feedback_link: https://hyperskill.org/projects/86/stages/476/implement
 status: Unchecked
+feedback:
+  message: |-
+    Failed to launch checking
+    For more information, see <a href="https://www.jetbrains.com/help/education/troubleshooting-guide.html#no_tests_have_run">the Troubleshooting Guide</a>
+  time: Thu, 22 Oct 2020 08:17:28 UTC
 record: -1
