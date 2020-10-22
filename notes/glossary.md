@@ -1,9 +1,15 @@
 # Glossary
 
 - [Glossary](#glossary)
+  - [IntelliJ Idea IDEA Shortcuts and tips](#intellij-idea-idea-shortcuts-and-tips)
   - [Kotlin](#kotlin)
   - [Maven](#maven)
   - [POJO](#pojo)
+
+## IntelliJ Idea IDEA Shortcuts and tips
+
+Keyboard Shortcuts
+- Alt + Enter gives contextual help
 
 ## Kotlin
 
