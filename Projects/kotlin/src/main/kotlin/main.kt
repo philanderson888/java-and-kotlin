@@ -2,6 +2,9 @@ import java.io.File
 import java.util.*
 import java.time.LocalDateTime
 import java.time.LocalDate
+import kotlin.time.minutes
+import kotlin.time.seconds
+import kotlin.time.toDuration
 
 fun main(args: Array<String>) {
     size()
@@ -32,6 +35,7 @@ fun main(args: Array<String>) {
     findLongestWordInFile()
     wordsWithNumbers()
     getFileLength()
+    phoneBookSearch()
     println("\n")
 }
 
@@ -588,6 +592,76 @@ fun getFileLength(){
     // number of lines in the file ie the size of the array when read all lines into it
     val lines = file.readLines().size
     println("\n\nReading file with only one line in it - length is $fileLength and size is $lines")
+}
+
+fun phoneBookSearch(){
+    /*
+    https://hyperskill.org/projects/86/stages/476/implement
+    Goal is to search a very large phone book and to obtain the phone numbers of given people from it in an efficient manner
+    Phone book is local file at c:\deletemejava\telephonedirectory\directory.txt
+    also copy made locally of a tiny portion of this file at directory.txt for future compatibility!
+    */
+    println("\n\nCreating a phonebook then finding items in it given 2 files 'directory.txt' and 'find.txt'")
+    val startTime = System.currentTimeMillis()
+    println("starting search at time ${startTime}")
+    val file = File("data\\directory.txt")
+    val phonebook = hashMapOf<Int,String>()
+    file.forEachLine {
+        val line = it.split(" ")
+        val phone = line[0].toInt()
+        var person = line[1] + " " + line[2]
+        phonebook[phone] = person
+    }
+    println(phonebook)
+    // now search the map!!!
+    if(phonebook.containsValue("Eustacia Helge")){
+        println("phonebook contains Eustacia Helge")
+    }
+    // now get our text file, iterate the values and print out the ones that are a match!
+    val findEntries = File("data\\find.txt")
+    findEntries.forEachLine {
+        if(phonebook.containsValue(it)){
+            println("Phonebook contains $it")
+        }
+    }
+    // now go for the big file
+    val bigFile = File("C:\\deletemejava\\telephonedirectory\\directory.txt")
+    val bigPhonebook = hashMapOf<Int,String>()
+    bigFile.forEachLine {
+        val line = it.split(" ")
+        val phone = line[0].toInt()
+        var person = ""
+        var first = true
+        for(name in line) {
+            if (first) {
+                first = false
+            } else {
+                person += name + " "
+            }
+        }
+        person = person.trim()
+        bigPhonebook[phone] = person
+    }
+    println("phonebook size is now ${bigPhonebook.size}")
+    var counter = 0
+    for(item in bigPhonebook){
+        counter++
+        if(counter>50) break
+        print("${item.value}, ")
+    }
+    println()
+    var matches = mutableListOf<String>()
+    findEntries.forEachLine {
+        if(bigPhonebook.containsValue(it)){
+            matches.add(it)
+            println("Main phonebook contains $it")
+        }
+    }
+    println("There are ${matches.size} matches ie $matches")
+    val finishTime = System.currentTimeMillis()
+    println("Finished at ${finishTime}")
+    val timeDifference = (finishTime - startTime)
+    println(String.format("%1\$tM min. %1\$tS sec %1\$tL ms.",timeDifference))
 }
 
 
