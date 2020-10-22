@@ -26,6 +26,8 @@
     - [Set Methods](#set-methods)
     - [Getting data out of a set](#getting-data-out-of-a-set)
     - [Convert Set To List](#convert-set-to-list-1)
+  - [OOP](#oop)
+  - [File IO](#file-io)
   - [Testing](#testing)
   - [Projects](#projects)
   - [Glossary](#glossary)
@@ -295,6 +297,32 @@ List<String> list = new ArrayList<>();
 list.addAll(set);
 ```
 
+## OOP
+
+[OOP](notes/oop.md)
+
+## File IO
+
+The relative path to all files is the project root
+
+```kotlin
+// read as string
+File(path).readText()
+// specify encoding - default UTF
+readText(Charsets.US_ASCII)
+// list of strings
+readLines()
+// array of bytes
+readBytes()
+// process a file line by line
+forEachLine { } // do this
+```
+
+```kotlin
+File("test.txt").createNewFile()
+File("test.txt").writeText("hello")
+println(File("test.txt").absolutePath);
+```
 ## Testing
 
 [Testing]{notes/testing.md}
