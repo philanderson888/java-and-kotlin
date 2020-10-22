@@ -34,11 +34,12 @@ This repo has small mini projects used in learning Kotlin
     - [Array from lambda](#array-from-lambda)
     - [Numeric array](#numeric-array)
     - [Array From String](#array-from-string)
-  - [Collections](#collections)
-    - [Built In Aggregate Functions](#built-in-aggregate-functions)
-    - [Custom Aggregate Function](#custom-aggregate-function)
+    - [Aggregate Functions](#aggregate-functions)
     - [Accumulator Functions](#accumulator-functions)
+  - [Collections](#collections)
+  - [Map](#map)
   - [Dates](#dates)
+  - [Times](#times)
   - [Functional Programming](#functional-programming)
 
 
@@ -380,16 +381,10 @@ if (first >= second && first <= third) {
 val (a, b, c, d, e) = Array(5) { scanner.nextInt() }
 ```
 
-## Collections
-
-### Built In Aggregate Functions
+### Aggregate Functions
 
 ```kotlin
 myArray.count/max/min/average/sum()
-```
-### Custom Aggregate Function
-
-```kotlin
 // get smallest remainder after division by 3
 myArray.minBy { it % 3}
 // get longest string in array
@@ -412,7 +407,55 @@ myArray.reduceOrNull { ... }
 // get sum of doubled numbers, adding in initial value 
 // also doubles first element whereas reduce would no
 myArray.fold(0) { sum, element -> sum + element * 2 }
+```
 
+## Collections
+
+## Map
+
+Maps are key-value pair collections which are not ordered and not indexed but the keys are unique
+
+```kotlin
+println("\n\nCreating a phonebook then finding items in it given 2 files 'directory.txt' and 'find.txt'")
+val file = File("data\\directory.txt")
+val phonebook = hashMapOf<Int,String>()
+file.forEachLine {
+    val line = it.split(" ")
+    val phone = line[0].toInt()
+    var person = line[1] + " " + line[2]
+    phonebook[phone] = person
+}
+println(phonebook)
+// now search the map!!!
+if(phonebook.containsValue("Eustacia Helge")){
+    println("phonebook contains Eustacia Helge")
+}
+// now get our text file, iterate the values and print out the ones that are a match!
+val findEntries = File("data\\find.txt")
+findEntries.forEachLine {
+    if(phonebook.containsValue(it)){
+        println("Phonebook contains $it")
+    }
+}
+// now go for the big file
+val bigFile = File("C:\\deletemejava\\telephonedirectory\\directory.txt")
+bigFile.forEachLine {
+    val line = it.split(" ")
+    val phone = line[0].toInt()
+    var person = ""
+    for(name in line){
+        person += name + " "
+    }
+    phonebook[phone] = person
+}
+var matches = mutableListOf<String>()
+findEntries.forEachLine {
+    if(phonebook.containsValue(it)){
+        matches.add(it)
+        println("Main phonebook contains $it")
+    }
+}
+println("There are ${matches.size} matches ie $matches")        
 ```
 
 ## Dates
@@ -430,6 +473,15 @@ val day = dateNow.dayOfMonth
 val printDate = "$day $month $year"
 println(printDate)
 // 22 10 2020
+```
+
+## Times
+
+```kotlin
+val startTime = System.currentTimeMillis()
+val finishTime = System.currentTimeMillis()
+val timeDifference = (finishTime - startTime)
+println(String.format("%1\$tM min. %1\$tS sec %1\$tL ms.",timeDifference))
 ```
 
 ## Functional Programming
