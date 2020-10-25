@@ -3,6 +3,7 @@
 This repo has small mini projects used in learning Kotlin
 
 - [Kotlin](#kotlin)
+  - [Gradle](#gradle)
   - [Scanner Input](#scanner-input)
   - [String Tempates](#string-tempates)
   - [Types](#types)
@@ -21,6 +22,7 @@ This repo has small mini projects used in learning Kotlin
     - [String comparing](#string-comparing)
   - [String Split](#string-split)
   - [isNullOrEmpty](#isnullorempty)
+  - [String filtering](#string-filtering)
   - [For](#for)
   - [Conditions](#conditions)
     - [In Range](#in-range)
@@ -37,11 +39,31 @@ This repo has small mini projects used in learning Kotlin
     - [Aggregate Functions](#aggregate-functions)
     - [Accumulator Functions](#accumulator-functions)
   - [Collections](#collections)
+  - [List](#list)
   - [Map](#map)
   - [Dates](#dates)
   - [Times](#times)
   - [Functional Programming](#functional-programming)
 
+
+## Gradle
+
+Gradle should install with IntelliJ but this doesn't enable it in the command line also.  To do that follow these steps
+
+1. Install with Choco
+
+```bash
+choco install gradle
+```
+
+2. Unzip and add to Path
+
+To set up Gradle for Kotlin, download `gradle` as a zip file and unpack it for example at `C:\Program Files\Gradle`.  Add the `bin` folder of the unzipped package to the `Path` environment variable and reboot the computer
+
+```powershell
+#PS C:\github> gradle
+Welcome to Gradle 6.7.
+```
 
 ## Scanner Input 
 
@@ -249,6 +271,17 @@ val array = input.split(" ");
 if (!item.isNullOrEmpty())  println(item)
 ```
 
+## String filtering
+
+```kotlin
+var content = "some * text"
+content = content.filter { it != '*' }
+myFile.writeText(content)
+/*
+some text
+*/
+```
+
 ## For
 
 ```java
@@ -410,6 +443,90 @@ myArray.fold(0) { sum, element -> sum + element * 2 }
 ```
 
 ## Collections
+
+Collections can be
+
+- list has ordered index and can have duplicates
+- set has unique elements with no order
+- map has key-value pairs where keys are unique
+
+and are all either `mutable` or `immutable`
+
+for example
+
+```kotlin
+listOf
+listOf<String>
+arrayOf
+mutableListOf
+mutableSetOf
+mutableMapOf
+```
+
+methods are 
+
+- size
+- contains(element/s)
+- isEmpty()
+- joinToString()
+- clear()
+- remove(element/s)
+- removeAt()
+
+## List
+
+list is immutable
+mutablelist is mutable
+
+```kotlin
+var mutablelist = numbers.toMutableList()
+mutablelist.add(number)
+return mutablelist
+```
+
+```kotlin
+get()
+indexOf()
+contains()
+// update item
+set(index,element)
+// iterate
+for(item in list){}
+```
+
+```kotlin
+val names = listOf("bob","peter","joe")
+for(name in names) {
+}
+```
+
+```kotlin
+numbers.forEach { 
+    // process iterator `it` 
+}
+```
+
+```kotlin
+fun solution(products: List<String>, product: String) {
+    products.forEachIndexed { index, item -> 
+        if (item == product) {
+            print ("$index ")
+        }
+    }
+}
+```
+
+```kotlin
+// filter one list to get another eg only items > 10
+val output = numbers.filter {
+    it > 10
+}
+```
+
+// join 2 lists
+```kotlin
+val output = first.plus(second).toMutableList()
+```
 
 ## Map
 
