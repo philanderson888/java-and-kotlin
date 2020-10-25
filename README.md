@@ -323,9 +323,25 @@ File("test.txt").createNewFile()
 File("test.txt").writeText("hello")
 println(File("test.txt").absolutePath);
 ```
+
+Add text
+
+```kotlin
+myFile.writeText("some text to overwrite existing")
+myFile.appendText("some text to add")
+```
+
+Add bytes
+
+```kotlin
+val myArray = byteArrayOf(1,2,3)
+val myFile = File(fileName).appendBytes(myArray)
+```
+
+
 ## Testing
 
-[Testing]{notes/testing.md}
+[Testing](notes/testing.md)
 
 
 ## Projects
