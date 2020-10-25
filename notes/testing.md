@@ -6,6 +6,7 @@
   - [Contents](#contents)
   - [Getting Started](#getting-started)
     - [Switching between code and test](#switching-between-code-and-test)
+  - [Kotlin Tests](#kotlin-tests)
 
 ## Getting Started
 
@@ -113,3 +114,12 @@ class INeedToBeTestedTest {
 ### Switching between code and test
 
 Use `Control Shift T` to switch between code and tests!
+
+## Kotlin Tests
+
+Right click on a class and choose `Generate -> Tests`
+
+```kotlin
+
+
+```
