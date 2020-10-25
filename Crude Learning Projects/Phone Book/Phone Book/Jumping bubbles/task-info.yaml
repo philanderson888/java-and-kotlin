@@ -50,6 +50,18 @@ files:
         }
     }
   learner_created: false
+- name: src/phonebook/MyClass.kt
+  visible: true
+  text: |-
+    package phonebook
+
+    class MyClass {
+
+        fun doThis(): Int {
+            return -1
+        }
+    }
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/86/stages/477/implement
 status: Unchecked
 record: -1

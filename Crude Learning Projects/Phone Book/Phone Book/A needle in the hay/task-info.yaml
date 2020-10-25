@@ -60,6 +60,16 @@ files:
     \ \" + estimatedTime + \"ms in total.\");\n        }\n        \n        return\
     \ CheckResult.correct();\n    }\n}\n"
   learner_created: false
+- name: src/phonebook/MyClass.kt
+  visible: true
+  learner_created: true
+- name: test/phonebook/MyClassTest.kt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/86/stages/476/implement
-status: Failed
-record: -1
+status: Solved
+feedback:
+  message: Congratulations! Continue on <a href="https://hyperskill.org/projects/86/stages/476/implement">JetBrains
+    Academy</a>
+  time: Sat, 24 Oct 2020 09:37:36 UTC
+record: 1
