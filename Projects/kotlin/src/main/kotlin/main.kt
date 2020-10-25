@@ -35,7 +35,7 @@ fun main(args: Array<String>) {
     findLongestWordInFile()
     wordsWithNumbers()
     getFileLength()
-    phoneBookSearch()
+    linearPhoneBookSearch()
     println("\n")
 }
 
@@ -594,7 +594,7 @@ fun getFileLength(){
     println("\n\nReading file with only one line in it - length is $fileLength and size is $lines")
 }
 
-fun phoneBookSearch(){
+fun linearPhoneBookSearch(){
     /*
     https://hyperskill.org/projects/86/stages/476/implement
     Goal is to search a very large phone book and to obtain the phone numbers of given people from it in an efficient manner
