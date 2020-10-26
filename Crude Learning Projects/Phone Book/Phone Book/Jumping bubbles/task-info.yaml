@@ -62,6 +62,9 @@ files:
         }
     }
   learner_created: true
+- name: src/phonebook/User.kt
+  visible: true
+  learner_created: true
 feedback_link: https://hyperskill.org/projects/86/stages/477/implement
 status: Unchecked
 record: -1
