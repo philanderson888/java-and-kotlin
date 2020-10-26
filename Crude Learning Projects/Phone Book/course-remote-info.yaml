@@ -42,6 +42,8 @@ topics:
     theory_id: 4388
   - title: The classification of basic types
     theory_id: 4455
+  - title: Objects
+    theory_id: 11233
   - title: Comments
     theory_id: 4406
   - title: Coding style conventions
@@ -62,6 +64,8 @@ topics:
     theory_id: 4445
   - title: Type conversion
     theory_id: 4672
+  - title: Reading data with a readLine
+    theory_id: 11224
   - title: Type inference
     theory_id: 9506
   - title: Integers in action
@@ -74,8 +78,6 @@ topics:
     theory_id: 4680
   - title: Ranges
     theory_id: 4633
-  - title: Objects
-    theory_id: 6773
   - title: Strings
     theory_id: 4540
   - title: String templates

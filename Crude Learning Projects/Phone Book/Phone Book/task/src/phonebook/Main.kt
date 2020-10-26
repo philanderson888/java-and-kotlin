@@ -103,6 +103,14 @@ fun bubbleSort(){
     for(i in 1..5) {
         println("${users[i].fullName} ${users[i].phoneNumber}")
     }
+    // now we have an unsorted list we have to create a sorted list using bubble sort
+    var unsorted = true
+    while(unsorted) {
+        // bubble sort compares items then swaps them if they need changing
+        for (user in users) {
+            
+        }
+    }
 }
 
 fun jumpSearch(){

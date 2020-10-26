@@ -50,21 +50,32 @@ files:
         }
     }
   learner_created: false
-- name: src/phonebook/MyClass.kt
-  visible: true
-  text: |-
-    package phonebook
-
-    class MyClass {
-
-        fun doThis(): Int {
-            return -1
-        }
-    }
-  learner_created: true
 - name: src/phonebook/User.kt
   visible: true
   learner_created: true
 feedback_link: https://hyperskill.org/projects/86/stages/477/implement
-status: Unchecked
+status: Failed
+feedback:
+  message: |-
+    Wrong answer in test #1
+
+    Please find below the output of your program during this failed test.
+
+    ---
+
+
+
+    Telephone Directory Bubble Sort
+    Instructed to sort our telephone directory by alphabetical name
+    firstly convert to a list of entries then sort the list
+
+    Time to created unsorted list of users is 00 min. 00 sec. 843 ms.
+
+    Printing 5 sample unsorted entries
+    Jan Atiana 60478194
+    Amalia Gaelan 75554798
+    Jobie Elder 23157053
+    Cicely Coughlin 40008938
+    Lil Tudela 7713408
+  time: Mon, 26 Oct 2020 07:56:22 UTC
 record: -1
