@@ -1,14 +1,16 @@
 package phonebook
 
 import java.io.File
+import kotlin.system.measureNanoTime
 
 fun main() {
-    //phoneBookSearch()
+    //linearPhoneBookSearch()
     bubbleSort()
     jumpSearch()
+    //nanoTime()
 }
 
-fun phoneBookSearch(){
+fun linearPhoneBookSearch(){
     /*
     // note - a copy of this code is already held, so this can be deleted
     https://hyperskill.org/projects/86/stages/476/implement
@@ -20,7 +22,7 @@ fun phoneBookSearch(){
     val startTime = System.currentTimeMillis()
     println("Start searching...")
     println("starting search at time $startTime")
-    val file = File("C:\\deletemejava\\telephonedirectory\\smalldirectory.txt")
+    val file = File("C:\\\\github\\\\java-playground\\\\data\\\\directorywith020names.txt")
     val phonebook = hashMapOf<Int,String>()
     file.forEachLine {
         val line = it.split(" ")
@@ -31,9 +33,9 @@ fun phoneBookSearch(){
     //println(phonebook)
     // now get our text file, iterate the values and print out the ones that are a match!
 
-    val findEntries = File("C:\\deletemejava\\telephonedirectory\\find.txt")
+    val findEntries = File("C:\\\\github\\\\java-playground\\\\data\\\\find.txt")
     // now go for the big file
-    val bigFile = File("C:\\deletemejava\\telephonedirectory\\directory.txt")
+    val bigFile = File("C:\\\\github\\\\java-playground\\\\data\\\\directory.txt")
     val bigPhonebook = hashMapOf<Int,String>()
     bigFile.forEachLine {
         val line = it.split(" ")
@@ -77,51 +79,76 @@ fun bubbleSort(){
     println("\n\nTelephone Directory Bubble Sort")
     println("Instructed to sort our telephone directory by alphabetical name")
     println("firstly convert to a list of entries then sort the list")
-    val users = mutableListOf<User>()
-    val directory = File("C:\\\\deletemejava\\\\telephonedirectory\\\\directory.txt")
     val start = System.currentTimeMillis()
-    directory.forEachLine {
-        val line = it.split(" ")
-        val phone = line[0].toInt()
-        var person = ""
-        var first = true
-        for (name in line) {
-            if (first) {
-                first = false
-            } else {
-                person += "$name "
+    // read file to local array first of all
+    val directory = File("C:\\\\github\\\\java-playground\\\\data\\\\directory.txt").readLines()
+    println(String.format("\nTime to read entire file of ${directory.size} lines into local memory is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
+    val samplesizes = arrayOf(5,10,20,100,1000,10000, 1014129)
+    // repeat for different file samplle sizes
+    for (samplesize in samplesizes){
+        var linearSearch = false
+        println("\n\n\nSample size is $samplesize")
+        val users = mutableListOf<User>()
+        val start = System.currentTimeMillis()
+        for (i in 1..samplesize){
+            val line = directory[i].split(" ")
+            val phone = line[0].toInt()
+            var person = ""
+            var first = true
+            for (name in line) {
+                if (first) {
+                    first = false
+                } else {
+                    person += "$name "
+                }
             }
+            person = person.trim()
+            val user = User()
+            user.fullName=person
+            user.phoneNumber= phone
+            users.add(user)
         }
-        person = person.trim()
-        val user = User()
-        user.fullName=person
-        user.phoneNumber= phone
-        users.add(user)
-    }
-    println(String.format("\nTime to created unsorted list of users is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
-    println("\nUnsorted entries")
-    for(i in 0..users.size-1) {
-        print("${users[i].fullName} ${users[i].phoneNumber}, ")
-    }
-    // now we have an unsorted list we have to create a sorted list using bubble sort
-    var sorted = false
-    while(!sorted) {
-        // bubble sort compares items then swaps them if they need changing
-        var userTemp: User
-        sorted = true
-        for (i in 0..users.size-2) {
-            if(users[i].compareTo(users[i+1]) == 1) {
-                //println("${users[i].fullName} compared to ${users[i+1].fullName} is ${users[i].compareTo(users[i+1])} so swapping")
-                userTemp = users[i]
-                users[i]=users[i+1]
-                users[i+1]=userTemp
-                sorted = false
+        println(String.format("Time to created unsorted list of users is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
+        //println("\nUnsorted entries")
+        for(i in 0..users.size-1) {
+            //print("${users[i].fullName} ${users[i].phoneNumber}, ")
+            if(i>10) break
+        }
+        // now we have an unsorted list we have to create a sorted list using bubble sort
+        var sorted = false
+        var iterations = 0
+        while(!sorted) {
+            // bubble sort compares items then swaps them if they need changing
+            var userTemp: User
+            sorted = true
+            for (i in 0..users.size-2) {
+                if(users[i].compareTo(users[i+1]) == 1) {
+                    //println("${users[i].fullName} compared to ${users[i+1].fullName} is ${users[i].compareTo(users[i+1])} so swapping")
+                    userTemp = users[i]
+                    users[i]=users[i+1]
+                    users[i+1]=userTemp
+                    sorted = false
+                }
             }
+            iterations++
+            // break at 20 seconds for bubble sort!
+            val seconds = ((System.currentTimeMillis()-start)/1000)
+            if(seconds > 20) {
+                linearSearch = true
+                break
+            }
+            //println(String.format("\nInterim time is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
         }
-    }
-    println("\n\nSorted entries")
-    for(i in 0..users.size-1) {
-        print("${users[i].fullName} ${users[i].phoneNumber}, ")
+        println(String.format("Bubble sort with $samplesize items took %1\$tM min. %1\$tS sec. %1\$tL ms. with $iterations iteration",System.currentTimeMillis()-start))
+        if (linearSearch) {
+            println("Bubble sort is taking too long (greater than 20 seconds) so exiting to linear search method")
+            linearPhoneBookSearch()
+        }
+        //println("\n\nSorted entries")
+        for(i in 0..users.size-1) {
+            //print("${users[i].fullName} ${users[i].phoneNumber}, ")
+            if(i>10) break
+        }
     }
 }
 
@@ -133,4 +160,11 @@ fun jumpSearch(){
     Search for 500 phone numbers
     time it as well
     */
+}
+
+fun nanoTime(){
+    val nanotime = measureNanoTime {
+        linearPhoneBookSearch()
+    }
+    println("nano time is $nanotime and in seconds this is ${nanotime/1000000000}")
 }
