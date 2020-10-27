@@ -78,6 +78,8 @@ topics:
     theory_id: 4680
   - title: Ranges
     theory_id: 4633
+  - title: Equality
+    theory_id: 11236
   - title: Strings
     theory_id: 4540
   - title: String templates

@@ -99,19 +99,19 @@ fun bubbleSort(){
         users.add(user)
     }
     println(String.format("\nTime to created unsorted list of users is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
-    println("\nPrinting 5 sample unsorted entries")
-    for(i in 1..5) {
-        println("${users[i].fullName} ${users[i].phoneNumber}")
+    println("\nUnsorted entries")
+    for(i in 0..users.size-1) {
+        print("${users[i].fullName} ${users[i].phoneNumber}, ")
     }
     // now we have an unsorted list we have to create a sorted list using bubble sort
-    var sorted = true
+    var sorted = false
     while(!sorted) {
         // bubble sort compares items then swaps them if they need changing
         var userTemp: User
+        sorted = true
         for (i in 0..users.size-2) {
-            sorted = true
             if(users[i].compareTo(users[i+1]) == 1) {
-                // swap
+                //println("${users[i].fullName} compared to ${users[i+1].fullName} is ${users[i].compareTo(users[i+1])} so swapping")
                 userTemp = users[i]
                 users[i]=users[i+1]
                 users[i+1]=userTemp
@@ -119,9 +119,9 @@ fun bubbleSort(){
             }
         }
     }
-    println("\nPrinting 5 sample sorted entries")
-    for(i in 1..5) {
-        println("${users[i].fullName} ${users[i].phoneNumber}")
+    println("\n\nSorted entries")
+    for(i in 0..users.size-1) {
+        print("${users[i].fullName} ${users[i].phoneNumber}, ")
     }
 }
 

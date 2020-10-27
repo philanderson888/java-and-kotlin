@@ -56,26 +56,23 @@ files:
 feedback_link: https://hyperskill.org/projects/86/stages/477/implement
 status: Failed
 feedback:
-  message: |-
-    Wrong answer in test #1
-
-    Please find below the output of your program during this failed test.
-
-    ---
-
-
-
-    Telephone Directory Bubble Sort
-    Instructed to sort our telephone directory by alphabetical name
-    firstly convert to a list of entries then sort the list
-
-    Time to created unsorted list of users is 00 min. 00 sec. 843 ms.
-
-    Printing 5 sample unsorted entries
-    Jan Atiana 60478194
-    Amalia Gaelan 75554798
-    Jobie Elder 23157053
-    Cicely Coughlin 40008938
-    Lil Tudela 7713408
-  time: Mon, 26 Oct 2020 07:56:22 UTC
+  message: "Wrong answer in test #1\n\nPlease find below the output of your program\
+    \ during this failed test.\n\n---\n\n\n\nTelephone Directory Bubble Sort\nInstructed\
+    \ to sort our telephone directory by alphabetical name\nfirstly convert to a list\
+    \ of entries then sort the list\n\nTime to created unsorted list of users is 00\
+    \ min. 00 sec. 043 ms.\n\nUnsorted entries\nGabrila Araminta 59339418, Jan Atiana\
+    \ 60478194, Amalia Gaelan 75554798, Jobie Elder 23157053, Cicely Coughlin 40008938,\
+    \ Lil Tudela 7713408, Dasya Merralee 37803485, Peta Hwu 21713301, Jillana Renae\
+    \ 30376948, Isabelita Deeann 77329644, Valaria Lukas 57905921, Clea Griseldis\
+    \ 64260585, Eustacia Helge 26843708, Vally Rochette 92247978, Zuzana Mosby 67576690,\
+    \ Deva Millie 12303516, Katey Jarrod 1651981, Kathye Renate 90758719, Kelila Louth\
+    \ 24873965, Lyndel Raymond 12345566, Meta Joappa 12341234, Kynthia Nadbus 23456345,\
+    \ \n\nSorted entries\nAmalia Gaelan 75554798, Cicely Coughlin 40008938, Clea Griseldis\
+    \ 64260585, Dasya Merralee 37803485, Deva Millie 12303516, Eustacia Helge 26843708,\
+    \ Gabrila Araminta 59339418, Isabelita Deeann 77329644, Jan Atiana 60478194, Jillana\
+    \ Renae 30376948, Jobie Elder 23157053, Katey Jarrod 1651981, Kathye Renate 90758719,\
+    \ Kelila Louth 24873965, Kynthia Nadbus 23456345, Lil Tudela 7713408, Lyndel Raymond\
+    \ 12345566, Meta Joappa 12341234, Peta Hwu 21713301, Valaria Lukas 57905921, Vally\
+    \ Rochette 92247978, Zuzana Mosby 67576690,"
+  time: Tue, 27 Oct 2020 07:10:56 UTC
 record: -1
