@@ -83,7 +83,7 @@ fun bubbleSort(){
     // read file to local array first of all
     val directory = File("C:\\\\github\\\\java-playground\\\\data\\\\directory.txt").readLines()
     println(String.format("\nTime to read entire file of ${directory.size} lines into local memory is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
-    val samplesizes = arrayOf(5,10,20,100,1000,10000, 1014129)
+    val samplesizes = arrayOf(5,10,20,100,1000,10000, 50000, 100000, 1014129)
     // repeat for different file samplle sizes
     for (samplesize in samplesizes){
         var linearSearch = false
@@ -137,17 +137,28 @@ fun bubbleSort(){
                 linearSearch = true
                 break
             }
-            //println(String.format("\nInterim time is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
+            println(String.format("\nInterim time is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
         }
         println(String.format("Bubble sort with $samplesize items took %1\$tM min. %1\$tS sec. %1\$tL ms. with $iterations iteration",System.currentTimeMillis()-start))
         if (linearSearch) {
             println("Bubble sort is taking too long (greater than 20 seconds) so exiting to linear search method")
             linearPhoneBookSearch()
+        } else {
+            // file is now sorted so try the jump sort method on it
         }
         //println("\n\nSorted entries")
         for(i in 0..users.size-1) {
             //print("${users[i].fullName} ${users[i].phoneNumber}, ")
             if(i>10) break
+        }
+        // write user array to a file
+        var outputFile = File("output.txt")
+        if (outputFile.exists()){
+            outputFile.delete()
+        }
+        for (user in users) {
+            var userString = "${user.phoneNumber} ${user.fullName}\n"
+            outputFile.appendText(userString)
         }
     }
 }
