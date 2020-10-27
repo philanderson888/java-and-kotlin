@@ -601,6 +601,18 @@ val timeDifference = (finishTime - startTime)
 println(String.format("%1\$tM min. %1\$tS sec %1\$tL ms.",timeDifference))
 ```
 
+Nano time is divisible by 1 billion to give seconds
+
+```kotlin
+fun nanoTime(){
+    val nanotime = measureNanoTime {
+        // some code!!!
+    }
+    println("nano time is $nanotime and in seconds this is ${nanotime/1000000000}")
+}
+```
+
+
 ## Functional Programming
 
 [Functional Programming](notes/functional-programming.md)
