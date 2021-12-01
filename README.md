@@ -52,9 +52,9 @@ POM Project Object Model
 ## Installation IntelliJ
 
 ```java
-choco install openjdk
-choco install javaruntime
-choco install intellijidea-community
+choco install openjdk -y
+choco install javaruntime -y
+choco install intellijidea-community -y
 ```
 
 ## Intellij Hello World

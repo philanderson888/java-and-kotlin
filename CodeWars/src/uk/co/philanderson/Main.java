@@ -4,6 +4,10 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.*;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
+
+import javax.sound.midi.SysexMessage;
+import javax.sound.sampled.SourceDataLine;
+
 import java.math.BigInteger;
 
 public class Main {
@@ -67,14 +71,14 @@ public class Main {
     NextSmallestNumber(907);
     NextSmallestNumber(35260713042629l);
     NextSmallestNumber(513);
-    RunFunctionalProgramming();
-    SearchEngine("hi", "there");
-    SearchEngine("he", "thereherehere");
-    SearchEngine("he_", "thereherehere");
-    SearchEngine("_po_", "Once upon a midnight I pondered");
-    SearchEngine("ex_", "googgoogleghgggoooglexeplexhexflexmexkex");
-    SearchEngine("_ggg", "googgooooggggexkex");
-    SearchEngine("_lexe", "googexkex");
+    //RunFunctionalProgramming();
+    //SearchEngine("hi", "there");
+    //SearchEngine("he", "thereherehere");
+    //SearchEngine("he_", "thereherehere");
+    //SearchEngine("_po_", "Once upon a midnight I pondered");
+    //SearchEngine("ex_", "googgoogleghgggoooglexeplexhexflexmexkex");
+    //SearchEngine("_ggg", "googgooooggggexkex");
+    //SearchEngine("_lexe", "googexkex");
     ConvertTime(90061);
     CheckIfSequence("1 2 3 4");
     CheckIfSequence("1 2 3 4 a");
@@ -85,36 +89,38 @@ public class Main {
     FindProperFractions(10L);
     FindProperFractions(15L);
     //  FindProperFractions(9999999L);
+    /*
     BoggleBoard(new char[][]{
         {'E', 'A', 'R', 'A'},
         {'N', 'L', 'E', 'C'},
         {'I', 'A', 'I', 'S'},
         {'B', 'Y', 'O', 'R'}
     }, new String("C"));
-    BoggleBoard(new char[][]{
+    //BoggleBoard(new char[][]{
         {'E', 'A', 'R', 'A'},
         {'N', 'L', 'E', 'C'},
         {'I', 'A', 'I', 'S'},
         {'B', 'Y', 'O', 'R'}
     }, new String("EAR"));
-    BoggleBoard(new char[][]{
+    //BoggleBoard(new char[][]{
         {'E', 'A', 'R', 'A'},
         {'N', 'L', 'E', 'C'},
         {'I', 'A', 'I', 'S'},
         {'B', 'Y', 'O', 'R'}
     }, new String("CARE"));
-    BoggleBoard(new char[][]{
+    //BoggleBoard(new char[][]{
             {'T', 'T', 'M', 'D', 'A'},
             {'N', 'L', 'E', 'C', 'B' },
             {'I', 'A', 'I', 'S', 'C' }
     }, new String("TT"));
+    */
     sumOfIntervals(new int[][]{   {1,2} , {6,10} , {11,15} });
     sumOfIntervals(new int[][]{   {1,4} , {7,10} , {3,5} });
     sumOfIntervals(new int[][]{   {1,5} , {10,20} , {1,6} , {16,19}, {5,11} });
-    getBagel();
-    burrowsWheelerEncode("bananabar");
-    burrowsWheelerEncode("Humble Bundle");
-    burrowsWheelerDecode("nnbbraaaa",4);
+    //getBagel();
+    //burrowsWheelerEncode("bananabar");
+    //burrowsWheelerEncode("Humble Bundle");
+    //burrowsWheelerDecode("nnbbraaaa",4);
     maximumPathThroughPyramid(new int[][]{
             {75},
             {95, 64},
@@ -147,6 +153,7 @@ public class Main {
     Fibonacci(new BigInteger("6"));
     Fibonacci(new BigInteger("10"));
     Fibonacci(new BigInteger("-96"));
+    OOP();
   }
 
   static void PascalCase() {
@@ -2214,7 +2221,93 @@ public class Main {
     }
   }
 
+
+  static void OOP(){
+    System.out.println("running OOP");
+
+    var p = new Parent();
+    p.x = 100;
+    p.y = 200;
+
+    System.out.println(p.x);
+    System.out.println(p.y);
+    p.doThis();
+
+    var p2 = new Parent(200,400);
+    p2.doThis();
+
+    var c = new Child(300,600);
+    c.doThis();
+
+    var gc1 = new GrandChild1(5,5);
+    var gc2 = new GrandChild1(6,6);
+    var gc3 = new GrandChild1(7,7);
+
+    gc1.haveFun();
+    gc2.haveFun();
+    gc3.haveFun();
+
+  }
+
+
 }
+
+class Parent {
+  int x; 
+  int y;
+  void doThis(){
+    System.out.println("x + y = " + (x + y));
+  }
+  
+  public Parent(){}
+
+  public Parent(int x, int y){
+    this.x = x;
+    this.y = y;
+  }
+}
+
+class Child extends Parent {
+
+
+  /*
+  public Child(int x, int y){
+    this.x=x;
+    this.y=y;
+  }
+  */
+
+  public Child(int x, int y){
+    super(x,y);
+  }
+}
+
+class GrandChild1 extends Child {
+  public GrandChild1(int x, int y){super(x,y);}
+
+  public void haveFun(){
+    System.out.println("Grandchild 1 having fun");
+  }
+}
+
+class GrandChild2 extends Child {
+  public GrandChild2(int x, int y){super(x,y);}
+
+  public void haveFun(){
+    System.out.println("Grandchild 2 having fun");
+  }
+
+}
+
+class GrandChild3 extends Child {
+  public GrandChild3(int x, int y){super(x,y);}
+
+  public void haveFun(){
+    System.out.println("Grandchild 3 having fun");
+  }
+
+}
+
 
 
 
