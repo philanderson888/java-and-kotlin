@@ -22,7 +22,7 @@ fun linearPhoneBookSearch(){
     val startTime = System.currentTimeMillis()
     println("Start searching...")
     println("starting search at time $startTime")
-    val file = File("C:\\\\github\\\\java-playground\\\\data\\\\directorywith020names.txt")
+    val file = File("C:\\\\github\\\\java-and-kotlin\\\\data\\\\directorywith020names.txt")
     val phonebook = hashMapOf<Int,String>()
     file.forEachLine {
         val line = it.split(" ")
@@ -33,9 +33,9 @@ fun linearPhoneBookSearch(){
     //println(phonebook)
     // now get our text file, iterate the values and print out the ones that are a match!
 
-    val findEntries = File("C:\\\\github\\\\java-playground\\\\data\\\\find.txt")
+    val findEntries = File("C:\\\\github\\\\java-and-kotlin\\\\data\\\\find.txt")
     // now go for the big file
-    val bigFile = File("C:\\\\github\\\\java-playground\\\\data\\\\directory.txt")
+    val bigFile = File("C:\\\\github\\\\java-and-kotlin\\\\data\\\\directory.txt")
     val bigPhonebook = hashMapOf<Int,String>()
     bigFile.forEachLine {
         val line = it.split(" ")
@@ -81,7 +81,7 @@ fun bubbleSort(){
     println("firstly convert to a list of entries then sort the list")
     val start = System.currentTimeMillis()
     // read file to local array first of all
-    val directory = File("C:\\\\github\\\\java-playground\\\\data\\\\directory.txt").readLines()
+    val directory = File("C:\\\\github\\\\java-and-kotlin\\\\data\\\\directory.txt").readLines()
     println(String.format("\nTime to read entire file of ${directory.size} lines into local memory is %1\$tM min. %1\$tS sec. %1\$tL ms.",System.currentTimeMillis()-start))
     val samplesizes = arrayOf(5,10,20,100,1000,10000, 50000, 100000, 1014129)
     // repeat for different file samplle sizes
