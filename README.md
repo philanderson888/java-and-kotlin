@@ -332,7 +332,7 @@ val myFile = File(fileName).appendBytes(myArray)
 
 [Java Workspace](Workspace/src/Package01)
 
-[Kotlin Learning](kotlin/README.md)
+[Kotlin Learning](Projects/kotlin/README.md)
 
 and [older projects here also](Workspace/README.md)
 
