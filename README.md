@@ -346,7 +346,7 @@ val myFile = File(fileName).appendBytes(myArray)
 
 ## Projects
 
-[projects](Projects) and [older projects here also](Workspace/READMD.md)
+[projects](Projects) and [older projects here also](Workspace/README.md)
 
 ## Glossary
 
