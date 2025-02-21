@@ -1,9 +1,9 @@
-# java
+# java and kotlin
 
-## Contents
+## contents
 
-- [java](#java)
-  - [Contents](#contents)
+- [java and kotlin](#java-and-kotlin)
+  - [contents](#contents)
   - [Installation IntelliJ](#installation-intellij)
   - [Intellij Hello World](#intellij-hello-world)
   - [Libraries](#libraries)
@@ -28,8 +28,6 @@
   - [Testing](#testing)
   - [Projects](#projects)
   - [Glossary](#glossary)
-
-
 
 ## Installation IntelliJ
 
