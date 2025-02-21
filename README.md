@@ -168,8 +168,6 @@ for (int num : numbers)
 
 ## Collections
 
-Check this out for reference http://tutorials.jenkov.com/java-collections/
-
 ### List
 
 `List` is an `Interface`
@@ -328,7 +326,15 @@ val myFile = File(fileName).appendBytes(myArray)
 
 ## Projects
 
-[projects](Projects) and [older projects here also](Workspace/README.md)
+[projects](Projects) 
+
+[Java Notes](../notes/README.md)
+
+[Java Workspace](../Workspace/src/Package01)
+
+[Kotlin Learning](kotlin/README.md)
+
+and [older projects here also](Workspace/README.md)
 
 ## Glossary
 
