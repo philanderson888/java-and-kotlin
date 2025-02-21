@@ -6,6 +6,6 @@
 
 [testing](testing.md)
 
-[codewars](../Codewars/README.md)
+[codewars](../codewars/README.md)
 
 [kotlin](../Projects/kotlin/README.md)

@@ -7,7 +7,7 @@
   - [Installation IntelliJ](#installation-intellij)
   - [Intellij Hello World](#intellij-hello-world)
   - [Libraries](#libraries)
-  - [CodeWars Examples](#codewars-examples)
+  - [codewars examples](#codewars-examples)
 - [Variables](#variables)
   - [Char](#char)
   - [Is a char a digit](#is-a-char-a-digit)
@@ -130,9 +130,9 @@ Check out the `.iml` file
 </module>
 ```
 
-## CodeWars Examples
+## codewars examples
 
-See [Codewars](Codewars/README.md)
+See [codewars](codewars/README.md)
 
 # Variables
 
