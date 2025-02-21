@@ -1,8 +1,8 @@
 # Projects
 
-[Java Learning](java/README.md)
+[Java Notes](../notes/README.md)
 
-[Java Learning 2](../Workspace/src/Package01)
+[Java Workspace](../Workspace/src/Package01)
 
 [Kotlin Learning](kotlin/README.md)
 
