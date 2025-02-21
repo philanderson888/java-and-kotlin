@@ -4,9 +4,6 @@
 
 - [java](#java)
   - [Contents](#contents)
-  - [Introduction](#introduction)
-  - [Resources To Learn Java](#resources-to-learn-java)
-  - [Java Terms](#java-terms)
   - [Installation IntelliJ](#installation-intellij)
   - [Intellij Hello World](#intellij-hello-world)
   - [Libraries](#libraries)
@@ -32,22 +29,7 @@
   - [Projects](#projects)
   - [Glossary](#glossary)
 
-## Introduction
 
-## Resources To Learn Java
-
-- JavaTPpoint Java Tutorial
-
-## Java Terms
-
-```
-maven
-ant
-build
-Jakarta Turbine 
-JAR Java Archive (ZIP)
-POM Project Object Model
-```
 
 ## Installation IntelliJ
 
@@ -150,7 +132,7 @@ Check out the `.iml` file
 
 ## CodeWars Examples
 
-See [Codewars](Codewars/codewars.md)
+See [Codewars](Codewars/README.md)
 
 # Variables
 
